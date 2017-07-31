@@ -1,0 +1,27 @@
+<div class = "container">
+  <div class = "row">
+    <h2><%= @article.title %></h2><hr>
+      <div class = "col-md-9" style = "padding-left:0px">
+        <div class = "article-body">
+          <p><%= @article.description %></p>
+        </div>
+      </div>
+    
+      <div class = "col-md-3">
+        <p>Created by: <%= @article.user.name if @article.user %></p>
+        <p>Created: <%= time_ago_in_words(@article.created_at) %> ago</p>
+        <p>Last updated: <%= time_ago_in_words(@article.updated_at) %> ago</p>
+
+        <%= link_to 'Edit', edit_article_path(@article) %> |
+        <%= link_to 'Back', articles_path %>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
