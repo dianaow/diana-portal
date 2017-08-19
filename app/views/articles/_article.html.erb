@@ -3,6 +3,11 @@
     <div class="row margin-article">
       <div class="col-md-2">
         <h3><%= article.get_upvotes.size %></h3><small>votes</small><br>
+        <% if article.impressions_count? == false %>
+        <h3>0</h3><small>views</small><br>
+        <% else %>
+        <h3><%= article.impressions_count %></h3><small>views</small><br>
+        <% end %>
       </div> 
       <div class="col-md-10">
         <h3><%= link_to article.title, article_path(article) %></h3>
