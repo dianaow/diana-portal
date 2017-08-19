@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :articles do
     resources :comments
+    member do
+      put :toggle_vote
+    end
   end
   resources :notifications do
     collection do 
