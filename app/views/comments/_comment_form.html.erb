@@ -1,0 +1,11 @@
+<div class="padding-top-20">
+<% if user_signed_in?  %>
+  <%= form_for ([@article, @article.comments.build]) do |f| %>
+    <div class="form-group">
+      <%= f.text_area :content, rows: 6, placeholder: "Write your comment...", class: 'form-control' %>
+    </div>
+
+    <%= f.submit 'Post', class: 'btn btn-primary' %>
+  <% end %>
+<% end %>
+</div>

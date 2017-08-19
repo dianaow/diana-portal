@@ -24,6 +24,19 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item btn-group" data-behavior="notifications" data-notifications='<%= render template: "notifications/index", formats: [:json] %>'>
+          <a class="dropdown-toggle nav-link" type="button" data-behavior="notifications-link" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class = "glyphicon glyphicon-bell"></span>
+            <span data-behavior="unread-count"></span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu1" data-behavior="notification-items">
+            <!--
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            -->
+          </div>
+        </li>
         <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
         <li><%= link_to "Edit profile", edit_user_registration_path %></li>
       </ul>

@@ -1,0 +1,25 @@
+<div class = "row", style = "background-color: #ccc">
+    <h3>INBOX</h3>
+</div>
+
+<div class="row margin-2">  
+    <% if notification.read_at? == true %>
+    <div class = "col-md-1 read"></div>
+    <% else %>
+    <div class = "col-md-1 unread"></div>
+    <% end %>
+  <div class="col-md-9">
+    <%= notification.actor.name %>
+    <%= notification.action %>
+    a <%= notification.notifiable_type.underscore.humanize.downcase %><br>
+    <%= link_to article_path(notification.notifiable.article, anchor: dom_id(notification.notifiable)), class: "dropdown-item #{"unread" if !notification.read_at?}" do %>
+    <%= notification.notifiable.article.title %>
+    <% end %><br>
+    <%= truncate(notification.notifiable.content, length: 50) %>
+  </div>
+  
+  <div class="col-md-2">
+    <small><%= distance_of_time_in_words(notification.created_at, Time.now) %></small>
+  </div>
+</div>
+<hr>

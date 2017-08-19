@@ -18,8 +18,12 @@ text-align: center;
     
 }
 
-.row {
+.padding-top-20 {
     padding-top: 20px;
+}
+
+.margin-2 {
+    margin: 2px;
 }
 
 .form-width {
@@ -29,6 +33,14 @@ text-align: center;
 
 .form-width-50 {
     width:50%;
+}
+
+.height-auto {
+    height: auto;
+}
+
+.height-3000 {
+    height: 300px;
 }
 
 .navbar {
@@ -85,3 +97,16 @@ text-align: center;
     }
 }
 
+.dropdown-menu {
+    min-width: 400px;
+}
+
+.read {
+    background-color: #ccc;
+    height: 60px;
+}
+
+.unread {
+    background-color: #00FF00;
+    height: 60px;
+}

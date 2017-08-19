@@ -1,19 +1,39 @@
 <div class = "container">
   <div class = "row">
     <h2><%= @article.title %></h2><hr>
-      <div class = "col-md-9" style = "padding-left:0px">
-        <div class = "article-body">
-          <p><%= @article.description %></p>
+      <div class = "col-md-9">
+          <div class= "height-auto">
+            <% if @article.description.length > 1000 %>
+            <%= truncate(@article.description, length: 1000) %>
+            <%= link_to 'Read more', '', class: "read-more-#{@article.id}" %>
+            <script>
+            $('.read-more-<%= @article.id %>').on('click', function(e) {
+              e.preventDefault()
+            $(this).parent().html('<%= escape_javascript @article.description %>')
+            })
+            </script>
+            <% else %>
+            <%= @article.description %>
+            <% end %>
+          </div>
+        
+        <div class = "row">
+          <%= render 'comments/comment' %>
         </div>
+        
       </div>
-    
+
       <div class = "col-md-3">
         <p>Created by: <%= @article.user.name if @article.user %></p>
         <p>Created: <%= time_ago_in_words(@article.created_at) %> ago</p>
         <p>Last updated: <%= time_ago_in_words(@article.updated_at) %> ago</p>
-
+        
+        <% if current_user == @article.user %>
         <%= link_to 'Edit', edit_article_path(@article) %> |
+        <% end %>
         <%= link_to 'Back', articles_path %>
+        
+        
       </div>
   </div>
 </div>

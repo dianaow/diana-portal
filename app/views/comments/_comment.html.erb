@@ -1,0 +1,40 @@
+<%= render 'comments/comment_form' %>
+
+<% @comments.each do |comment| %>
+<div class="comment-card">
+  <div class="card">
+    <div class="card-block">
+      <div class="row">
+        <div class="col-md-2">
+           <%= gravatar_helper comment.user %>
+        </div>
+
+        <div class="col-md-10">
+          <div class= "height-auto">
+            <% if comment.content.length > 250 %>
+            <%= truncate(comment.content, length: 250) %>
+            <%= link_to 'Read more', '', class: "read-more-#{comment.id}" %>
+            <script>
+            $('.read-more-<%= comment.id %>').on('click', function(e) {
+              e.preventDefault()
+            $(this).parent().html('<%= escape_javascript comment.content %>')
+            })
+            </script>
+            <% else %>
+            <%= comment.content %>
+            <% end %>
+          </div>
+
+          <div class="padding-top-20">
+            - Posted by <span class="comment-name"><%= comment.user.name %></span> <%= distance_of_time_in_words(comment.created_at, Time.now) %> ago
+            <% if current_user == comment.user %>
+            <%= link_to "Delete", [comment.article, comment], method: :delete %> |
+            <%= link_to "Edit", edit_article_comment_path(comment.article, comment) %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
