@@ -26,5 +26,9 @@ class User < ApplicationRecord
   def follows?(new_friend)
     friendships.map(&:friend).include?(new_friend)
   end
+  
+  def self.search(search)
+      where('name LIKE ?', "%#{search}%")
+  end
 
 end
