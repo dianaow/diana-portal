@@ -1,0 +1,18 @@
+<div class = "container-fluid">
+<h2>Following <%= @following.count %> people</h2>
+  <% @following.each do |following| %>
+    <div class="row alternate-row">
+      <div class = "col-md-1">
+        <%= gravatar_helper_small following %>
+      </div>
+      <div class = "col-md-9">
+        <b><%= link_to following.name, user_path(following) %></b><br>
+        <p><%= pluralize(following.articles.count, "article") if following.articles %></p>
+      </div>
+      <div class = "col-md-2">
+        <%= link_to "Unfollow", user_path(following), 
+        method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-outline-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

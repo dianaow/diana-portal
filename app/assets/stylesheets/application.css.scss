@@ -18,9 +18,18 @@ text-align: center;
     
 }
 
+.alternate-row {
+    margin: 10px;
+}
+
+.alternate-row:nth-child(odd) {
+    background: #f9f9f9;
+}
+
 .padding-top-20 {
     padding-top: 20px;
 }
+
 
 .margin-2 {
     margin: 2px;

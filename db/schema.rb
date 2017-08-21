@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170819090417) do
+ActiveRecord::Schema.define(version: 20170820104619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "article_collections", force: :cascade do |t|
+    t.integer "article_id"
+    t.integer "collection_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -25,6 +32,13 @@ ActiveRecord::Schema.define(version: 20170819090417) do
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
+  create_table "collections", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.bigint "article_id"
@@ -33,6 +47,14 @@ ActiveRecord::Schema.define(version: 20170819090417) do
     t.datetime "updated_at", null: false
     t.index ["article_id"], name: "index_comments_on_article_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "friend_id"
+    t.boolean "accepted", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "impressions", force: :cascade do |t|

@@ -1,0 +1,7 @@
+<h1 align="center">Welcome to <%= @user.name %>'s posts</h1>
+
+<div class = "container-fluid">
+  <%= render partial: 'articles/article', collection: @user_articles %>
+</div>
+      
+    

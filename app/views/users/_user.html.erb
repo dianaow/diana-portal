@@ -1,0 +1,18 @@
+<div class = "container-fluid">
+  <% @users.each do |user| %>
+    <div class="row alternate-row">
+      <div class = "col-md-1">
+        <%= gravatar_helper_small user %>
+      </div>
+      <div class = "col-md-9 ">
+        <%= link_to user.name, user_path(user) %><br>
+        <small><%= pluralize(user.articles.count, "article") if user.articles %></small>
+      </div>
+      <div class = "col-md-2">
+        <% unless user == current_user ||  current_user.follows?(user) %>
+        <%= link_to "Follow", friendships_path(friend_id: user.id), method: :post, class: "btn btn-success" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

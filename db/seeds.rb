@@ -1,8 +1,9 @@
 User.create!(name: "Diana Meow", email: "test@test.com", password: "asdfasdf", password_confirmation: "asdfasdf")
-
 User.create!(name: "Test 2", email: "test2@test.com", password: "asdfasdf", password_confirmation: "asdfasdf")
+User.create!(name: "Test 3", email: "test3@test.com", password: "asdfasdf", password_confirmation: "asdfasdf")
+User.create!(name: "Test 4", email: "test4@test.com", password: "asdfasdf", password_confirmation: "asdfasdf")
 
-puts "2 Users created"
+puts "4 Users created"
 
 3.times do |article|
   Article.create!(title: "Ruby on Rails", description: "Beginner level", user_id: User.first.id )

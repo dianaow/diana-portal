@@ -1,0 +1,19 @@
+<div class = "container-fluid">
+<h2>Follow Requests</h2>
+  <% @requested_friendships.each do |request| %>
+    <div class="row alternate-row">
+      <div class = "col-md-1">
+        <%= gravatar_helper_small request %>
+      </div>
+      <div class = "col-md-8">
+        <p><%= request.name %></p>
+      </div>
+      <div class = "col-md-1">
+      </div>
+      <div class = "col-md-2">
+      <%= link_to "Accept",  friendship_path(id: request.id), method: "put", class: "btn btn-success" %>
+      <%= link_to "Decline", friendship_path(id: request.id), method: :delete, class: "btn btn-danger" %>
+      </div>
+    </div>
+  <% end %>
+</div>
