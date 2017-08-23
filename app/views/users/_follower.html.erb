@@ -6,8 +6,8 @@
         <%= gravatar_helper_small follower %>
       </div>
       <div class = "col-md-9">
-        <h2><%= link_to follower.name, user_path(follower) %></h2>
-        <h3><%= pluralize(follower.articles.count, "article") if follower.articles %></h3>
+        <b><%= link_to follower.name, user_path(follower) %></b><br>
+        <p><%= pluralize(follower.articles.count, "article") if follower.articles %></p>
       </div>
       <div class = "col-md-2">
         <% unless current_user.follows?(follower) %>

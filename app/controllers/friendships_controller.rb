@@ -1,12 +1,12 @@
 class FriendshipsController < ApplicationController
-  before_action :authenticate_user!
+
   before_action :set_friendship, only: [:show, :edit, :update, :destroy]
     
     def create
-      @friend = User.find(params[:friend_id])
       @friendship = current_user.friendships.build(friend_id: params[:friend_id])
       if @friendship.save
         flash[:notice] = "Friend requested."
+        Notification.create!(recipient: @friendship.friend, actor: @friendship.user, action: "requested", notifiable: @friendship)
         redirect_back fallback_location: users_path
       else
         flash[:error] = "Unable to request friendship."
@@ -18,6 +18,7 @@ class FriendshipsController < ApplicationController
     @friendship.update!(accepted: true)
       if @friendship.save
         flash[:notice] = "Successfully confirmed friend!"
+        Notification.create!(recipient: @friendship.user, actor: @friendship.friend, action: "accepted", notifiable: @friendship)
         redirect_to user_path
       else
         flash[:notice] = "Sorry! Could not confirm friend!"
