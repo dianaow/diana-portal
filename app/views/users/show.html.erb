@@ -1,7 +1,17 @@
-<h1 align="center">Welcome to <%= @user.name %>'s posts</h1>
-
-<div class = "container-fluid">
-  <%= render partial: 'articles/article', collection: @user_articles %>
+<div class = "container">   
+  <% provide(:title, @user.name) %>
+    <div class="row">
+      <div class="col-md-4">
+           <h1>
+            <%= gravatar_for @user %>
+            <%= @user.name %>
+           </h1>
+           <h3><%= @user.received_friends.count %> followers</h3>
+           <h3><%= @user.active_friends.count %> following</h3>
+           <p><%= @user_articles.count %> articles</p>
+      </div>
+      <div class="col-md-8">
+        <%= render partial: 'articles/article', collection: @user_articles %>
+      </div>
+    </div>
 </div>
-      
-    

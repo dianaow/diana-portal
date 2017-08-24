@@ -3,7 +3,7 @@
   <% @following.each do |following| %>
     <div class="row alternate-row">
       <div class = "col-md-1">
-        <%= gravatar_helper_small following %>
+        <%= gravatar_for(following) %>
       </div>
       <div class = "col-md-9">
         <b><%= link_to following.name, user_path(following) %></b><br>

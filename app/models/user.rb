@@ -30,5 +30,13 @@ class User < ApplicationRecord
   def self.search(search)
       where('name LIKE ?', "%#{search}%")
   end
+  
+  def feed
+    friend_ids = "SELECT friend_id FROM friendships
+                     WHERE  user_id = :user_id"
+    Article.where("user_id IN (#{friend_ids})
+                     OR user_id = :user_id", user_id: id)
+  end
+
 
 end

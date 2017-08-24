@@ -16,7 +16,7 @@
   <% @users.each do |user| %>
     <div class="row alternate-row">
       <div class = "col-md-1">
-        <%= gravatar_helper_small user %>
+        <%= gravatar_for(user, size: 45) %>
       </div>
       <div class = "col-md-9 ">
         <b><%= link_to user.name, user_path(user) %></b><br>
