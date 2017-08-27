@@ -1,25 +1,24 @@
-<div class="panel panel-default" data-conversation-id="<%= conversation.id %>">
+<div data-conversation-id="<%= conversation.id %>">
+  <div class="panel panel-default" style="display: none;">
     <div class="panel-heading">
-      <%= link_to conversation.with(user).name, '', class: 'toggle-window' %>
+      <%= conversation.with(user).name %>
     </div>
 
-    <div class="panel-body" style="display: none;">
+    <div class="panel-body">
       <div class="messages-list">
         <ul>
           <%= render 'conversations/conversation_content', personal_messages: conversation.personal_messages, user: user %>
         </ul>
       </div>
       
-      <div class="form-horizontal">
-          <%= form_for [conversation, conversation.personal_messages.new], remote: true do |f| %>
-            <%= f.hidden_field :user_id, value: user.id %>
-            <div class="form-group">
-              <%= f.text_field :body, rows: "50", class: "form-control", placeholder: "Type your message..." %>
-            </div>
-            <div class="form-group">
-              <%= f.submit class: 'btn btn-primary btn-md' %>
-            </div>
-          <% end %>
-      </div>
+      <form class="new_message">
+        <input name="conversation_id" type="hidden" value="<%= conversation.id %>">
+        <input name="user_id" type="hidden" value="<%= user.id %>">
+        <textarea name="body" class="form-control"></textarea>
+        <input type="submit" class="btn btn-success" value="Send">
+      </form>
     </div>
+  </div>
 </div>
+
+
