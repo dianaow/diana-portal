@@ -4,7 +4,9 @@ class ArticlesController < ApplicationController
     impressionist :actions=>[:show]
 
   def index
-    @articles = Article.paginate(page: params[:page], per_page: 6)
+    @articles = Article.order("updated_at DESC").all
+    @articles_views = Article.order("impressions_count ASC").all
+    @articles_votes = Article.order("cached_votes_up DESC").all
   end
 
   def show

@@ -1,9 +1,41 @@
-<h1 align="center">All Post</h1>
+<div class = "container">
+  <h1 align="center">All Post</h1>
+  <div class = "row">
+    <div class = "col-md-9">
 
-<div class = "container-fluid">
-  <%= render @articles %>
+      <div id="tabs">   
+        <ul class="nav nav-tabs">
+          <li role="presentation" class="active" data-toggle="tab" ><a href="#tab1">Newest</a></li>
+          <li role="presentation" data-toggle="tab"><a href="#tab2">Frequent</a></li>
+          <li role="presentation"data-toggle="tab"><a href="#tab3">Votes</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab1">
+             <% @articles.each do |article| %>
+               <%= render 'article', article: article %>
+             <% end %>
+          </div>
+          <div class="tab-pane" id="tab2">
+             <% @articles_views.each do |article_views| %>
+               <%= render 'article', article: article_views %>
+             <% end %>
+          </div>
+          <div class="tab-pane" id="tab3">
+             <% @articles_votes.each do |article_votes| %>
+               <%= render 'article', article: article_votes %>
+             <% end %>
+          </div>
+        </div>
+      
+    </div> 
+    <div class = "col-md-3"></div>
+  </div>
 </div>
 
-<div align="row center">
-  <%= will_paginate @articles %>
-</div>
+<script>
+$(document).ready(function(){
+    $(".nav-tabs a").click(function(){
+        $(this).tab('show');
+    });
+});
+</script>

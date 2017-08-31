@@ -1,0 +1,35 @@
+<div class = "container">
+  <div class = "row">
+    <div class = "col-md-9 padding-top-20">
+
+      <div id="tabs">   
+        <ul class="nav nav-tabs">
+          <li role="presentation" class="active" data-toggle="tab" ><a href="#tab1">Followers</a></li>
+          <li role="presentation" data-toggle="tab"><a href="#tab2">Pending</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab1">
+            <% @followers.each do |follower| %>
+               <%= render 'follower', follower: follower %>
+             <% end %>
+          </div>
+          <div class="tab-pane" id="tab2">
+            <% @requested_friendships.each do |request| %>
+               <%= render 'pending', request: request %>
+             <% end %>
+          </div>
+        </div>
+      </div> 
+      
+    </div>
+    <div class = "col-md-3"></div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $(".nav-tabs a").click(function(){
+        $(this).tab('show');
+    });
+});
+</script>

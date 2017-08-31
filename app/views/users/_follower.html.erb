@@ -1,0 +1,18 @@
+
+  <h3 class = "padding-bottom-40">Follow Requests</h3>
+
+    <div class="row alternate-row">
+      <div class = "col-md-1">
+        <%= gravatar_for(follower, size: 45) %>
+      </div>
+      <div class = "col-md-9 ">
+        <b><%= link_to follower.name, follower_path(follower) %></b><br>
+        <small><%= pluralize(follower.articles.count, "article") if follower.articles %></small>
+      </div>
+      <div class = "col-md-2">
+        <% unless follower == current_user ||  current_user.follows?(follower) %>
+        <%= link_to "Follow", friendships_path(friend_id: follower.id), method: :post, class: "btn btn-success" %>
+        <% end %>
+      </div>
+    </div>
+

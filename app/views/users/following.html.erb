@@ -1,9 +1,9 @@
-<div class = "container-fluid">
+<div class = "container">
   <h3 class = "padding-bottom-40">Following <%= @following.count %> people</h3>
   <% @following.each do |following| %>
     <div class="row alternate-row">
       <div class = "col-md-1">
-        <%= gravatar_for(following) %>
+        <%= gravatar_for(following, size: 45) %>
       </div>
       <div class = "col-md-9">
         <b><%= link_to following.name, user_path(following) %></b><br>

@@ -1,38 +1,33 @@
-<div class = "container">
-  <div class = "row">
-    <div class = "col-md-9 padding-top-20">
-
-      <div id="tabs">   
-        <ul class="nav nav-tabs">
-          <li role="presentation" class="active" data-toggle="tab" ><a href="#tab1">All Users</a></li>
-          <li role="presentation" data-toggle="tab"><a href="#tab2">Following</a></li>
-          <li role="presentation" data-toggle="tab"><a href="#tab3">Followers</a></li>
-          <li role="presentation" data-toggle="tab"><a href="#tab4">Pending</a></li>
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane active" id="tab1">
-            <%= render 'user' %>
-          </div>
-          <div class="tab-pane" id="tab2">
-            <%= render 'following' %>  
-          </div>
-          <div class="tab-pane" id="tab3">
-            <%= render 'follower' %>  
-          </div>
-          <div class="tab-pane" id="tab4">
-            <%= render 'pending' %>  
-          </div>
+<div class = 'container'>
+  <%= form_tag(users_path, :method => 'get', :id => "users_search") do %>
+    <div class = " row padding-top-20">
+      <div class = "col-md-10">
+        <div class = "form-group">
+          <%= text_field_tag :search, params[:search], placeholder: "Enter a username or email address to follow", class: "form-control" %>
         </div>
-      
-    </div> 
-    <div class = "col-md-3"></div>
-  </div>
-</div>
+      </div>
+      <div class = "col-md-2">
+        <div class = "form-group">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
-<script>
-$(document).ready(function(){
-    $(".nav-tabs a").click(function(){
-        $(this).tab('show');
-    });
-});
-</script>
+  <% @users.each do |user| %>
+    <div class="row alternate-row">
+      <div class = "col-md-1">
+        <%= gravatar_for(user, size: 45) %>
+      </div>
+      <div class = "col-md-9 ">
+        <b><%= link_to user.name, user_path(user) %></b><br>
+        <small><%= pluralize(user.articles.count, "article") if user.articles %></small>
+      </div>
+      <div class = "col-md-2">
+        <% unless user == current_user ||  current_user.follows?(user) %>
+        <%= link_to "Follow", friendships_path(friend_id: user.id), method: :post, class: "btn btn-success" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

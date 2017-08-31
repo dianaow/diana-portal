@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :friendships, only: [:create, :update, :destroy]
   
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
-  resources :users, only: [:index, :show]
+  resources :users, only: [:index, :show, :followers, :following]
+  get 'followers', to: 'users#followers'
+  get 'following', to: 'users#following'
   
   resources :articles do
     resources :comments
@@ -21,7 +23,11 @@ Rails.application.routes.draw do
   resources :conversations, only: [:index]
   
   resources :conversations, only: [:create] do
-    resources :personal_messages, only: [:create] 
+    resources :personal_messages, only: [:create]  do
+      collection do 
+        post :mark_as_read
+      end
+    end 
   end
 
   root 'pages#home'

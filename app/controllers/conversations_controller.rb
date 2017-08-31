@@ -5,6 +5,7 @@ class ConversationsController < ApplicationController
       @users = User.all.where.not(id: current_user)
       @conversations = Conversation.includes(:receiver, :personal_messages)
                                  .find(session[:conversations])
+      @personal_messages = PersonalMessage.all
     end
 
     def create
