@@ -1,5 +1,7 @@
 class Article < ApplicationRecord
   enum status: { draft: 0, published: 1 }
+  extend FriendlyId
+  friendly_id :title, use: :slugged
   is_impressionable :counter_cache => true, :unique => true
   acts_as_votable
   belongs_to :user

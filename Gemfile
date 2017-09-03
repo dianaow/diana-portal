@@ -21,6 +21,7 @@ gem 'will_paginate', '~> 3.1', '>= 3.1.6'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'impressionist', '~> 1.6'
+gem 'friendly_id', '~> 5.2', '>= 5.2.1'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

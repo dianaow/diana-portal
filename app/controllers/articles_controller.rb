@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
 
   def show
     if @article.published?
-      @article = Article.find(params[:id])
+      @article = Article.friendly.find(params[:id])
       @comments = Comment.where(article_id: @article).order("created_at DESC")
     else
       redirect_to articles_path, notice: "You are not authorized to access this page"
@@ -65,7 +65,7 @@ class ArticlesController < ApplicationController
   private
 
     def set_article
-      @article = Article.find(params[:id])
+      @article = Article.friendly.find(params[:id])
     end
 
     def article_params
