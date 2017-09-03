@@ -1,0 +1,11 @@
+<div class = "container">
+  <h1 align="center">My Drafts</h1>
+  <div class = "row">
+    <div class = "col-md-9">
+     <% @articles.each do |article| %>
+       <%= render 'article', article: article %>
+     <% end %>
+    </div>
+    <div class = "col-md-3"></div>
+  </div>
+</div>

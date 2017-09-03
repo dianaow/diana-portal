@@ -74,6 +74,14 @@
                 <%= link_to "Following", following_path %></li>
               </div>
             </div>
+            <div class = "row nav-style">
+              <div class = 'col-md-2'>
+                <span class = "glyphicon glyphicon-pencil" style = "font-size: 1.3em"></span>
+              </div>
+              <div class = "col-md-10">
+                <%= link_to "My Drafts", drafts_path %></li>
+              </div>
+            </div>
               <li class= "padding-top-20"><%= link_to "Logout", destroy_user_session_path, method: :delete, class: "bg-grey nav-style" %></li>
           </ul>
         </li>

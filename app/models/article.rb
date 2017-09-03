@@ -1,4 +1,5 @@
 class Article < ApplicationRecord
+  enum status: { draft: 0, published: 1 }
   is_impressionable :counter_cache => true, :unique => true
   acts_as_votable
   belongs_to :user

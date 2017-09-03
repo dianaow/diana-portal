@@ -1,0 +1,9 @@
+<%= form_for ([@conversation, @personal_messages]) do |f| %>
+  <div class="form-group">
+    <%= f.select :receiver_id, @users.collect { |user| [user.name, user.id] }, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.text_area :body, rows: 6, placeholder: "Write your message...", class: 'form-control' %>
+  </div>
+  <%= f.submit 'Submit', class: 'btn btn-primary' %>
+<% end %>

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :followers, :following]
   get 'followers', to: 'users#followers'
   get 'following', to: 'users#following'
+  get 'search', to: 'users#search'
+  get 'drafts', to: 'articles#drafts'
   
   resources :articles do
     resources :comments
@@ -22,7 +24,8 @@ Rails.application.routes.draw do
     end 
   end
 
-  resources :conversations, only: [:index]
+  resources :conversations, only: [:index, :new]
+  resources :personal_messages, only: [:create, :new]
   
   resources :conversations, only: [:create] do
     resources :personal_messages, only: [:create]  do

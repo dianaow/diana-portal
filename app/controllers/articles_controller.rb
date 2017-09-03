@@ -4,14 +4,18 @@ class ArticlesController < ApplicationController
     impressionist :actions=>[:show]
 
   def index
-    @articles = Article.order("updated_at DESC").all
-    @articles_views = Article.order("impressions_count ASC").all
-    @articles_votes = Article.order("cached_votes_up DESC").all
+    @articles = Article.published.order("updated_at DESC")
+    @articles_views = Article.published.order("impressions_count ASC")
+    @articles_votes = Article.published.order("cached_votes_up DESC")
   end
 
   def show
-    @article = Article.find(params[:id])
-    @comments = Comment.where(article_id: @article).order("created_at DESC")
+    if @article.published?
+      @article = Article.find(params[:id])
+      @comments = Comment.where(article_id: @article).order("created_at DESC")
+    else
+      redirect_to articles_path, notice: "You are not authorized to access this page"
+    end
   end
 
   def new
@@ -53,7 +57,11 @@ class ArticlesController < ApplicationController
       redirect_to @article
     end
   end
-
+  
+  def drafts
+    @articles = current_user.articles.draft.order("updated_at DESC")
+  end
+  
   private
 
     def set_article
@@ -61,6 +69,6 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :description, :user_id)
+      params.require(:article).permit(:title, :description, :user_id, :status)
     end
 end

@@ -5,20 +5,15 @@ User.create!(name: "Test 4", email: "test4@test.com", password: "asdfasdf", pass
 
 puts "4 Users created"
 
-3.times do |article|
-  Article.create!(title: "Ruby on Rails", description: "Beginner level", user_id: User.first.id )
-end
+Article.create!(title: "Ruby on Rails", description: "Article 1", user_id: User.first.id, status: 1 )
+Article.create!(title: "Ajax", description: "Article 2", user_id: User.first.id, status: 1 )
+Article.create!(title: "Javascript", description: "Article 3", user_id: User.first.id, status: 1 )
+Article.create!(title: "ReactJS", description: "Article 4", user_id: User.first.id, status: 1 )
+Article.create!(title: "HTML", description: "Article 5", user_id: User.first.id, status: 1 )
+Article.create!(title: "CSS", description: "Article 6", user_id: User.first.id, status: 1 )
+Article.create!(title: "Python", description: "Article 7", user_id: User.second.id, status: 1 )
+Article.create!(title: "Pyhon", description: "Article 8", user_id: User.second.id, status: 1 )
+Article.create!(title: "Python", description: "Article 9", user_id: User.second.id, status: 1 )
+Article.create!(title: "SQL", description: "Article 10", user_id: User.second.id, status: 1 )
 
-puts "3 Ruby on Rails articles have been created"
-
-3.times do |article|
-  Article.create!(title: "Ajax", description: "Beginner level", user_id: User.first.id )
-end
-
-puts "3 Ajax articles have been created"
-
-3.times do |article|
-  Article.create!(title: "Javascript", description: "Beginner level", user_id: User.first.id )
-end
-
-puts "3 Javascript articles have been created"
+puts "10 Articles created"

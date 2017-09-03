@@ -1,0 +1,49 @@
+<div id="user-lookup">
+    <%= form_tag(user_path, remote: true, method: :get, :id => "users_search") do %>
+    <div class = " row padding-top-20">
+      <div class = "col-md-10">
+        <div class = "form-group">
+          <%= text_field_tag :search, params[:search], placeholder: "Enter a username or email address to follow", class: "form-control" %>
+        </div>
+      </div>
+      <div class = "col-md-2">
+        <div class = "form-group">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+      </div>
+    </div>
+    <% end %>
+
+  <% if @users %>
+    <% if @users.size > 0 %>
+      <div id="user-lookup-results">
+        <% @users.each do |user| %>
+            <div class="row alternate-row">
+              <div class = "col-md-1">
+                <%= gravatar_for(user, size: 45) %>
+              </div>
+              <div class = "col-md-9 ">
+                <b><%= link_to user.name, user_path(user) %></b><br>
+                <small><%= pluralize(user.articles.count, "article") if user.articles %></small>
+              </div>
+              <div class = "col-md-2">
+                <% unless user == current_user ||  current_user.follows?(user) %>
+                <%= link_to "Follow", friendships_path(friend_id: user.id), method: :post, class: "btn btn-success" %>
+                <% end %>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="row">
+        No people match this search criteria
+      </div>
+    <% end %>
+  <% end %>
+
+    <div id="user-lookup-errors"></div>
+</div>
+
+
+  
+  
