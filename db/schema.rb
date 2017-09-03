@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170903120512) do
+ActiveRecord::Schema.define(version: 20170903163159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "article_categories", force: :cascade do |t|
+    t.integer "article_id"
+    t.integer "category_id"
+  end
 
   create_table "article_collections", force: :cascade do |t|
     t.integer "article_id"
@@ -38,6 +43,7 @@ ActiveRecord::Schema.define(version: 20170903120512) do
     t.float "cached_weighted_average", default: 0.0
     t.integer "status", default: 0
     t.string "slug"
+    t.bigint "topic_id"
     t.index ["cached_votes_down"], name: "index_articles_on_cached_votes_down"
     t.index ["cached_votes_score"], name: "index_articles_on_cached_votes_score"
     t.index ["cached_votes_total"], name: "index_articles_on_cached_votes_total"
@@ -46,7 +52,14 @@ ActiveRecord::Schema.define(version: 20170903120512) do
     t.index ["cached_weighted_score"], name: "index_articles_on_cached_weighted_score"
     t.index ["cached_weighted_total"], name: "index_articles_on_cached_weighted_total"
     t.index ["slug"], name: "index_articles_on_slug", unique: true
+    t.index ["topic_id"], name: "index_articles_on_topic_id"
     t.index ["user_id"], name: "index_articles_on_user_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "collections", force: :cascade do |t|
@@ -143,6 +156,12 @@ ActiveRecord::Schema.define(version: 20170903120512) do
     t.index ["user_id"], name: "index_personal_messages_on_user_id"
   end
 
+  create_table "topics", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -177,6 +196,7 @@ ActiveRecord::Schema.define(version: 20170903120512) do
     t.index ["voter_type", "voter_id"], name: "index_votes_on_voter_type_and_voter_id"
   end
 
+  add_foreign_key "articles", "topics"
   add_foreign_key "articles", "users"
   add_foreign_key "comments", "articles"
   add_foreign_key "comments", "users"

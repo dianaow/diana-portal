@@ -8,4 +8,6 @@ class Article < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :users, through: :comments
   has_many :impressions, as: :impressionable
+  has_many :article_categories
+  has_many :categories, through: :article_categories
 end
