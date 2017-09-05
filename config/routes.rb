@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => "/cable"
   
   resources :friendships, only: [:create, :update, :destroy]
-  
+  resources :categories, only: [:show, :index]
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   resources :users, only: [:index, :show, :followers, :following]
   get 'followers', to: 'users#followers'

@@ -34,6 +34,10 @@ text-align: center;
     padding-bottom: 40px;
 }
 
+.padding-bottom-20 {
+    padding-bottom: 20px;
+}
+
 .margin-2 {
     margin: 2px;
 }
@@ -135,4 +139,34 @@ text-align: center;
 
 .bg-grey {
     background-color: #cfcfcf;
+}
+
+.panel-body {
+    height: 140px;
+}
+
+.carousel-content { 
+    display: inline-block;
+}
+
+.carousel-control.left {
+  margin-right: 25px;
+}
+
+.carousel-control.right {
+  margin-left: 25px;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+  background: none;
+  border: none;
+  
+}.carousel-control {
+  width: 0%;
+}
+
+.glyphicon-chevron-left, .glyphicon-chevron-right {
+  color: grey;
+  font-size: 40px;
 }

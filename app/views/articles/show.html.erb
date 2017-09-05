@@ -33,13 +33,21 @@
         <p>Created by: <%= @article.user.name if @article.user %></p>
         <p>Created: <%= time_ago_in_words(@article.created_at) %> ago</p>
         <p>Last updated: <%= time_ago_in_words(@article.updated_at) %> ago</p>
-      
-        <h3><%= @article.get_upvotes.size %> votes</h3><br>
+        <h3><%= @article.get_upvotes.size %> votes</h3>
+        
+        <div class="padding-top-20">
         <%= link_to toggle_vote_article_path(@article.id), method: :put do %>
           <button type="button" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Vote
           </button>
         <% end %>
+        </div>
+        
+        <div class="padding-top-20">
+        <% @article_categories.each do |category| %>
+            <%= link_to "#{category.name}", category_path(category), class: "btn btn-xs btn-info" %>
+        <% end %>
+        </div>
         
       </div>
   </div>

@@ -1,17 +1,18 @@
 class ArticlesController < ApplicationController
-    before_action :authenticate_user!, except: [:index, :show]
+    before_action :authenticate_user!
     before_action :set_article, only: [:show, :edit, :update, :destroy, :toggle_vote]
     impressionist :actions=>[:show]
 
   def index
     @articles = Article.published.order("updated_at DESC")
-    @articles_views = Article.published.order("impressions_count ASC")
+    @articles_views = Article.published.order("impressions_count DESC")
     @articles_votes = Article.published.order("cached_votes_up DESC")
   end
 
   def show
     if @article.published?
       @article = Article.friendly.find(params[:id])
+      @article_categories = @article.categories
       @comments = Comment.where(article_id: @article).order("created_at DESC")
     else
       redirect_to articles_path, notice: "You are not authorized to access this page"
@@ -69,6 +70,6 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :description, :user_id, :status)
+      params.require(:article).permit(:title, :description, :user_id, :status, category_ids: [])
     end
 end
