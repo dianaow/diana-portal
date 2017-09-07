@@ -22,10 +22,12 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'impressionist', '~> 1.6'
 gem 'friendly_id', '~> 5.2', '>= 5.2.1'
+gem 'activerecord-session_store'
 
 group :development, :test do
+  gem 'rspec-rails', '~> 3.6', '>= 3.6.1'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara', '~> 2.13'
+  gem 'capybara', '~> 2.15', '>= 2.15.1'
   gem 'selenium-webdriver'
 end
 
