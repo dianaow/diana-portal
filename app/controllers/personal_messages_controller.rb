@@ -1,8 +1,17 @@
 class PersonalMessagesController < ApplicationController
+  
+  def create
+    @conversation = Conversation.includes(:recipient).find(params[:conversation_id])
+    @personal_message = @conversation.personal_messages.create(message_params)
 
-    def mark_as_read 
-      @personal_messages = PersonalMessage.where(recipient: current_user).unread 
-      @personal_messages.update_all(read_at: Time.zone.now)
-      render json: {success: true}
-    end 
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  private
+
+  def message_params
+    params.require(:personal_message).permit(:user_id, :body)
+  end
 end

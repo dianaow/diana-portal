@@ -23,16 +23,11 @@ Rails.application.routes.draw do
         post :mark_as_read
     end 
   end
-
-  resources :conversations, only: [:index, :new]
-  resources :personal_messages, only: [:create, :new]
   
+  resources :conversations, only: [:index]
+
   resources :conversations, only: [:create] do
-    resources :personal_messages, only: [:create]  do
-      collection do 
-        post :mark_as_read
-      end
-    end 
+    resources :messages, only: [:create]
   end
 
   root 'pages#home'

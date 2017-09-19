@@ -10,12 +10,11 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    if @article.published?
-      @article = Article.friendly.find(params[:id])
-      @article_categories = @article.categories
-      @comments = Comment.where(article_id: @article).order("created_at DESC")
-    else
-      redirect_to articles_path, notice: "You are not authorized to access this page"
+    @article_categories = @article.categories
+    @comments = Comment.where(article_id: @article).order("created_at DESC")
+    
+    if @article.status == "draft" && @article.user != current_user
+      redirect_to root_path
     end
   end
 
@@ -26,26 +25,27 @@ class ArticlesController < ApplicationController
   def create
     @article = current_user.articles.new(article_params)
     if @article.save
-      redirect_to @article
+      redirect_to @article, notice: 'Your article was created successfully'
     else
       render action: :new
     end
   end
 
   def edit
+    if @article.user != current_user then redirect_to root_path end
   end
 
   def update
     if @article.update(article_params)
-      redirect_to @article
+      redirect_to @article, notice: 'Your article was edited successfully'
     else
       render action: :edit
     end
   end
 
   def destroy
-    @article.destroy
-    redirect_to articles_path
+    @article.delete
+    redirect_to articles_path, notice: 'Your article was deleted successfully'
   end
   
   def toggle_vote
@@ -60,7 +60,7 @@ class ArticlesController < ApplicationController
   end
   
   def drafts
-    @articles = current_user.articles.draft.order("updated_at DESC")
+    @articles = current_user.articles.draft.paginate(page: params[:page], per_page: 10).order("updated_at DESC")
   end
   
   private

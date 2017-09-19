@@ -9,13 +9,15 @@
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="tab1">
+            <h3 class = "padding-bottom-40">You have <%= @followers.count %> followers</h3>
             <% @followers.each do |follower| %>
                <%= render 'follower', follower: follower %>
              <% end %>
           </div>
           <div class="tab-pane" id="tab2">
-            <% @requested_friendships.each do |request| %>
-               <%= render 'pending', request: request %>
+            <h3 class = "padding-bottom-40">You have <%= @requested_friendships.count %> pending friend requests</h3>
+            <% @requested_friendships.each do |pending| %>
+               <%= render 'pending', pending: pending %>
              <% end %>
           </div>
         </div>
