@@ -1,40 +1,29 @@
 <%= render 'comments/comment_form' %>
 
 <% @comments.each do |comment| %>
-<div class="comment-card">
+<div class="comment-card padding-top-20">
   <div class="card">
     <div class="card-block">
       <div class="row">
-        <div class="col-md-2">
-           <%= gravatar_helper comment.user %>
+        <div class="col-md-1 col-xs-2">
+          <%= gravatar_for(comment.user, size:50) %>
         </div>
-
-        <div class="col-md-10">
-          <div class= "height-auto">
-            <% if comment.content.length > 250 %>
-            <%= truncate(comment.content, length: 250) %>
-            <%= link_to 'Read more', '', class: "read-more-#{comment.id}" %>
-            <script>
-            $('.read-more-<%= comment.id %>').on('click', function(e) {
-              e.preventDefault()
-            $(this).parent().html('<%= escape_javascript comment.content %>')
-            })
-            </script>
-            <% else %>
-            <%= comment.content %>
-            <% end %>
-          </div>
-
-          <div class="padding-top-20">
-            - Posted by <span class="comment-name"><%= comment.user.name %></span> <%= distance_of_time_in_words(comment.created_at, Time.now) %> ago
-            <% if current_user == comment.user %>
-            <%= link_to "Delete", [comment.article, comment], method: :delete %> |
-            <%= link_to "Edit", edit_article_comment_path(comment.article, comment) %>
-            <% end %>
-          </div>
+        <div class="col-md-11 col-xs-10">
+          <b><%= comment.user.name %></b>
+          <small><%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</small> 
+            <div id="edit_<%= comment.id %>" >
+              <div class ="comment-content">
+                <%= comment.content %>
+              </div>
+              <% if current_user == comment.user %>
+              <%= link_to "Delete", [comment.article, comment], method: :delete %> |
+              <%= link_to "Edit", edit_article_comment_path(comment.article, comment), remote: true %>
+              <% end %>
+            </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<hr>
 <% end %>

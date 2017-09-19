@@ -20,6 +20,10 @@ class CommentsController < ApplicationController
   end
   
   def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def update
@@ -33,7 +37,7 @@ class CommentsController < ApplicationController
   private
 
     def set_article
-      @article = Article.find(params[:article_id])
+      @article = Article.friendly.find(params[:article_id])
     end
     
     def set_comment

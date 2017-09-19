@@ -4,7 +4,7 @@
       <%= conversation.with(user).name %>
     </div>
 
-    <div class="panel-body">
+    <div class="panel-body" id="panel-body-conversation">
       <div class="messages-list">
         <ul>
           <%= render 'conversations/conversation_content', personal_messages: conversation.personal_messages, user: user %>

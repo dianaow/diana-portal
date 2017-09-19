@@ -5,13 +5,12 @@
       <div class = "col-md-1">
         <%= gravatar_for(following, size: 45) %>
       </div>
-      <div class = "col-md-9">
+      <div class = "col-md-9" id="following">
         <b><%= link_to following.name, user_path(following) %></b><br>
         <p><%= pluralize(following.articles.count, "article") if following.articles %></p>
       </div>
       <div class = "col-md-2">
-        <%= link_to "Unfollow", user_path(following), 
-        method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-outline-primary" %>
+        <%= link_to "Unfollow", friendship_path(current_user.friendships.find_by_friend_id(following.id)), :method => :delete, data: { confirm: "Are you sure?" }, class:"btn btn-md btn-danger" %>
       </div>
     </div>
   <% end %>

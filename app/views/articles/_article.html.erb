@@ -1,7 +1,7 @@
-<div class="row padding-top-20">  
-<div class="col-md-8">
-    <div class="row margin-article">
-      <div class="col-md-2">
+<div class="row margin-2">  
+  <div id = "article-block" class="col-md-9 col-sm-9 col-xs-8">
+    <div class="row">
+      <div id = "vote-viewcount-block" class="col-md-2 col-sm-2 col-xs-2">
         <h3><%= article.get_upvotes.size %></h3><small>votes</small><br>
         <% if article.impressions_count? == false %>
         <h3>0</h3><small>views</small><br>
@@ -9,43 +9,38 @@
         <h3><%= article.impressions_count %></h3><small>views</small><br>
         <% end %>
       </div> 
-      <div class="col-md-10">
-        <h3><%= link_to article.title, article_path(article) %></h3>
-        <%= truncate(article.description, length: 100) %>
+      <div id = "content-block" class="col-md-10 col-sm-10 col-xs-12">
+        <div class = "article-content">
+          <h3><%= link_to article.title, article_path(article) %></h3>
+          <%= truncate(article.description, length: 250) %>
+        </div>
+        <div id = "category-block" class = "padding-top-20">
+          <% article.categories.each do |category| %>
+          <%= link_to "#{category.name}", category_path(category), class: "btn btn-xs btn-info" %>
+          <% end %>
+        </div>
       </div>
     </div>
-
-    <div class = "row">
-      <div class="col-md-2">
-          
-      </div>
-      <div class="col-md-10">
-        <% article.categories.each do |category| %>
-            <%= link_to "#{category.name}", category_path(category), class: "btn btn-xs btn-info" %>
-        <% end %>
-      </div>
-    </div>
-</div>
-
-<div class="col-md-4">
-  <% if current_user == article.user %>
-    <%= link_to edit_article_path(article), class: "btn btn-xs btn-default" do %>
-      <i class="glyphicon glyphicon-pencil"></i> 
-    <% end %>
-        
-    <%= link_to article_path(article), method: :delete, data: { confirm: "Are you sure you want to delete the article?"}, class: "btn btn-xs btn-default" do %>
-      <i class="glyphicon glyphicon-trash"></i> 
-    <% end %>
-  <% end %>
-  
-  <div class="article-meta-details">
-    <small>Created by: <%= article.user.name if article.user%></small><br>
-    <small>Created: <%= time_ago_in_words(article.created_at) %> ago</small><br>
-    <small>Last updated: <%= time_ago_in_words(article.updated_at) %> ago</small>
-    
   </div>
-</div>
 
+  <div class="col-md-3 col-sm-3 col-xs-4">
+    <div class = "padding-top-20">
+      <% if current_user == article.user %>
+        <%= link_to edit_article_path(article), class: "btn btn-xs btn-default" do %>
+          <i class="glyphicon glyphicon-pencil"></i> 
+        <% end %>
+        <%= link_to article_path(article), method: :delete, data: { confirm: "Are you sure you want to delete the article?"}, class: "btn btn-xs btn-default" do %>
+          <i class="glyphicon glyphicon-trash"></i> 
+        <% end %>
+      <% end %>
+    </div>
+    <div class = "padding-top-20">
+      <%= gravatar_for(article.user, size:20) %>
+      <small><%= article.user.name %></small><br>
+      <small>Created: <%= time_ago_in_words(article.created_at) %> ago</small><br>
+      <small>Last updated: <%= time_ago_in_words(article.updated_at) %> ago</small>
+    </div>
+  </div>
 </div>
 <hr>
 

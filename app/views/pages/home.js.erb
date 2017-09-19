@@ -1,0 +1,7 @@
+$('#my-feed').append('<%= j render @feed %>');
+<% if @feed.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @feed %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>

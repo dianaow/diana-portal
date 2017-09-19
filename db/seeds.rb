@@ -1,9 +1,29 @@
-User.create!(name: "Diana Meow", email: "test@test.com", password: "asdfasdf", password_confirmation: "asdfasdf")
-User.create!(name: "Test 2", email: "test2@test.com", password: "asdfasdf", password_confirmation: "asdfasdf")
-User.create!(name: "Test 3", email: "test3@test.com", password: "asdfasdf", password_confirmation: "asdfasdf")
-User.create!(name: "Test 4", email: "test4@test.com", password: "asdfasdf", password_confirmation: "asdfasdf")
+20.times do |n|
+  User.create!(name: "Test #{n+1}", 
+               email: "test#{n+1}@test.com",
+               password: "asdfasdf",
+               password_confirmation: "asdfasdf")
+end
 
-puts "4 Users created"
+puts "20 Users created"
+
+10.times do |n|
+  Friendship.create!(user_id: 1, friend_id: n+3, accepted: true)
+end
+
+puts "5 accepted friends for the first user created"
+
+5.times do |n|
+  Friendship.create!(user_id: 1, friend_id: n+12, accepted: false)
+end
+
+puts "5 friend requests sent by first user"
+
+5.times do |n|
+  Friendship.create!(user_id: n+13, friend_id: 1, accepted: false)
+end
+
+puts "5 friend requests received by first user"
 
 Category.create!(name: "Ruby on Rails")
 Category.create!(name: "Python")
@@ -15,15 +35,16 @@ puts "5 Categories created"
 
 20.times do |n|
   Article.create!(title: "Ruby on Rails #{n}",
-           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras euismod dolor id felis malesuada, eu vestibulum quam lobortis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean hendrerit nulla vel velit laoreet interdum. Duis ligula quam, congue eget dapibus id, vestibulum a dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque sed auctor diam. Nunc auctor sit amet urna sed ultricies. Praesent id erat id enim fringilla suscipit. Aliquam sit amet commodo lectus. Phasellus eu egestas ex, eu consectetur massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis ultricies nisi sed volutpat luctus. Pellentesque tristique, neque eu condimentum dictum, augue odio pharetra lorem, in iaculis sem dolor non lorem. Nullam facilisis aliquet leo, ut dapibus lectus tristique eu. Duis sollicitudin pulvinar laoreet.",
+           description: BetterLorem.p(5, true, false),
            user_id: User.find(2).id,
            status: 1,
-           impressions_count: 20-n)
+           impressions_count: 20-n,
+           cached_votes_score: 20-n)
 end
 
 20.times do |n|
   Article.create!(title: "Python #{n}",
-           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras euismod dolor id felis malesuada, eu vestibulum quam lobortis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean hendrerit nulla vel velit laoreet interdum. Duis ligula quam, congue eget dapibus id, vestibulum a dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque sed auctor diam. Nunc auctor sit amet urna sed ultricies. Praesent id erat id enim fringilla suscipit. Aliquam sit amet commodo lectus. Phasellus eu egestas ex, eu consectetur massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis ultricies nisi sed volutpat luctus. Pellentesque tristique, neque eu condimentum dictum, augue odio pharetra lorem, in iaculis sem dolor non lorem. Nullam facilisis aliquet leo, ut dapibus lectus tristique eu. Duis sollicitudin pulvinar laoreet.",
+           description: BetterLorem.p(5, true, false),
            user_id: User.first.id,
            status: 1,
            impressions_count: 20-n)
@@ -32,16 +53,16 @@ end
 
 10.times do |n|
   Article.create!(title: "Ajax #{n}",
-           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras euismod dolor id felis malesuada, eu vestibulum quam lobortis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean hendrerit nulla vel velit laoreet interdum. Duis ligula quam, congue eget dapibus id, vestibulum a dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque sed auctor diam. Nunc auctor sit amet urna sed ultricies. Praesent id erat id enim fringilla suscipit. Aliquam sit amet commodo lectus. Phasellus eu egestas ex, eu consectetur massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis ultricies nisi sed volutpat luctus. Pellentesque tristique, neque eu condimentum dictum, augue odio pharetra lorem, in iaculis sem dolor non lorem. Nullam facilisis aliquet leo, ut dapibus lectus tristique eu. Duis sollicitudin pulvinar laoreet.",
-           user_id: User.first.id,
+           description: BetterLorem.p(5, true, false),
+           user_id: User.find(3).id,
            status: 1,
            impressions_count: 20-n)
 end
 
 10.times do |n|
   Article.create!(title: "Javascript #{n}",
-           description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras euismod dolor id felis malesuada, eu vestibulum quam lobortis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean hendrerit nulla vel velit laoreet interdum. Duis ligula quam, congue eget dapibus id, vestibulum a dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque sed auctor diam. Nunc auctor sit amet urna sed ultricies. Praesent id erat id enim fringilla suscipit. Aliquam sit amet commodo lectus. Phasellus eu egestas ex, eu consectetur massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis ultricies nisi sed volutpat luctus. Pellentesque tristique, neque eu condimentum dictum, augue odio pharetra lorem, in iaculis sem dolor non lorem. Nullam facilisis aliquet leo, ut dapibus lectus tristique eu. Duis sollicitudin pulvinar laoreet.",
-           user_id: User.first.id,
+           description: BetterLorem.p(5, true, false),
+           user_id: User.find(4).id,
            status: 1,
            impressions_count: 20-n)
 end

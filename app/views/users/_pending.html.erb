@@ -1,16 +1,12 @@
-
-  <h3 class = "padding-bottom-40">Follow Requests</h3>
-  
-    <div class="row alternate-row">
-      <div class = "col-md-1">
-        <%= gravatar_for(request, size: 45) %>
-      </div>
-      <div class = "col-md-8">
-        <p><%= request.name %></p>
-      </div>
-      <div class = "col-md-3">
-      <%= link_to "Accept",  friendship_path(id: request.id), method: "put", class: "btn btn-success" %>
-      <%= link_to "Decline", friendship_path(id: request.id), method: :delete, class: "btn btn-danger" %>
-      </div>
-    </div>
-
+<div class="row alternate-row">
+  <div class = "col-md-1">
+    <%= gravatar_for(pending, size: 45) %>
+  </div>
+  <div class = "col-md-8">
+    <p><%= pending.name %></p>
+  </div>
+  <div class = "col-md-3">
+  <%= link_to "Accept",  friendship_path(pending.friendships.find_by_friend_id(current_user)), method: "put", class: "btn btn-info" %>
+  <%= link_to "Decline", friendship_path(pending.friendships.find_by_friend_id(current_user)), method: :delete, class: "btn btn-default" %>
+  </div>
+</div>

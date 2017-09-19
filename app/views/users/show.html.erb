@@ -1,7 +1,8 @@
 <div class = "container">   
   <% provide(:title, @user.name) %>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-4 col-xs-12 padding-top-20">
+        <div class="well">
            <h1>
             <%= gravatar_for @user %>
             <%= @user.name %>
@@ -9,8 +10,20 @@
            <h3><%= @user.received_friends.count %> followers</h3>
            <h3><%= @user.active_friends.count %> following</h3>
            <p><%= @user_articles.count %> articles</p>
+            <div id="buttons">
+              <% if @user == current_user %>
+                <div></div>
+              <% elsif current_user.pending_friends.include?(@user) %>
+                <button type="button" class="btn btn-md">Awaiting request</button>
+              <% elsif current_user.active_friends.include?(@user) %>
+                <%= link_to "Unfollow", friendship_path(current_user.friendships.find_by_friend_id(@user.id)), :method => :delete, data: { confirm: "Are you sure?" }, class:"btn btn-md btn-danger" %>
+              <% else %>
+                <%= link_to "Follow", friendships_path(friend_id: @user.id), method: :post, class: "btn btn-md btn-success" %>
+              <% end %>
+            </div>
+        </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 col-xs-12">
         <%= render partial: 'articles/article', collection: @user_articles %>
       </div>
     </div>

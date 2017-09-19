@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  
+  validates :name, presence: true
   acts_as_voter       
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -33,11 +33,11 @@ class User < ApplicationRecord
   def self.search(search)
       where('name LIKE ?', "%#{search}%")
   end
-  
+
   def feed
-    friend_ids = "SELECT friend_id FROM friendships
-                     WHERE  user_id = :user_id"
-    Article.where("user_id IN (#{friend_ids})
+    following_ids = "SELECT friend_id FROM friendships
+                     WHERE (user_id = :user_id AND accepted = 't')"
+    Article.where("user_id IN (#{following_ids})
                      OR user_id = :user_id", user_id: id)
   end
 

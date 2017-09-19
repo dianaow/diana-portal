@@ -16,8 +16,11 @@ gem 'json', '~> 2.1'
 gem 'jbuilder', '~> 2.5'
 gem 'redis', '~> 3.0'
 gem 'devise'
-gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'autoprefixer-rails'
+gem 'betterlorem', '~> 0.1.2'
 gem 'will_paginate', '~> 3.1', '>= 3.1.6'
+gem 'bootstrap-will_paginate', '~> 1.0'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'impressionist', '~> 1.6'
@@ -27,8 +30,11 @@ gem 'activerecord-session_store'
 group :development, :test do
   gem 'rspec-rails', '~> 3.6', '>= 3.6.1'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara', '~> 2.15', '>= 2.15.1'
+  gem 'capybara', '2.7.1'
   gem 'selenium-webdriver'
+  gem 'rspec-rails', '~> 3.6', '>= 3.6.1'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails', '~> 4.8'
 end
 
 group :development do

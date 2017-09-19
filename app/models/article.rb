@@ -11,4 +11,7 @@ class Article < ApplicationRecord
   has_many :article_categories
   has_many :categories, through: :article_categories
 
+  validates :title, presence: true
+  validates :description, presence: true
+
 end
