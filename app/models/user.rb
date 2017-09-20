@@ -37,7 +37,7 @@ class User < ApplicationRecord
   def feed
     following_ids = "SELECT friend_id FROM friendships
                      WHERE (user_id = :user_id AND accepted = 't')"
-    Article.where("user_id IN (#{following_ids})
+    Article.published.where("user_id IN (#{following_ids})
                      OR user_id = :user_id", user_id: id)
   end
 
