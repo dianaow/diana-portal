@@ -1,13 +1,34 @@
-var conversations = $('#conversations-list');
-var conversation = conversations.find("[data-conversation-id='" + "<%= @conversation.id %>" + "']");
+<%if params["new_message"] %>
+	values = {}
+	values = [{
+		"name": "conversation_id",
+		"value": "<%= @conversation.id %>",
+	},
+	{
+		"name": "user_id",
+		"value": '<%= current_user.id %>'
+	},
+	{
+		'name' : 'body',
+		'value': '<%= params["body"] %>'
 
-if (conversation.length !== 1) {
-  conversations.append("<%= j(render 'conversations/conversation', conversation: @conversation, user: current_user) %>");
-  conversation = conversations.find("[data-conversation-id='" + "<%= @conversation.id %>" + "']");
-}
+	}];
+	App.conversation.speak(values);
+<% end %>
+var chat_area = $('.chat_area');
+var header_con = $('.HeaderMsg').addClass("new_message_head");
+header_con.html('<div class="pull-left"><button>Conversation with <%= @conversation.with(current_user).name %></button></div>')
+chat_area.html("<%= j(render 'conversations/conversation', conversation: @conversation, user: current_user) %>");
 
+var conversation = chat_area.find("[data-conversation-id='" + "<%= @conversation.id %>" + "']");
 conversation.find('.panel-default').show();
 
-var messages_list = conversation.find('.messages-list');
-var height = messages_list[0].scrollHeight;
-messages_list.scrollTop(height);
+var message_div = $('.message_wroteD').addClass('message_write');
+$('.message_wroteD').html("<%= j(render 'conversations/send_form', conversation: @conversation, user: current_user) %>")
+if (chat_area.length){
+	var height = chat_area[0].scrollHeight;
+	chat_area.scrollTop(height);
+}
+// FOR BADAGE
+var member = $('<%= "[data-conversation-member=#{@conversation.id}]" %>');
+member.find('.badge').addClass('hidden').text('');

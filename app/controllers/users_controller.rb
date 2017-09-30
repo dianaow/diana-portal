@@ -16,6 +16,12 @@ class UsersController < ApplicationController
     @following = current_user.active_friends.all
   end
   
+  def search
+    param = params[:q][:term] rescue ""
+    results = User.all_except(current_user).where("users.email iLike ? ", "%#{param}%")
+    render json: {:users => results }
+  end
+
   def show
     @user = User.find(params[:id])
     @user_articles = @user.articles.all

@@ -1,0 +1,16 @@
+<%= link_to  conversations_path(user_id: user), remote: true, method: :post do %>
+  <span class="chat-img pull-left">
+    <%= gravatar_for(user, size: 20) %>
+  </span>
+  <div class="chat-body clearfix">
+    <div class="header_sec">
+       <strong class="primary-font"><%= user.name %></strong>
+    </div>
+    <div class="contact_sec">
+       <strong class="primary-font"><%= conversation.last_string %></strong> 
+       <% message_count = conversation.unread_messages_count(logged_user) %>
+       <span class="badge pull-right <%= 'hidden' if message_count < 1 %>">
+       <%= message_count %></span>
+    </div>
+  </div>
+<% end %>

@@ -4,4 +4,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require conversations
+//= require select2-full
 //= require_tree .

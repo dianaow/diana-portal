@@ -4,16 +4,7 @@
         <%= render @feed %>
     </div>
     <div class = "col-md-3">
-      <div class="list-group padding-top-20">
-          <div class="list-group-item list-group-item-action active">
-            Recently visited
-          </div>
-        <% @recent_articles.each do |recent| %>
-          <button type="button" class="list-group-item list-group-item-action">
-            <%= link_to "#{truncate(Article.friendly.find(recent).title, length: 50)}", article_path(Article.friendly.find(recent)) %>
-          </button>
-        <% end %>
-      </div>
+
     </div>
   </div>
 </div>

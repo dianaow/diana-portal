@@ -1,0 +1,6 @@
+<form action = "conversations/index" class="new_message">
+	<input name="conversation_id" type="hidden" value="<%= conversation.id %>">
+	<input name="user_id" type="hidden" value="<%= user.id %>">
+	<textarea name="body" class="form-control"></textarea><br>
+	<input type="submit" class="pull-right btn btn-success" value="Send">
+</form>

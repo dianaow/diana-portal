@@ -4,6 +4,5 @@ class PersonalMessage < ApplicationRecord
   validates :body, presence: true
   
   after_create_commit { PersonalMessageBroadcastJob.perform_later(self) }
-  scope :unread, ->{where read_at: nil}
-  
+
 end

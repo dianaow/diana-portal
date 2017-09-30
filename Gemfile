@@ -26,6 +26,7 @@ gem 'acts_as_votable', '~> 0.10.0'
 gem 'impressionist', '~> 1.6'
 gem 'friendly_id', '~> 5.2', '>= 5.2.1'
 gem 'activerecord-session_store'
+gem 'select2-rails', '~> 4.0', '>= 4.0.3'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.6', '>= 3.6.1'

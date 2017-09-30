@@ -1,0 +1,26 @@
+<div class="message_section">
+    <div class="row">
+        <div class="new_message_head">
+            <div class="pull-left">
+                <button class="NewMsgS">New Message</button>
+            </div>
+            <!--new_message_head-->
+            <div class="message_write">
+                <%= form_tag conversations_path, remote: true do  %>
+                    <%= select_tag :user_id, [], class: "form-control users_select" %>
+                    <br>
+                    <%= hidden_field_tag "new_message", true %>
+                    <textarea name="body" class="form-control" placeholder="Type a message..."></textarea>
+                    <div class="clearfix"></div>
+                    <div class="chat_bottom">
+                        <input type="submit" class=" btn btn-success" value="Send">
+                        <%= link_to conversations_path, class: "btn btn-default" do %>
+                            Cancel
+                            <% end %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <!--message_section-->
+</div>

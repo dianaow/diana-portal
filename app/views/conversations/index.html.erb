@@ -1,22 +1,65 @@
-<div class = "container">
-  <h1>Messages</h1>
-    <div class = "row">
-        <div class = "col-sm-4">
-            <ul class="list-group">
-                <% @users.each do |user| %>
-                  <li class="list-group-item">
-                    <%= gravatar_for(user, size: 20) %>
-                    <%= link_to user.name, conversations_path(user_id: user), remote: true, method: :post %>
-                 </li>
-                <% end %>
-            </ul>
+<style type="text/css">
+  #ComposeFrm .topEl {
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 7px 0 10px 0px;
+    font-size: 12px;
+    border: none;
+    color: #fff;
+    min-width: 90px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+  }
+  #ComposeFrm .topEl.topElSelect{
+    float: right;
+    width: 200px;
+  }
+</style>
+<script src="https://use.fontawesome.com/45e03a14ce.js"></script>
+<div class="main_section">
+  <div class="container">
+    <div class="chat_container">
+      <div class="col-sm-4 chat_sidebar">
+        <div class="row">
+          <div id="custom-search-input">
+            <div  class="input-group col-md-12">
+              <form action="#unread" class="form-inline" id="ComposeFrm">
+                <div class="form-group topEl">
+                  <%= link_to new_conversation_path, class: "btn btn-default", remote: true do %>
+                    Compose
+                  <% end %>
+                </div>
+                <div class="form-group topEl topElSelect">
+                  <%= select_tag "", options_for_select(Conversation.options_for_filter, 'unread'), class: "form-control topESelect", data: {url: list_conversations_path}%>
+                </div>
+              </form>
+            </div>
+            <div class="input-group col-md-12">
+              
+            </div>
+          </div>
+          <div class="dropdown all_conversation">
+             <button class="dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <i class="fa fa-weixin" aria-hidden="true"></i>
+             All Conversations
+          </div>
+          <div class="member_list" id="member_list">
+            <%= render 'conversations/member_list' %>
+          </div>
         </div>
-        <div class = "col-sm-8">
-            <ul id="conversations-list">
-              <% @conversations.each do |conversation| %>
-                <%= render 'conversations/conversation', conversation: conversation, user: current_user %>
-              <% end %>
-            </ul>
+      </div>
+      <!--chat_sidebar-->
+
+      <div class="col-sm-8 message_section">
+        <div class="row">
+          <div class="HeaderMsg"></div><!--new_message_head-->
+          <div class="chat_area">
+              <p class="text-center"> Please select message thread to read it here</p>
+          </div><!--chat_area-->
+          <div class="message_wroteD"></div>
         </div>
+      </div> <!--message_section-->
     </div>
+  </div>
 </div>

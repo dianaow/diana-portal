@@ -1,0 +1,8 @@
+<ul class="list-unstyled">
+  <% @conversation_list.each do |conversation| %>
+    <% user = conversation.with current_user %>
+    <li class="left clearfix" data-conversation-member= <%= conversation.id %> >
+      <%= render "conversations/member_convo" , user: user, conversation: conversation, logged_user: current_user %>
+    </li>
+  <% end %>
+</ul>

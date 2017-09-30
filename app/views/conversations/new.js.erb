@@ -1,0 +1,5 @@
+var message_div = $('.message_wroteD').removeClass('message_write').html('');
+var header_con = $('.HeaderMsg').removeClass("new_message_head").html('');
+var chat_area = $('.chat_area');
+chat_area.html("<%= j(render 'conversations/new',user: current_user) %>");
+$(document).trigger('init:users_select');
