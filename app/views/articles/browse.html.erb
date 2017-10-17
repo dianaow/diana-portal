@@ -1,0 +1,18 @@
+<div class = "container">
+
+  <div class = "row">
+    <div class = "col-md-4" id="browse-sidebar">
+      <%= render 'browse_sidebar', articles: @articles, categories: @categories, q: @q %>
+    </div>
+    <div class = "col-md-8">
+      <div id="browse-form">
+        <%= render 'browse_form', q: @q %>
+      </div>
+      <div class = "row" id= "articles_container">
+        <%= render 'articles/article_list', articles: @articles %>
+      </div>
+    </div>
+  </div>
+</div>
+
+

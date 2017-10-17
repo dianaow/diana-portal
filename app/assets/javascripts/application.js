@@ -2,7 +2,10 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
+//= require jquery.transit.js
 //= require turbolinks
 //= require conversations
+//= require articles.js
 //= require select2-full
+//= require bootstrap-multiselect
 //= require_tree .

@@ -19,7 +19,7 @@ class FriendshipsController < ApplicationController
       if @friendship.save
         flash[:notice] = "Successfully confirmed friend!"
         Notification.create!(recipient: @friendship.user, actor: @friendship.friend, action: "accepted", notifiable: @friendship)
-        redirect_to users_path
+        redirect_to followers_path
       else
         flash[:notice] = "Sorry! Could not confirm friend!"
         redirect_back fallback_location: root_path

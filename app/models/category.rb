@@ -9,7 +9,8 @@ validates_uniqueness_of :name
   end
   
   def self.popular
-      Category.articles.order("impressions_count ASC").limit(9)
+    Category.articles.order("impressions_count ASC").limit(9)
   end
+  
   
 end

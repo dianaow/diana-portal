@@ -1,6 +1,6 @@
-<%= render 'comments/comment_form' %>
+<%= render 'comments/comment_form', article: article %>
 
-<% @comments.each do |comment| %>
+<% comments.each do |comment| %>
 <div class="comment-card padding-top-20">
   <div class="card">
     <div class="card-block">

@@ -1,6 +1,6 @@
 <div class="padding-top-20">
 <% if user_signed_in?  %>
-  <%= form_for ([@article, @article.comments.build]) do |f| %>
+  <%= form_for ([article, article.comments.build]) do |f| %>
     <div class="form-group">
       <%= f.text_area :content, rows: 2, placeholder: "Write your comment...", class: 'form-control' %>
     </div>

@@ -32,3 +32,26 @@
        display: none;
     }
 }
+
+
+.btn-tag-title span, .btn-tag-user span, .btn-tag-cat span {
+    display: none;
+}
+
+.btn-tag-title, .btn-tag-user, .btn-tag-cat {
+    display: flex;
+}
+
+.btn-tag-title:hover span, .btn-tag-user:hover span{
+    display: block;
+}
+
+ul.multiselect-container.dropdown-menu {
+    min-width: 300px !important;
+}
+
+.divider{
+    width:5px;
+    height:auto;
+    display:inline-block;
+}

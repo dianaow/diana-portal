@@ -1,7 +1,12 @@
 class ArticlesController < ApplicationController
+    
     before_action :authenticate_user!
     before_action :set_article, only: [:show, :edit, :update, :destroy, :toggle_vote]
-    impressionist :actions=>[:show]
+    before_action :set_articles, only: [:browse, :sort]
+    include ArticlesHelper
+    before_action only: [:sort] do
+      get_query('query_articles')
+    end
 
   def index
     @articles = Article.published.order("updated_at DESC")
@@ -10,11 +15,12 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article_categories = @article.categories
-    @comments = Comment.where(article_id: @article).order("created_at DESC")
-    
     if @article.status == "draft" && @article.user != current_user
       redirect_to root_path
+    else
+      @article_categories = @article.categories
+      @comments = @article.comments.order("created_at DESC")
+      impressionist(@article)
     end
   end
 
@@ -63,6 +69,28 @@ class ArticlesController < ApplicationController
     @articles = current_user.articles.draft.paginate(page: params[:page], per_page: 10).order("updated_at DESC")
   end
   
+  def browse
+    @categories = Category.with_articles.order('name ASC').all
+  end
+  
+  def sort
+    if params[:type] == 'title_asc'
+      @articles = @articles.order_by_title_asc
+    elsif params[:type] == 'title_desc'
+      @articles = @articles.order_by_title_desc
+    elsif params[:type] == 'created_at_desc'
+      @articles = @articles.order_by_created_at_desc
+    elsif params[:type] == 'impressions_count_desc'
+      @articles = @articles.order_by_impressions_count_desc
+    elsif params[:type] == 'cached_votes_up_desc'
+      @articles = @articles.order_by_cached_votes_up_desc
+    end
+      
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   private
 
     def set_article
@@ -72,4 +100,10 @@ class ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit(:title, :description, :user_id, :status, category_ids: [])
     end
+    
+    def set_articles
+      @q = Article.ransack(params[:q])
+      @articles = @q.result.includes(:categories, :users)
+    end
+    
 end

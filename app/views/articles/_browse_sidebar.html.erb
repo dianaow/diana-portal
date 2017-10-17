@@ -1,0 +1,41 @@
+<div class = "row">
+  <% if params[:q].present? == true %>
+    <h1>Search Results:</h1>
+  <% else %>
+     <h1>Browse Articles</h1>
+  <% end %>
+</div>
+
+<div class="row">
+  <p><b><%= articles.count %></b> articles were found based on your criteria </p>
+    <% if q.title_cont.present? == true %>
+      <button type="button" class="btn btn-outline-primary btn-lg btn-tag-title"><%= params[:q][:title_cont] %><span class='glyphicon glyphicon-remove'></span></button>
+      <div class="divider"></div>
+    <% end %>
+    <% if q.categories_name_in.present? == true %>
+      <% q.categories_name_in.each do |name|  %>
+        <button type="button" class="btn btn-outline-primary btn-lg btn-tag-cat" id="<%= name %>"><%= name %><span class='glyphicon glyphicon-remove'></span></button>
+        <div class="divider"></div>
+      <% end %>
+     <% end %>
+    <% if q.user_name_cont.present? == true %>
+      <button type="button" class="btn btn-outline-primary btn-lg btn-tag-user"><%= params[:q][:user_name_cont] %><span class='glyphicon glyphicon-remove'></span></button>
+      <div class="divider"></div>
+    <% end %>
+</div>
+
+<% if params[:q].present? == true %>
+  <% categories.each do |category| %>
+    <div class="row padding-top-20">
+      <h4><a href="/articles/browse?utf8=✓&q[title_cont]=<%= params[:q][:title_cont] %>&q[categories_name_in]=<%= category.name %>&q[user_name_cont]=<%= params[:q][:user_name_cont] %>">
+      <%= category.name %> (<%= category.articles.ransack(params[:q]).result.count %>)
+      </a></h4>
+    </div>
+  <% end %>
+<% else %>
+  <% categories.each do |category| %>
+  <div class="row padding-top-20">
+    <h4><%= link_to "#{category.name} (#{category.articles.count})", category_path(category) %></h4>
+  </div>
+  <% end %>
+<% end %>

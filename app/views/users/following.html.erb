@@ -2,14 +2,14 @@
   <h3 class = "padding-bottom-40">Following <%= @following.count %> people</h3>
   <% @following.each do |following| %>
     <div class="row alternate-row">
-      <div class = "col-md-1">
+      <div class = "col-md-1 col-xs-2">
         <%= gravatar_for(following, size: 45) %>
       </div>
-      <div class = "col-md-9" id="following">
+      <div class = "col-md-9 col-xs-6" id="following">
         <b><%= link_to following.name, user_path(following) %></b><br>
         <p><%= pluralize(following.articles.count, "article") if following.articles %></p>
       </div>
-      <div class = "col-md-2">
+      <div class = "col-md-2 col-xs-4">
         <%= link_to "Unfollow", friendship_path(current_user.friendships.find_by_friend_id(following.id)), :method => :delete, data: { confirm: "Are you sure?" }, class:"btn btn-md btn-danger" %>
       </div>
     </div>

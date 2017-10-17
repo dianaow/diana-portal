@@ -22,13 +22,13 @@ Rails.application.routes.draw do
     member do
       put :toggle_vote
     end
+    collection do
+      get 'browse'
+      get 'sort'
+    end
   end
   
-  resources :notifications do
-    collection do 
-        post :mark_as_read
-    end 
-  end
+  resources :notifications 
   
   resources :conversations, only: [:index, :new] do
     collection do   

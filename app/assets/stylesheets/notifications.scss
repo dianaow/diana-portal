@@ -1,3 +1,70 @@
-// Place all the styles related to the notifications controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#notification-counter {
+  background-color: rgb(212, 78, 3);
+  color: #fff;
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-size: 10px;
+  position: relative;
+  left: -5px;
+  top: -15px;
+  z-index : 1;
+}
+
+
+#notificationContainer
+{
+  border: 1px solid rgba(100, 100, 100, .4);
+  -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+  width: 100%;
+}
+
+#notificationsBody
+{
+  padding: 3px 0px 0px 0px !important;
+  min-height:300px;
+  max-height:300px;
+  overflow: auto;
+  background-color: #fff;
+}
+
+#notificationsBody  ul
+{
+  padding: 5px;
+}
+
+ul #notificationList
+{
+  li
+  {
+    border-bottom: #dddddd 1px solid;
+    list-style-type: none;
+    padding: 5px;
+  }
+  span
+  {
+    color: #989494;
+    font-size: 13px;
+  }
+
+}
+
+#notificationTitle
+{
+  font-weight: bold;
+  padding: 8px;
+  font-size: 13px;
+  background-color: #f0f0f0;
+  z-index: 1;
+  border-bottom: 1px solid #000;
+  color: #000;
+}
+
+#notificationFooter
+{
+  background-color: #e9eaed;
+  text-align: center;
+  font-weight: bold;
+  padding: 8px;
+  font-size: 12px;
+  border-top: 1px solid #000;
+}

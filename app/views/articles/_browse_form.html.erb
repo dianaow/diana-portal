@@ -1,0 +1,50 @@
+<div class ="jumbotron">
+  <%= search_form_for @q, url: browse_articles_path, method: :get do |f| %>
+    <div class="form-group">
+      <div class = "row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <%= f.search_field :title_cont, placeholder: "Find Articles", class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    <div class="advanced-search hidden">
+        <a class="close-advanced-search fi-x"></a>
+        <div class="form-group">
+          <div class ="row">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+
+                  <%= f.collection_select :categories_name_in, Category.all, "name", "name", 
+                                    { :include_hidden => false },
+                                    { :multiple => true,
+                                      :id => "cat-dropdown-menu" } %>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <%= f.search_field :user_name_cont, class: "form-control", placeholder: "Author" %>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="form-group">
+      <%= f.submit class: 'btn btn-primary btn-md browse-form-button' %>
+      <a class="show-advanced-search"> Advanced Search</a> |
+      <%= link_to "Clear Search", browse_articles_path %> |
+      <a class="clear-search">Clear</a> 
+    </div>
+    <% end %>
+
+    <div class = "row">
+      <div class="col-md-7 col-sm-7 col-xs-7"></div>
+      <div class="col-md-2 col-sm-2 col-xs-2 sort-by">
+         Sort by:
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-3">
+        <%= select_tag "", options_for_select(Article.order_by, 'Highest view count'), class: "form-control sortBy", data: {url: sort_articles_path} %>
+      </div>
+    </div>
+
+  
+
+</div> 
+  
+  

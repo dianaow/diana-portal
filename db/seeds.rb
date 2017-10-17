@@ -7,23 +7,6 @@ end
 
 puts "20 Users created"
 
-10.times do |n|
-  Friendship.create!(user_id: 1, friend_id: n+3, accepted: true)
-end
-
-puts "5 accepted friends for the first user created"
-
-5.times do |n|
-  Friendship.create!(user_id: 1, friend_id: n+12, accepted: false)
-end
-
-puts "5 friend requests sent by first user"
-
-5.times do |n|
-  Friendship.create!(user_id: n+13, friend_id: 1, accepted: false)
-end
-
-puts "5 friend requests received by first user"
 
 Category.create!(name: "Ruby on Rails")
 Category.create!(name: "Python")
@@ -38,7 +21,6 @@ puts "5 Categories created"
            description: BetterLorem.p(5, true, false),
            user_id: User.find(2).id,
            status: 1,
-           impressions_count: 20-n,
            cached_votes_score: 20-n)
 end
 
@@ -46,8 +28,7 @@ end
   Article.create!(title: "Python #{n}",
            description: BetterLorem.p(5, true, false),
            user_id: User.first.id,
-           status: 1,
-           impressions_count: 20-n)
+           status: 1)
 end
 
 
@@ -55,16 +36,14 @@ end
   Article.create!(title: "Ajax #{n}",
            description: BetterLorem.p(5, true, false),
            user_id: User.find(3).id,
-           status: 1,
-           impressions_count: 20-n)
+           status: 1)
 end
 
 10.times do |n|
   Article.create!(title: "Javascript #{n}",
            description: BetterLorem.p(5, true, false),
            user_id: User.find(4).id,
-           status: 1,
-           impressions_count: 20-n)
+           status: 1)
 end
 
 

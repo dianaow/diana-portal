@@ -17,7 +17,7 @@
           <% end %>
         </div>
         <div class = "row padding-top-20">
-          <%= render 'comments/comment' %>
+          <%= render 'comments/comment', comments: @comments, article: @article %>
         </div>
       </div>
 
@@ -31,6 +31,13 @@
         <p>Created by: <%= @article.user.name %></p>
         <p>Created: <%= time_ago_in_words(@article.created_at) %> ago</p>
         <p>Last updated: <%= time_ago_in_words(@article.updated_at) %> ago</p>
+          <% if @article.impressions_count? == false %>
+            <small>0 views</small><br>
+          <% elsif @article.impressions_count == 1 %>
+            <small><%= @article.impressions_count %> view</small><br>
+          <% else %>
+            <small><%= @article.impressions_count %> views</small><br>
+          <% end %>
         <h3><%= @article.get_upvotes.size %> votes</h3>
         
         <div class="padding-top-20">
