@@ -1,8 +1,0 @@
-var articles_container = $('#articles_container');
-articles_container.html("<%= j(render 'articles/article_list', articles: @articles) %>");
-
-var browse_sidebar = $('#browse-sidebar');
-browse_sidebar.html("<%= j(render 'articles/browse_sidebar', articles: @articles, categories: @categories, q: @q) %>");
-
-var browse_form = $('#browse-form');
-browse-form.html("<%= j(render 'articles/browse_form', q: @q) %>");

@@ -11,8 +11,8 @@ class Article < ApplicationRecord
   has_many :article_categories
   has_many :categories, through: :article_categories
 
-  validates :title, presence: true
-  validates :description, presence: true
+  validates :title, presence: true, length: { minimum: 10, maximimum: 100 }
+  validates :description, presence: true, length: { minimum: 10 }
 
 
   def age_group
@@ -37,11 +37,11 @@ class Article < ApplicationRecord
               
 def self.order_by
 	[
-		['Title: A to Z', 'title_asc'],
-		['Title: Z to A', 'title_desc'],
-		['Newest', 'created_at_desc'],
-		['Highest View Count', 'impressions_count_desc'],
-		['Highest Rated', 'cached_votes_up_desc'],
+		['Newest', 'created_at desc'],
+		['Title: A to Z', 'title asc'],
+		['Title: Z to A', 'title desc'],
+		['Highest View Count', 'impressions_count asc'],
+		['Highest Rated', 'cached_votes_up desc'],
 	]
 end
 

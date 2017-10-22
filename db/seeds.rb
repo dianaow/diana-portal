@@ -25,7 +25,7 @@ puts "5 Categories created"
 end
 
 20.times do |n|
-  Article.create!(title: "Python #{n}",
+  Article.create!(title: "Python articles #{n}",
            description: BetterLorem.p(5, true, false),
            user_id: User.first.id,
            status: 1)
@@ -33,14 +33,14 @@ end
 
 
 10.times do |n|
-  Article.create!(title: "Ajax #{n}",
+  Article.create!(title: "Ajax article #{n}",
            description: BetterLorem.p(5, true, false),
            user_id: User.find(3).id,
            status: 1)
 end
 
 10.times do |n|
-  Article.create!(title: "Javascript #{n}",
+  Article.create!(title: "Javascript articles #{n}",
            description: BetterLorem.p(5, true, false),
            user_id: User.find(4).id,
            status: 1)

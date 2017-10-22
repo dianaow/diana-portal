@@ -1,5 +1,5 @@
 <div class ="jumbotron">
-  <%= search_form_for @q, url: browse_articles_path, method: :get do |f| %>
+  <%= search_form_for q, url: articles_path, method: :get, id: "form" do |f| %>
     <div class="form-group">
       <div class = "row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -15,7 +15,7 @@
 
                   <%= f.collection_select :categories_name_in, Category.all, "name", "name", 
                                     { :include_hidden => false },
-                                    { :multiple => true,
+                                    { :multiple => true, 
                                       :id => "cat-dropdown-menu" } %>
 
             </div>
@@ -26,10 +26,10 @@
         </div>
     </div>
     <div class="form-group">
+      <%= f.hidden_field :s, value: q.s || params[:q][:s] %>
       <%= f.submit class: 'btn btn-primary btn-md browse-form-button' %>
       <a class="show-advanced-search"> Advanced Search</a> |
-      <%= link_to "Clear Search", browse_articles_path %> |
-      <a class="clear-search">Clear</a> 
+      <%= link_to "Clear Search", articles_path %>
     </div>
     <% end %>
 
@@ -39,7 +39,7 @@
          Sort by:
       </div>
       <div class="col-md-3 col-sm-3 col-xs-3">
-        <%= select_tag "", options_for_select(Article.order_by, 'Highest view count'), class: "form-control sortBy", data: {url: sort_articles_path} %>
+          <%= select_tag "", options_for_select(Article.order_by, q.s), class: "form-control", id: "sortBy" %>
       </div>
     </div>
 

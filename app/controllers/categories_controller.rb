@@ -2,7 +2,11 @@ class CategoriesController < ApplicationController
 before_action :authenticate_user!
 
   def index
-    @categories = Category.with_articles.order('name ASC').limit(2)
+    if params[:id]
+      @categories = Category.order('created_at DESC').where('id < ?', params[:id]).limit(3)
+    else
+      @categories = Category.order('created_at DESC').limit(3)
+    end
     respond_to do |format|
       format.html
       format.js

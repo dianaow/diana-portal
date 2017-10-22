@@ -1,11 +1,14 @@
 //= require rails-ujs
 //= require jquery
-//= require bootstrap-sprockets
 //= require jquery_ujs
 //= require jquery.transit.js
-//= require turbolinks
+//= require jquery.validate
+//= require bootstrap-sprockets
+//= require bootstrap-multiselect
 //= require conversations
 //= require articles.js
+//= required comments.js
 //= require select2-full
-//= require bootstrap-multiselect
 //= require_tree .
+
+

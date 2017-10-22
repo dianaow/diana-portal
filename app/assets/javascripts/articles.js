@@ -1,8 +1,3 @@
-jQuery(document).on('change', 'select.sortBy', function() {
-    $('#sort_form').attr('data-remote',true)
-});
-
-
 jQuery(document).on('click', 'a.show-advanced-search', function() {
     const $this = $(this);
     $('.advanced-search').toggleClass('hidden');
@@ -14,15 +9,6 @@ jQuery(document).on('click', 'a.show-advanced-search', function() {
 });
     
 
-jQuery(document).on('click', 'a.clear-search', function() {
-    $('input#q_title_cont').val('');
-    $('input#q_user_name_cont').val('');
-    $("select#q_categories_name_cont option:selected").prop("selected", false);
-    return $("select#q_categories_name_cont option:first").prop("selected", "selected");
-});
-
-
-
 $(document).ready(function() {
   
     $('#cat-dropdown-menu').multiselect({
@@ -33,13 +19,17 @@ $(document).ready(function() {
       allSelectedText: 'All Categories'
     });
     
-     $(".browse-form-button").submit(
-      function() {
-        $("#nav-search").find('input').value('');
-      }
-     );
+    $('#sortBy').multiselect({
+      buttonWidth: '150px',
+      buttonContainer: '<div class="btn-group" />',
+      onChange: function(option) {
+        $('#q_s').val($(option).val());
+        $('#form').submit();
+      },   
+    });
+                
      
-     $("button.btn-tag-cat").mouseenter(
+    $(".btn-tag-cat").mouseenter(
       function() {
         var id = $(this).attr('id');
         $('#' + id).find('span').show();
@@ -48,4 +38,47 @@ $(document).ready(function() {
         $('#' + id).find('span').hide();
       }
     );
+     
+    var length = $('#article-description').innerHeight(); 
+
+    if(length > 600) {
+        $('#article-description').addClass("height-style");
+        $('#read-more').find("button").removeClass("hidden");
+    }
+       
+    $('#read-more').on('click', function(e) {
+      e.preventDefault();
+      var button = $('#read-more').find("button");
+      $('#article-description').toggleClass("height-style");
+      if ($('#article-description').hasClass("height-style") == true) {
+        $(button).text("Read more");
+      } else {
+        $(button).text("Hide");
+      }
+    });
+    
 });
+
+function validatearticleFunction() {
+  $('#new_article').validate({
+    debug: false,
+    rules: {
+      'article[title]': { required: true, minlength: 10, maxlength: 100 },
+      'article[description]': { required: true, minlength: 10 },
+      'article[status]': { required: true }
+    },
+    messages: {
+      'article[title]': { required: "You must have a title for your article",
+                          minlength: "Title must be at least 10 characters",
+                          maxlength: "Title must be less than 100 characters" },
+      'article[description]': { required: "You must have a description for your article",
+                                minlength: "Content must be at least 10 characters" },
+      'article[status]': {
+            required: "You must check at least 1 box",
+        }
+    }
+  });
+}
+$(document).ready(validatearticleFunction);
+$(document).on('page:load', validatearticleFunction);
+

@@ -22,10 +22,6 @@ Rails.application.routes.draw do
     member do
       put :toggle_vote
     end
-    collection do
-      get 'browse'
-      get 'sort'
-    end
   end
   
   resources :notifications 
@@ -41,5 +37,6 @@ Rails.application.routes.draw do
   end
 
   root 'pages#home'
+  get '*path' => redirect('/')
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -7,15 +7,20 @@ class CommentsController < ApplicationController
     @comment = @article.comments.new(comment_params)
     @comment.user = current_user
       if @comment.save
-        Notification.create!(recipient: @article.user, actor: current_user, action: "posted", notifiable: @comment)
+        flash[:success] = "Your comment was created successfully"
+        unless @comment.article.user == current_user
+          Notification.create!(recipient: @article.user, actor: current_user, action: "posted", notifiable: @comment)
+        end
         redirect_to @article
       else
+        flash[:error] = "Unable to submit comment."
         redirect_to @article
       end
   end
   
   def destroy
     @comment.destroy
+    flash[:success] = "Successfully deleted comment"
     redirect_to @article
   end
   
@@ -28,6 +33,7 @@ class CommentsController < ApplicationController
 
   def update
       if @comment.update(params[:comment].permit(:content))
+        flash[:success] = "Successfully updated comment"
         redirect_to @article
       else
         render action: :edit

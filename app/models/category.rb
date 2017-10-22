@@ -5,7 +5,7 @@ validates :name, presence: true
 validates_uniqueness_of :name
 
   def self.with_articles
-    includes(:articles).where.not(articles: { id: nil })
+    includes(:articles).where.not(articles: { id: nil, status: "draft" })
   end
   
   def self.popular

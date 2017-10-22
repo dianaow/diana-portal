@@ -25,6 +25,10 @@ text-align: center;
     background: #f9f9f9;
 }
 
+.padding-top-10 {
+    padding-top: 10px;
+}
+
 .padding-top-20 {
     padding-top: 20px;
 }
@@ -72,6 +76,10 @@ text-align: center;
     font-size: 1.25em;
     padding-left: 40px;
     padding-top: 20px;
+}
+
+.navbar {
+    margin-bottom: 0px;
 }
 
 .bg-grey {
@@ -124,9 +132,12 @@ text-align: center;
        display:none;
     }
 
-.sort-by {
-    text-align: right;
-    padding: 0px;
-    margin: 0px;
-    padding-top: 5px;
+label.error {
+    background-color: #99182c;
+    color: white;
+    padding: 1px 5px 1px 5px;
+    font-size:small;
+    margin-top: 10px;
+    
 }
+

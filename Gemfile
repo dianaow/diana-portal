@@ -31,6 +31,7 @@ gem 'transit_rails'
 gem 'ransack', '~> 1.8', '>= 1.8.3'
 gem 'simple_form_ransack'
 gem 'bootstrap-multiselect-rails'
+gem 'jquery-validation-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.6', '>= 3.6.1'
