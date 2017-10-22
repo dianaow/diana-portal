@@ -57,6 +57,10 @@ $(document).ready(function() {
       }
     });
     
+    $("#article_category_ids").select2({
+      tokenSeparators: [',']
+    });
+    
 });
 
 function validatearticleFunction() {

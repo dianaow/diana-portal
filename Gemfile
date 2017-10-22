@@ -29,9 +29,13 @@ gem 'activerecord-session_store'
 gem 'select2-rails', '~> 4.0', '>= 4.0.3'
 gem 'transit_rails'
 gem 'ransack', '~> 1.8', '>= 1.8.3'
-gem 'simple_form_ransack'
 gem 'bootstrap-multiselect-rails'
 gem 'jquery-validation-rails'
+
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-chosen'
+end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.6', '>= 3.6.1'

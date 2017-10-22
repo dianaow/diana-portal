@@ -23,10 +23,8 @@
       <div class="control-label col-sm-3 col-xs-3">
         <%= f.label :category %>
       </div>
-      <div class="col-sm-9 col-xs-9" id="category">
-        <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb| %>
-        <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
-        <% end %>
+      <div class="col-sm-9 col-xs-9">
+        <%= f.collection_select :category_ids, Category.all, :id, :name, {}, {:multiple => true} %>
       </div>
     </div>
     

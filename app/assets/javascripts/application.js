@@ -9,6 +9,7 @@
 //= require articles.js
 //= required comments.js
 //= require select2-full
+//= require chosen
 //= require_tree .
 
 

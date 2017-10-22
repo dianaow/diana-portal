@@ -13,8 +13,7 @@ class Article < ApplicationRecord
 
   validates :title, presence: true, length: { minimum: 10, maximimum: 100 }
   validates :description, presence: true, length: { minimum: 10 }
-
-
+  
   def age_group
     months_between = Date.today.month - self.created_at.month
     if months_between > 12
