@@ -31,7 +31,7 @@ gem 'transit_rails'
 gem 'ransack', '~> 1.8', '>= 1.8.3'
 gem 'bootstrap-multiselect-rails'
 gem 'jquery-validation-rails'
-
+gem 'ckeditor', '~> 4.2', '>= 4.2.4'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-chosen'

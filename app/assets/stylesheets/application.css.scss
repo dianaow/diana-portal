@@ -4,13 +4,13 @@
 @import "articles.scss";
 @import "comments.scss";
 @import "notifications.scss";
+@import "tomorrow-night-eighties.css.scss";
 @import "select2";
-@import "chosen";
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 @import url('https://fonts.googleapis.com/css?family=Space+Mono');
 @import "bootstrap-multiselect";
 
-*{
+p, h1, h2, h3, h4 , small{
    font-family: 'Roboto',serif;
 }
 
@@ -141,4 +141,5 @@ label.error {
     margin-top: 10px;
     
 }
+
 

@@ -7,9 +7,13 @@
 //= require bootstrap-multiselect
 //= require conversations
 //= require articles.js
-//= required comments.js
 //= require select2-full
-//= require chosen
+//= require ckeditor/init
 //= require_tree .
 
 
+$(document).ready(function() {
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
