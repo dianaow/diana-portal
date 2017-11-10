@@ -1,0 +1,6 @@
+<h3 class = "padding-bottom-40">You have <%= pluralize(requested_friendships.count, "pending friend request") %></h3>
+<div class = "pending-requests-list" %>
+  <% requested_friendships.each do |requested_friendship| %> 
+    <%= render 'users/requested_friendship', requested_friendship: requested_friendship %>
+  <% end %>
+</div>

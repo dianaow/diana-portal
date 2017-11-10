@@ -10,7 +10,7 @@
            <h3><%= @user.received_friends.count %> followers</h3>
            <h3><%= @user.active_friends.count %> following</h3>
            <p><%= @user_articles.count %> articles</p>
-              <%= render 'status_buttons', user: @user %>
+           <%= render 'users/status_buttons', user: @user %>
         </div>
       </div>
       <div class="col-md-8 col-xs-12">

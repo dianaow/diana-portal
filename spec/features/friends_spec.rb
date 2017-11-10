@@ -1,84 +1,229 @@
 require 'rails_helper'
 
-describe "Submit friend request" do
+describe 'follow users' do
     
-    before do
-        @user = FactoryGirl.create(:user)
-        @friend = FactoryGirl.create(:user)
-        login_as(@user, :scope => :user)
-    end
-    
-    scenario "check that user is not following the other user" do
-        visit users_path
-        expect(page).to have_css('#users', text: @friend.name)
-        expect(page).to have_css('#users', text: @user.name)
-        link = "a[href = '/friendships?friend_id=#{@friend.id}']"
-        expect(page).to have_selector(link)
-    end
-    
-    scenario "user submits friend request from index page to follow the other user" do
-        visit users_path
-        link = "a[href = '/friendships?friend_id=#{@friend.id}']"
-        find(link).click
-        expect(page).to have_css('#buttons', text: "Awaiting request")
-    end
-end
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:other_user) { FactoryGirl.create(:friend) }
 
-describe "Accepts friend request" do
+  describe "Submit friend request", js: true do
+      
+    before do
+      login_as(user, :scope => :user)
+    end
+    
+    it "shows Follow button if current user is not following other user" do
+        visit users_path
+        expect(page).to have_css('#users', text: other_user.name)
+        expect(page).to have_css('#users', text: user.name)
+        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+    end
+    
+    it "allows user to submit friend request by clicking on Follow button, which will change to Awaiting Request" do
+        visit users_path
+        click_on "Follow"
+        expect(page).to have_content("Awaiting Request")
+    end
+    
+  end
+
+  describe "Managing received friend request", js: true do
+      
+    let!(:request) { Friendship.create(user_id: other_user.id, friend_id: user.id, accepted: false) }
         
     before do
-        @user = FactoryGirl.create(:user)
-        @friend = FactoryGirl.create(:friend)
-        @friendship = Friendship.create(user_id: @user.id, friend_id: @friend.id, accepted: false)
-        login_as(@friend, :scope => :user)
+       login_as(user, :scope => :user)
+       visit followers_path
     end
         
-    scenario 'accept or decline options visible to friend' do
-        visit followers_path
-        expect(page).to have_link("Accept", href: "/friendships/#{@user.friendships.find_by_friend_id(@friend.id).id}")
-        expect(page).to have_link("Decline", href: "/friendships/#{@user.friendships.find_by_friend_id(@friend.id).id}")
+    it 'shows accept or decline options to friend' do
+        expect(page).to have_link(other_user.name)
+        expect(page).to have_link("Accept")
+        expect(page).to have_link("Decline")
+        expect(page).to have_css(".pending-requests", text: "You have 1 pending friend request")
     end
     
-    scenario 'accepts friend request' do
-        visit followers_path
-        click_link("Accept", href: "/friendships/#{@user.friendships.find_by_friend_id(@friend.id).id}")
-        expect(current_path).to eq(users_path)
+    it 'friend request disappear once user clicks accept' do
+        click_on "Accept"
+        wait_for_ajax
+        expect(current_path).to eq(followers_path)
+        expect(page).to have_css(".pending-requests", text: "You have 0 pending friend requests")
+        expect(page).to_not have_css(".pending-requests", text: other_user.name)
+        expect(page).to_not have_link("Accept")
+        expect(page).to_not have_link("Decline")
     end
-end     
     
-describe "user is following other user" do
+    it 'counts other user as a follower once frend request is accepted' do
+        click_on "Accept"
+        wait_for_ajax
+        click_on "Followers"
+        expect(page).to have_css(".followers", text: other_user.name)
+        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        expect(page).to have_content("You have 1 follower")
+    end
     
+    it 'friend request disappear once user clicks decline' do
+        click_on "Decline"
+        wait_for_ajax
+        expect(current_path).to eq(followers_path)
+        expect(page).to have_css(".pending-requests", text: "You have 0 pending friend requests")
+        expect(page).to_not have_css(".pending-requests", text: other_user.name)
+        expect(page).to_not have_link("Accept")
+        expect(page).to_not have_link("Decline")
+    end
+    
+    it 'destroys friendship if frend request is declined' do
+        click_on "Decline"
+        wait_for_ajax
+        click_on "Followers"
+        expect(page).to_not have_css(".followers", text: other_user.name)
+        expect(page).to_not have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        expect(page).to have_css(".followers", text: "You have 0 followers")
+    end
+    
+  end   
+  
+  describe "Managing sent friend request", js: true do
+      
+    let!(:request) { Friendship.create(user_id: user.id, friend_id: other_user.id, accepted: true) }
+        
     before do
-        @user = FactoryGirl.create(:user)
-        @friend = FactoryGirl.create(:friend)
-        @friendship = Friendship.create(user_id: @user.id, friend_id: @friend.id, accepted: true)
-        login_as(@user, :scope => :user)
+       login_as(user, :scope => :user)
+       visit following_path
     end
     
-    it "unfollow button appears on followers page" do
-        visit following_path
-        expect(page).to have_css('#following', text: @friend.name)
-        href = "/friendships/#{@user.friendships.find_by_friend_id(@friend.id).id}"
-        expect(page).to have_link("Unfollow", :href => href)
+    it 'shows unfollow button on following page' do
+        expect(page).to have_link(other_user.name)
+        expect(page).to have_link("Unfollow")
     end
     
-    it "unfollow button appears on user show page" do
-        visit users_path(@friend)
-        href = "/friendships/#{@user.friendships.find_by_friend_id(@friend.id).id}"
-        expect(page).to have_link("Unfollow", :href => href)
+    it "friend disappears from following list once user clicks unfollow" do
+        click_on "Unfollow"
+        expect(current_path).to eq(following_path)
+        expect(page).to have_content("You are following 0 people")
     end
-
-     it "unfollow button appears on user index page" do
+    
+    it "ex-friend can be re-followed" do
+        click_on "Unfollow"
+        wait_for_ajax
         visit users_path
-        href = "/friendships/#{@user.friendships.find_by_friend_id(@friend.id).id}"
-        expect(page).to have_link("Unfollow", :href => href)
+        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
     end
-
-    it "user unfollows other user from index page" do
+    
+  end
+  
+  describe "Follow status on user index page and user show page", js: true do
+      
+    let!(:request) { Friendship.create(user_id: other_user.id, friend_id: user.id, accepted: false) }
+        
+    before do
+       login_as(user, :scope => :user)
+    end
+    
+    it 'shows follow button beside a user which current user has received a friend request from and is currently not following' do
         visit users_path
-        link = "a[href = '/friendships/#{@user.friendships.find_by_friend_id(@friend.id).id}'][data-method='delete']"
-        find(link).click
-        href = "/friendships?friend_id=#{@friend.id}"
-        expect(page).to have_link("Follow", :href => href)
+        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        visit user_path(other_user)
+        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
     end
+    
+    it 'shows follow button beside a user which current user has accepted a friend request from and is currently not following' do
+        visit followers_path
+        click_on "Accept"
+        wait_for_ajax
+        visit users_path
+        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        visit user_path(other_user)
+        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+    end
+    
+    
+    it 'shows follow button beside a user which current user has declined a friend request from and is currently not following' do
+        visit followers_path
+        click_on "Decline"
+        wait_for_ajax
+        visit users_path
+        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        visit user_path(other_user)
+        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+    end
+  end
+  
+  
+  describe "Unfollow status on user index page and user show page", js: true do
+      
+    let!(:requested_friendship) { Friendship.create(user_id: user.id, friend_id: other_user.id, accepted: true) }
+    let!(:received_friendship) { Friendship.create(user_id: other_user.id, friend_id: user.id, accepted: false) }
+        
+    before do
+       login_as(user, :scope => :user)
+    end
+    
+    it 'shows unfollow button beside a user which current user has received a friend request from and is currently following' do
+        visit users_path
+        expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
+        visit user_path(other_user)
+        expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
+    end
+    
+    it 'shows unfollow button beside a user which current user has accepted a friend request from and is currently following' do
+        visit followers_path
+        click_on "Accept"
+        wait_for_ajax
+        visit users_path
+        expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
+        visit user_path(other_user)
+        expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
+    end
+    
+    
+    it 'shows unfollow button beside a user which current user has declined a friend request from and is currently following' do
+        visit followers_path
+        click_on "Decline"
+        wait_for_ajax
+        visit users_path
+        expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
+        visit user_path(other_user)
+        expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
+    end
+    
+  end
+  
+  describe "Awaiting request on user index page and user show page", js: true do
+      
+    let!(:requested_friendship) { Friendship.create(user_id: user.id, friend_id: other_user.id, accepted: false) }
+    let!(:received_friendship) { Friendship.create(user_id: other_user.id, friend_id: user.id, accepted: false) }
+        
+    before do
+       login_as(user, :scope => :user)
+    end
+    
+    it 'shows Awaiting Request beside a user which current user has received a friend request from and is currently awaiting a follow back' do
+        visit users_path
+        expect(page).to have_content("Awaiting Request")
+        visit user_path(other_user)
+        expect(page).to have_content("Awaiting Request")
+    end
+    
+    it 'shows Awaiting Request beside a user which current user has accepted a friend request from and is currently awaiting a follow back' do
+        visit followers_path
+        click_on "Accept"
+        wait_for_ajax
+        visit users_path
+        expect(page).to have_content("Awaiting Request")
+        visit user_path(other_user)
+        expect(page).to have_content("Awaiting Request")
+    end
+    
+    it 'shows Awaiting Request beside a user which current user has declined a friend request from and is currently awaiting a follow back' do
+        visit followers_path
+        click_on "Decline"
+        wait_for_ajax
+        visit users_path
+        expect(page).to have_content("Awaiting Request")
+        visit user_path(other_user)
+        expect(page).to have_content("Awaiting Request")
+    end
+    
+  end
+      
 end

@@ -1,6 +1,12 @@
 <div class = "container">
-  <h3 align="center">Category: <%= @category.name %></h3>
-    <div class = "row">
-      <%= render @articles %>
-    </div>
+  <div class= "load-more-container">
+    <button class = "btn btn-lg btn-cat-loadmore" %>
+      <%= @category.name %>
+    </button>
+  </div>
+  
+  <div class = "container">
+    <%= render @articles %>
+    <%= will_paginate @articles %>
+  </div>
 </div>

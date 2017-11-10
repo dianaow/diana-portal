@@ -1,0 +1,23 @@
+//BROWSE
+
+#browse-form {
+     margin-top: 20px;
+}
+
+#browse-form a, #browse-form a a:hover {
+    cursor: pointer;
+    color:black;
+}
+
+#browse-category, #browse-tags {
+    padding-top: 20px;
+}
+
+#browse-category h4 {
+    padding-top: 10px;
+}
+
+.multiselect-container input[type=radio] {
+    display: none;
+}
+

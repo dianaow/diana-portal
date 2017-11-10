@@ -1,0 +1,140 @@
+/* navbar */
+.navbar-custom {
+    background-color: #031424;
+    border: 0px;
+    border-radius: 0px;
+    margin-bottom: 0px;
+    padding: 0px 40px;
+
+}
+/* Title */
+.navbar-custom .navbar-brand {
+    color: #ffffff;
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    margin: 0px 20px;
+}
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .navbar-brand:focus {
+    color: #ffffff;
+}
+/* Link */
+.navbar-custom .navbar-nav > li > a {
+    color: #ffffff;
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    font-family: 'Roboto', 'Helvetica';
+}
+.navbar-custom .navbar-nav > li > a:hover,
+.navbar-custom .navbar-nav > li > a:focus {
+    color: #ffffff;
+    background-color: #031424;
+}
+.navbar-custom .navbar-nav > .active > a,
+.navbar-custom .navbar-nav > .active > a:hover,
+.navbar-custom .navbar-nav > .active > a:focus {
+    color: #ffffff;
+    background-color: #031424;
+}
+.navbar-custom .navbar-nav > .open > a,
+.navbar-custom .navbar-nav > .open > a:hover,
+.navbar-custom .navbar-nav > .open > a:focus {
+    color: #ffffff;
+    background-color: #031424;
+}
+
+/* Caret */
+.navbar-custom .navbar-nav > .dropdown > a .caret {
+    display: none;
+}
+.navbar-custom .navbar-nav > .dropdown > a:hover .caret,
+.navbar-custom .navbar-nav > .dropdown > a:focus .caret {
+    display: none;
+}
+.navbar-custom .navbar-nav > .open > a .caret,
+.navbar-custom .navbar-nav > .open > a:hover .caret,
+.navbar-custom .navbar-nav > .open > a:focus .caret {
+    display: none;
+}
+/* Mobile version */
+.navbar-custom .navbar-toggle {
+    border: 0px;
+}
+.navbar-custom .navbar-toggle:hover,
+.navbar-custom .navbar-toggle:focus {
+    background-color: #031424;
+}
+.navbar-custom .navbar-toggle .icon-bar {
+    background-color: #031424;
+}
+@media (max-width: 767px) {
+    .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
+        color: #ffffff;
+    }
+    .navbar-custom .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-custom .navbar-nav .open .dropdown-menu > li > a:focus {
+          color: #ffffff;
+    }
+}
+
+#q_title_cont .form-control {
+    width: 300px;
+    border-radius: 6px;
+}
+
+.glyphicon.glyphicon-user, .glyphicon.glyphicon-bell  {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+
+//MY MENU
+
+#mymenuContainer {
+    
+  border: 1px solid rgba(100, 100, 100, .4);
+  -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+  background-color: #fff;
+    
+    a {
+        font-size: 16px;
+        color: #031424;
+    }
+    
+  span.glyphicon.glyphicon-envelope, span.glyphicon.glyphicon-file,  
+  span.glyphicon.glyphicon-star, span.glyphicon.glyphicon-plus, span.glyphicon.glyphicon-pencil {
+    font-size: 22px;
+    color: #031424;
+    padding-right: 22px;
+   }
+   
+   .dropdown-menu {
+       width: 280px;
+       padding: 0px;
+       margin: 0px;
+   }
+}
+
+
+#mymenuBody  ul
+{
+  padding: 6px;
+}
+
+ul #mymenuList
+{
+  li
+  {
+    list-style-type: none;
+    padding: 6px;
+  }
+
+}
+
+
+#mymenuFooter
+{
+  background-color: #e9eaed;
+  padding: 6px;
+  padding-left: 20px;
+}

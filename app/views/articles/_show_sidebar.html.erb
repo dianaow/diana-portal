@@ -1,0 +1,15 @@
+  <% if article.impressions_count? == false %>
+    <h4>0 views</h4>
+  <% elsif article.impressions_count == 1 %>
+    <h4><%= article.impressions_count %> view</h4>
+  <% else %>
+    <h4><%= article.impressions_count %> views</h4>
+  <% end %>
+  
+  <h4><%= display_votes(article) %></h4>
+  
+  <%= link_to toggle_vote_article_path(article.id), method: :get, remote: true do %>
+    <button type="button" class="btn btn-lg btn-vote">
+      <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Vote
+    </button>
+  <% end %>

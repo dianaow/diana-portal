@@ -1,0 +1,3 @@
+$('#comment-list').prepend("<%= escape_javascript (render partial: @comment) %>");
+$('#comments-count p').html('');
+$('#comments-count p').html('This article has <%= escape_javascript(pluralize(@article.comments.count, 'comment')) %>');

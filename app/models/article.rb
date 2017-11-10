@@ -2,7 +2,7 @@ class Article < ApplicationRecord
   enum status: { draft: 0, published: 1 }
   extend FriendlyId
   friendly_id :title, use: :slugged
-  is_impressionable :counter_cache => true, :unique => true
+  is_impressionable :counter_cache => true, :unique => false
   acts_as_votable
   belongs_to :user
   has_many :comments, dependent: :destroy
@@ -11,7 +11,8 @@ class Article < ApplicationRecord
   has_many :article_categories
   has_many :categories, through: :article_categories
 
-  validates :title, presence: true, length: { minimum: 10, maximimum: 100 }
+  validates :title, presence: true, length: { minimum: 10, maximum: 100 }
+  validates :summary, presence: true, length: { minimum: 10, maximum: 180 }
   validates :description, presence: true, length: { minimum: 10 }
   
   def age_group
@@ -34,14 +35,24 @@ class Article < ApplicationRecord
   scope :order_by_cached_votes_up_desc, -> { order(cached_votes_up: :desc) }
 
               
-def self.order_by
+  def self.order_by
 	[
+	    ['Sort By', ''],
 		['Newest', 'created_at desc'],
 		['Title: A to Z', 'title asc'],
 		['Title: Z to A', 'title desc'],
-		['Highest View Count', 'impressions_count asc'],
+		['Highest View Count', 'impressions_count desc'],
 		['Highest Rated', 'cached_votes_up desc'],
 	]
-end
+  end
+  
+  def popular_score
+    return ((self.impressions_count * 0.6) + (self.cached_votes_up * 0.4))
+  end
+  
+  def self.sorted_by_popular_score
+    Article.all.sort_by(&:popular_score).reverse
+  end
+
 
 end

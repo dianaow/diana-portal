@@ -1,3 +1,3 @@
-$('.delete_notification').bind('ajax:success', function() {  
-        $(this).closest('.row').hide();
-});
+$('#notifications-index-list').html("<%= escape_javascript(render partial: @notifications) %>");
+$('#notificationList').html("<%= escape_javascript(render partial: @notifications) %>");
+$('#notification-counter').html("<%= current_user.notifications.count %>");

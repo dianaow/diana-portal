@@ -1,46 +1,41 @@
-<div class="row margin-2">  
-  <div id = "article-block" class="col-md-9 col-sm-9 col-xs-8">
-    <div class="row">
-      <div id = "vote-viewcount-block" class="col-md-2 col-sm-2 col-xs-2">
-        <h3><%= article.get_upvotes.size %></h3><small>votes</small><br>
-        <% if article.impressions_count? == false %>
-        <h3>0</h3><small>views</small><br>
-        <% else %>
-        <h3><%= article.impressions_count %></h3><small>views</small><br>
+<div class = "row" id="article_<%= article.id %>" >  
+    <div id = "vote-viewcount-block" class="col-md-2 col-sm-2 col-xs-12">
+      <h3><%= article.get_upvotes.size %></h3><small>votes</small><br>
+      <% if article.impressions_count? == false %>
+      <h3>0</h3><small>views</small><br>
+      <% else %>
+      <h3><%= article.impressions_count %></h3><small>views</small><br>
+      <% end %>
+    </div> 
+    <div id = "content-block" class="col-md-7 col-sm-7 col-xs-12">
+      <div id = "article-content">
+        <h3><%= link_to article.title, article_path(article) %></h3>
+        <%= article.summary %>
+      </div>
+      <div id = "category-block">
+        <% article.categories.each do |category| %>
+        <%= link_to "#{category.name}", category_path(category), class: "btn btn-xs btn-info" %>
         <% end %>
-      </div> 
-      <div id = "content-block" class="col-md-10 col-sm-10 col-xs-12">
-        <div class = "article-content">
-          <h3><%= link_to article.title, article_path(article) %></h3>
-          <%= truncate(article.description, length: 250) %>
-        </div>
-        <div id = "category-block" class = "padding-top-20">
-          <% article.categories.each do |category| %>
-          <%= link_to "#{category.name}", category_path(category), class: "btn btn-xs btn-info" %>
-          <% end %>
-        </div>
       </div>
     </div>
-  </div>
-
-  <div class="col-md-3 col-sm-3 col-xs-4">
-    <div class = "padding-top-20">
-      <% if current_user == article.user %>
-        <%= link_to edit_article_path(article), class: "btn btn-xs btn-default" do %>
-          <i class="glyphicon glyphicon-pencil"></i> 
+    <div id="article-details" class="col-md-3 col-sm-3 col-xs-12">
+      <div id = "user-console">
+        <% if current_user == article.user %>
+          <%= link_to edit_article_path(article), class: "btn btn-xs btn-default" do %>
+            <i class="glyphicon glyphicon-pencil"></i> 
+          <% end %>
+          <%= link_to article_path(article), method: :delete, data: { confirm: "Are you sure you want to delete the article?"}, class: "btn btn-xs btn-default icon-delete" do %>
+            <i class="glyphicon glyphicon-trash"></i> 
+          <% end %>
         <% end %>
-        <%= link_to article_path(article), method: :delete, data: { confirm: "Are you sure you want to delete the article?"}, class: "btn btn-xs btn-default" do %>
-          <i class="glyphicon glyphicon-trash"></i> 
-        <% end %>
-      <% end %>
+      </div>
+      <div id = "details-panel">
+        <%= gravatar_for(article.user, size:40) %>
+        <p><b><%= article.user.name %></b></p><br>
+        <small>Created: <%= article.created_at.strftime("%d-%m-%Y") %></small><br>
+        <small>Updated: <%= time_ago_in_words(article.updated_at) %> ago</small>
+      </div>
     </div>
-    <div class = "padding-top-20">
-      <%= gravatar_for(article.user, size:20) %>
-      <small><%= article.user.name %></small><br>
-      <small>Created: <%= time_ago_in_words(article.created_at) %> ago</small><br>
-      <small>Last updated: <%= time_ago_in_words(article.updated_at) %> ago</small>
-    </div>
-  </div>
 </div>
 <hr>
 

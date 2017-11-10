@@ -1,12 +1,12 @@
 class ArticlesController < ApplicationController
-    
     before_action :authenticate_user!
     before_action :set_article, only: [:show, :edit, :update, :destroy, :toggle_vote]
+    include ArticlesHelper
     
   def index
     @q = Article.published.ransack(params[:q])
     @q.sorts = 'created_at desc' if @q.sorts.empty?
-    @articles = @q.result(distinct: true).includes(:categories, :users).paginate(page: params[:page], per_page: 20)
+    @articles = @q.result(distinct: true).includes(:categories, :users).paginate(page: params[:page], per_page: 15)
     @categories = Category.with_articles.order('name ASC').all
 
     if params[:s] != nil
@@ -16,8 +16,8 @@ class ArticlesController < ApplicationController
         @articles = @articles.order_by_title_desc
       elsif params[:q][:s] == 'created_at desc'
         @articles = @articles.order_by_created_at_desc
-      elsif params[:q][:s] == 'impressions_count asc'
-        @articles = @articles.order_by_impressions_count_asc
+      elsif params[:q][:s] == 'impressions_count desc'
+        @articles = @articles.order_by_impressions_count_desc
       elsif params[:q][:s] == 'cached_votes_up desc'
         @articles = @articles.order_by_cached_votes_up_desc
       end
@@ -29,12 +29,9 @@ class ArticlesController < ApplicationController
       redirect_to root_path
     else
       @article_categories = @article.categories
-      @comments = @article.comments.order("created_at DESC")
+      @comments = @article.comments
+      @new_comment = @article.comments.new
       impressionist(@article)
-    end
-    respond_to do |format|
-      format.html
-      format.js {render layout: false}
     end
   end
   
@@ -74,11 +71,14 @@ class ArticlesController < ApplicationController
   def toggle_vote
     @user = current_user
     if @user.voted_up_on? @article
-      @article.unvote_by current_user
-      redirect_to @article
+      @article.downvote_by current_user
     else
       @article.upvote_by current_user
-      redirect_to @article
+    end
+    
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
   
@@ -93,7 +93,7 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :description, :user_id, :status, category_ids: [])
+      params.require(:article).permit(:title, :summary, :description, :user_id, :status, category_ids: [])
     end
 
 end

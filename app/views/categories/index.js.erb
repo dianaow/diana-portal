@@ -1,1 +1,3 @@
-$('#category').append('<%= escape_javascript(render @categories)%>')
+$('#category-container').append('<%= escape_javascript(render @categories)%>');
+
+$( ".load-more-container").insertAfter('#category-container');

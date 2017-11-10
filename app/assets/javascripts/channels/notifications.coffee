@@ -1,4 +1,4 @@
-App.notifications = App.cable.subscriptions.create "NotificationChannel",
+App.notifications = App.cable.subscriptions.create "NotificationsChannel",
 
   connected: ->
     # Called when the subscription is ready for use on the server
@@ -9,6 +9,7 @@ App.notifications = App.cable.subscriptions.create "NotificationChannel",
   received: (data) ->
     # Called when there's incoming data on the websocket for this channel
     $('#notificationList').prepend "#{data.notification}"
+    $('#notifications-index-list').prepend "#{data.notification}"
     this.update_counter(data.counter)
     
   update_counter: (counter) ->
@@ -16,8 +17,4 @@ App.notifications = App.cable.subscriptions.create "NotificationChannel",
     val = parseInt $counter.text()
     val++
     $counter
-    .css({opacity: 0})
     .text(val)
-    .css({top: '-10px'})
-    .transition({top: '-2px', opacity: 1})
-  

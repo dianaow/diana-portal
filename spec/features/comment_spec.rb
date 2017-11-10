@@ -2,30 +2,69 @@ require 'rails_helper'
 
 describe "Comments on article" do
     
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:article) { FactoryGirl.create(:article) }
+
     before do
-        @user = FactoryGirl.create(:user)
-        login_as(@user, :scope => :user)
-        @article1 = FactoryGirl.create(:article)
-        visit article_path(@article1)
+        login_as(user, :scope => :user)
+        visit article_path(article)
     end
     
-    scenario 'edit' do
-      @comment = Comment.create(content:"Some comments", article_id: @article1.id, user_id: @user.id)
-      visit article_path(@article1)
-      within('.card-block') do
-        click_link("Edit", href: "/articles/#{@article1.friendly_id}/comments/#{@comment.id}/edit")
+    describe 'creation', js: true do
+            
+      it 'displays no comments notice if there are zero comments belonging to article' do
+        expect(page).to have_css("#comments-count", text: "This article has 0 comments")
       end
-      fill_in 'comment[content]', with: "Edited comments"
-      click_on "Post"
-      expect(page).to have_css('.comment-content', text: "Edited comments")
+      
+      it 'a comment can be created through ajax form submission' do
+        fill_in 'comment[content]', with: "Some comments"
+        click_on "Add Comment"
+        expect(page).to have_css('#comment-content', text: "Some comments")
+      end
+      
+      it 'counts the number of comments belonging to article' do
+        fill_in 'comment[content]', with: "Some comments"
+        click_on "Add Comment"
+        expect(page).to have_css('#comments-count', text: "This article has 1 comment")
+      end
+      
     end
     
-     it 'creation' do
-      fill_in 'comment[content]', with: "Some comments"
-      click_on "Post"
-      expect(current_path).to eq(article_path(@article1))
-      expect(page).to have_css('.comment-content', text: "Some comments")
+    describe 'edit', js: true do
+    
+      before do
+        fill_in 'comment[content]', with: "Some comments"
+        click_on "Add Comment"
+      end
+
+      it 'a comment can be edited through ajax' do
+        within ".comment-card" do
+          click_on "Edit"
+          expect(page).to have_css('#comment-content', text: "Some comments")
+          fill_in 'comment[content]', with: "Edited comments"
+          click_on "Save"
+          expect(page).to have_css('#comment-content', text: "Edited comments")
+        end
+      end
+    
     end
-  
+    
+    describe 'destroy', js: true do
+    
+      before do
+        fill_in 'comment[content]', with: "Some comments"
+        click_on "Add Comment"
+      end
+      
+      it 'a comment can be deleted through ajax' do
+        within ".comment-card" do
+          click_on "Delete"
+          wait_for_ajax
+        end
+        expect(page).to_not have_css('#comment-content', text: "Some comments")
+        expect(page).to have_css("#comments-count", text: "This article has 0 comments")
+      end
+
+    end
     
 end

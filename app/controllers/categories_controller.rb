@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
 before_action :authenticate_user!
+impressionist :actions=>[:show]
 
   def index
     if params[:id]
@@ -15,7 +16,8 @@ before_action :authenticate_user!
 
   def show
     @category = Category.find(params[:id])
-    @articles = @category.articles
+    @articles = @category.articles.order("impressions_count DESC").paginate(page: params[:page], per_page: 15)
+    impressionist(@category)
   end
 
 end

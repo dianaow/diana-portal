@@ -1,10 +1,10 @@
 $(document).ready(function () {
-    $('a.load-more').click(function (e) {
+    $('a.btn-cat-loadmore').click(function (e) {
         e.preventDefault();
-        $('.load-more').hide();
+        $('.btn-cat-loadmore').hide();
         $('.loading-gif').show();
 
-        var last_id = $('.category').last().attr('data-id');
+        var last_id = $('.category').last().attr('id');
 
         $.ajax({
 
@@ -17,7 +17,7 @@ $(document).ready(function () {
 
             success: function () {
                 $('.loading-gif').hide();
-                $('.load-more').show();
+                $('.btn-cat-loadmore').show();
             }
         });
 

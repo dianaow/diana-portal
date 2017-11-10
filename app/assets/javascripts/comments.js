@@ -42,5 +42,5 @@ $(document).ready(function() {
         $(span).text("More");
 
     });
-    
+
 });

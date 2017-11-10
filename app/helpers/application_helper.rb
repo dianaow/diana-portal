@@ -30,37 +30,22 @@ module ApplicationHelper
     ]
   end
   
-  def nav_helper style_wrapper_icon, style_icon, style_wrapper_url, tag_type, icon_tag_type
+  def nav_helper tag_type
     nav_links = ''
 
     nav_items.each do |item|
-      nav_links << "<div class= 'row nav-style'>
-                      <#{tag_type} class='#{style_wrapper_icon}'>
-                        <#{icon_tag_type} class= '#{item[:icon]}' style='#{style_icon}'></#{icon_tag_type}>
-                      </#{tag_type}>
-                      <#{tag_type} class='#{style_wrapper_url}'>
+    nav_links << "  <li>
+                      <#{tag_type} class= '#{item[:icon]}'></#{tag_type}>
+                      <#{tag_type}>
                         <a href='#{item[:url]}'>#{item[:title]}</a>
                       </#{tag_type}>
-                    </div>"
+                    </li>"
     end
 
     nav_links.html_safe
   end
 
 
-  def bootstrap_class_for flash_type
-    { success: "alert-success", error: "alert-danger", alert: "alert-warning", notice: "alert-info" }[flash_type] || flash_type.to_s
-  end
-
-  def flash_messages(opts = {})
-    flash.each do |msg_type, message|
-      concat(content_tag(:div, message, class: "alert alert-#{bootstrap_class_for(msg_type)} fade in") do 
-              concat content_tag(:button, 'x', class: "close", data: { dismiss: 'alert' })
-              concat message 
-            end)
-    end
-    nil
-  end
 
 
 end

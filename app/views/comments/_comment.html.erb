@@ -1,32 +1,31 @@
-<%= render 'comments/comment_form', article: article %>
-
-<% comments.each do |comment| %>
-<div class="comment-card padding-top-20">
-  <div class="card">
-    <div class="card-block">
-      <div class="row">
-        <div class="col-md-1 col-xs-2">
-          <%= gravatar_for(comment.user, size:50) %>
-        </div>
-        <div class="col-md-11 col-xs-10">
-          <b><%= comment.user.name %></b>
-          <small><%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</small> 
-          <% if current_user == comment.user %>
-            <%= link_to "Delete", [comment.article, comment], method: :delete %> |
-            <%= link_to "Edit", edit_article_comment_path(comment.article, comment), remote: true %>
-          <% end %>
-            <div id="edit_<%= comment.id %>" >
-              <div id ="comment-content">
-                <%= comment.content %>
+<div id="comment_<%= comment.id %>" >
+  <div class="comment-card padding-top-20">
+    <div class="card">
+      <div class="card-block">
+        <div class="row">
+          <div class="col-md-1 col-xs-2">
+            <%= gravatar_for(comment.user, size:50) %>
+          </div>
+          <div class="col-md-11 col-xs-10">
+            <b><%= comment.user.name %></b>
+            <small><%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</small> 
+            <% if current_user == comment.user %>
+              <%= link_to "Delete", article_comment_path(comment.article, comment), method: :delete, data: { confirm: 'Delete comment?' }, remote: true %> |
+              <%= link_to "Edit", edit_article_comment_path(comment.article, comment), remote: true %>
+            <% end %>
+              <div id="edit_<%= comment.id %>" >
+                <div id ="comment-content">
+                  <%= comment.content %>
+                </div>
+                <div id = "comment-more" class="padding-top-10">
+                  <span class="hidden inline">More</span>
+                </div>
               </div>
-              <div id = "comment-more" class="padding-top-10">
-                <span class="hidden inline">More</span>
-              </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <hr>
 </div>
-<hr>
-<% end %>
+

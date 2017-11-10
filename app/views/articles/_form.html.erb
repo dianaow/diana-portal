@@ -1,52 +1,35 @@
-<div class="form-horizontal">
+<div id="article-form">
   <%= form_for @article, id: "new_article" do |f| %>
   
     <div class="form-group">
-      <div class="control-label col-sm-3 col-xs-3">
-        <%= f.label :title %>
-      </div>
-      <div class="col-sm-9 col-xs-3">
-        <%= f.text_field :title, class: "form-control", autofocus: true %>
-      </div>
+      <%= f.label :title %>
+      <%= f.text_field :title, class: "form-control", autofocus: true %>
     </div>
     
     <div class="form-group">
-      <div class="control-label col-sm-3 col-xs-3">
-        <%= f.label :description %>
-      </div>
-      <div class="col-sm-9 col-xs-9">
-        <%= f.cktext_area :description, rows: 20, class: "form-control", ckeditor: { uiColor: '#cfcfcf'} %>
-      </div>
+      <%= f.label :summary %>
+      <%= f.text_field :summary, class: "form-control" %>
+    </div>
+    
+    <div class="form-group">
+      <%= f.cktext_area :description, rows: 20, class: "form-control", ckeditor: { uiColor: '#cfcfcf'} %>
     </div>
     
     <div class="form-group">                                                                       
-      <div class="control-label col-sm-3 col-xs-3">
-        <%= f.label :category %>
-      </div>
-      <div class="col-sm-9 col-xs-9">
-        <%= f.collection_select :category_ids, Category.all, :id, :name, {}, {:multiple => true} %>
-      </div>
+      <%= f.label :category %>
+      <%= f.collection_select :category_ids, Category.all, :id, :name, {}, {:multiple => true, class: "form-control"} %>
     </div>
     
     <div class="form-group">
-      <div class="control-label col-sm-3 col-xs-3">
-        <%= f.label "Do you want to publish?" %>
-      </div>
-      <div class="col-sm-2 col-xs-2">
-        <%= f.radio_button :status, 'draft'%>
-        <%= f.label :status, 'Draft' %>
-      </div>
-      <div class="col-sm-7 col-xs-7">
-        <%= f.radio_button :status, 'published' %>
-        <%= f.label :status, 'Publish' %>
-      </div>
+      <%= f.label "Do you want to publish?" %>
+      <%= f.radio_button :status, 'draft', class: "margin-left-20" %>
+      <%= f.label :status, 'Draft' %>
+      <%= f.radio_button :status, 'published' %>
+      <%= f.label :status, 'Publish' %>
     </div>
     
     <div class="form-group padding-top-10">
-      <div class="col-sm-3 col-xs-3"></div>
-      <div class="col-sm-9 col-xs-9">
         <%= f.submit "Post your article", class: 'btn btn-primary btn-md' %>
-      </div>
     </div>
 
   <% end %>

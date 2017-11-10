@@ -1,0 +1,2 @@
+$(".pending-requests-list #requested_friendship_<%= @requested_friendship.id %>").remove();
+$('.pending-requests h3').html("You have <%= pluralize(current_user.requested_friendships.count, "pending friend request") %>");

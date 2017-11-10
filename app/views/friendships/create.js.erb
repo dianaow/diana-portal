@@ -1,0 +1,1 @@
+$('#user_<%= @friend.id %> .status_buttons').html("<%= escape_javascript(render partial: 'users/status_buttons', locals: { user: @friend }) %>");

@@ -1,6 +1,6 @@
-<div class ="container-fluid">
+<div class ="container">
     <div class="row">
-      <div class="col-md-8 col-xs-8">
+      <div class="col-md-8 col-sm-12 col-xs-12">
         <div id = "my-feed">
           <%= render @feed %>
         </div>
@@ -8,7 +8,28 @@
           <%= will_paginate @feed %>
 
       </div>
-      <div class="col-md-4 col-xs-4">
+      <div class="col-md-4">
+        <div id = "recommended-users-container">
+          <h4>Recommended users</h4>
+          <% @recommended.each do |user| %>
+            <%= render 'pages/user', user: user %>
+          <% end %>
+        </div>
+
+        <div id = "featured-article">
+          <h4>Featured article</h4>
+
+        </div>
+      
+        <div id = "frequented-tags">
+          <h4>Your frequented tags</h4>
+          <% @categories.each do |category| %>
+              <button type="button" class = "btn btn-tag">
+                <%= category.name %> 
+              </button>
+          <% end %>
+        </div>
+        
 
       </div>
     </div>

@@ -1,15 +1,18 @@
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
     <span class = "glyphicon glyphicon-user"></span>
 </a>
-<ul class="dropdown-menu" style = "padding: 0px;">
-    <div class = "row nav-style">
-      <div class = 'col-md-2 col-xs-2'>
-        <%= gravatar_for(current_user, size: 30) %>
+<ul class="dropdown-menu" id="mymenuContainer">
+      <div id="mymenuBody">
+        <ul id="mymenuList">
+          <li>
+            <span style= "padding-right: 20px"><%= gravatar_for(current_user, size: 30) %></span>
+            <span><%= link_to "#{current_user.name}", edit_user_registration_path %></span>
+          </li>
+          <%= nav_helper 'span' %>
+        </ul>
       </div>
-      <div class = "col-md-10 col-xs-10">
-        <%= link_to "#{current_user.name}", edit_user_registration_path %>
+      <div id="mymenuFooter">
+         <%= link_to "Logout", destroy_user_session_path, method: :delete %>
       </div>
-    </div>
-    <%= nav_helper 'col-md-2 col-xs-2', 'font-size: 1.3em', 'col-md-10 col-xs-10', 'div', 'span' %>
-    <li class= "padding-top-20"><%= link_to "Logout", destroy_user_session_path, method: :delete, class: "bg-grey nav-style" %></li>
 </ul>
+

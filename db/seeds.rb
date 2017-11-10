@@ -1,5 +1,8 @@
+require 'faker'
+
+user_array = []  
 20.times do |n|
-  User.create!(name: "Test #{n+1}", 
+  user_array << User.create!(name: "Test#{n+1}", 
                email: "test#{n+1}@test.com",
                password: "asdfasdf",
                password_confirmation: "asdfasdf")
@@ -7,72 +10,39 @@ end
 
 puts "20 Users created"
 
+category_array = []                                                         
+10.times do                                                      
+  category_array << Category.create!(name: Faker::ProgrammingLanguage.unique.name)                 
+end 
 
-Category.create!(name: "Ruby on Rails")
-Category.create!(name: "Python")
-Category.create!(name: "Ajax")
-Category.create!(name: "Javascript")
-Category.create!(name: "SQL")
+puts "10 Categories created"
 
-puts "5 Categories created"
+user_array.each do |user|
+    10.times do |n|
+      Article.create!(title: Faker::Lorem.unique.sentence(10).chomp('.'),
+               summary: Faker::Lorem.unique.paragraph(rand(2..4)),
+               description: Faker::Lorem.paragraph(rand(3..100)),
+               user_id: User.find(n+1).id,
+               status: 1,
+               impressions_count: 10-n,
+               cached_votes_score: 10-n)
+    end
+end
+
+puts "200 Articles created"
+
 
 20.times do |n|
-  Article.create!(title: "Ruby on Rails #{n}",
-           description: BetterLorem.p(5, true, false),
-           user_id: User.find(2).id,
-           status: 1,
-           cached_votes_score: 20-n)
+  ArticleCategory.create!(article_id: n+1, 
+                      category_id: 10)
 end
-
 20.times do |n|
-  Article.create!(title: "Python articles #{n}",
-           description: BetterLorem.p(5, true, false),
-           user_id: User.first.id,
-           status: 1)
+  ArticleCategory.create!(article_id: n+21, 
+                      category_id: 9)
+end
+9.times do |n|
+  ArticleCategory.create!(article_id: n+41, 
+                      category_id: n+1)
 end
 
-
-10.times do |n|
-  Article.create!(title: "Ajax article #{n}",
-           description: BetterLorem.p(5, true, false),
-           user_id: User.find(3).id,
-           status: 1)
-end
-
-10.times do |n|
-  Article.create!(title: "Javascript articles #{n}",
-           description: BetterLorem.p(5, true, false),
-           user_id: User.find(4).id,
-           status: 1)
-end
-
-
-puts "60 Articles created"
-
-
-(1..20).each do |n|
- ArticleCategory.create!(article_id: n, 
-                      category_id: 1)
-end
-
-(21..40).each do |n|
- ArticleCategory.create!(article_id: n, 
-                      category_id: 2)
-end    
-
-(41..50).each do |n|
- ArticleCategory.create!(article_id: n, 
-                      category_id: 3)
-end    
-
-(51..60).each do |n|
- ArticleCategory.create!(article_id: n, 
-                      category_id: 4)
-end    
-
-(1..10).each do |n|
- ArticleCategory.create!(article_id: n, 
-                      category_id: 4)
-end    
-
-puts "60 categorized articles (with 10 articles with muliple categories)"
+puts "50 categorized articles"

@@ -1,0 +1,64 @@
+button {
+    display: flex;
+    font-family: 'Roboto Slab',serif;
+}
+
+.btn {
+   border-radius: 0;
+   font-family: 'Roboto Slab',serif;
+}
+
+.btn-devise {
+  background: #ffffff;
+  border: 2px solid #031424;
+  width: 100%;
+}
+    
+.btn-article-show, .btn-article-show:hover, .btn-article-show:focus {
+    background: none;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    padding: 6px;
+}
+
+.btn-vote, .btn-vote:hover, .btn-vote:focus  {
+    background: none;
+    color: #000000;
+    border: 2px solid #000000;
+    padding: 10px;
+}
+
+.btn-tag {
+    background: #FF6A5C;
+    border: 4px solid #ffffff;
+    color: #ffffff;
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    padding: 10px 20px;
+}
+
+.btn-tag:hover  {
+    color: #ffffff;
+}
+
+.btn-cat-index {
+    background: #FF6A5C;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+    padding: 12px 22px;
+}
+
+.btn-cat-loadmore {
+    background: #ffffff;
+    border: 2px solid #FF6A5C;
+    border-radius: 0;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    color: #FF6A5C;
+}
+
+.btn-cat-loadmore:hover, .btn-cat-loadmore:focus, .btn-cat-loadmore:active {
+    color: #FF6A5C;
+}

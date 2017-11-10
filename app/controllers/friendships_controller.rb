@@ -4,39 +4,61 @@ class FriendshipsController < ApplicationController
     
     def create
       @friendship = current_user.friendships.build(friend_id: params[:friend_id])
+      @friend = @friendship.friend
       if @friendship.save
-        flash[:notice] = "Friend requested."
+        respond_to do |format|
+          format.html { redirect_back fallback_location: users_path, :flash => { :success => "You have sent a friend request." } }
+          format.js 
+        end
         Notification.create!(recipient: @friendship.friend, actor: @friendship.user, action: "requested", notifiable: @friendship)
-        redirect_back fallback_location: users_path
       else
-        flash[:error] = "Unable to request friendship."
-        redirect_back fallback_location: root_path
+        respond_to do |format|
+          format.html { redirect_back fallback_location: users_path, :flash => { :error => "Unable to request friendship." } }
+          format.js
+        end
       end
     end
 
     def update
     @friendship.update(accepted: true)
+    @friend = @friendship.friend
+    @requested_friendship = @friendship.user
       if @friendship.save
-        flash[:notice] = "Successfully confirmed friend!"
+        respond_to do |format|
+          format.html { redirect_back fallback_location: followers_path, :flash => { :success => "Successfully confirmed friend!" } }
+          format.js  
+        end
         Notification.create!(recipient: @friendship.user, actor: @friendship.friend, action: "accepted", notifiable: @friendship)
-        redirect_to followers_path
       else
-        flash[:notice] = "Sorry! Could not confirm friend!"
-        redirect_back fallback_location: root_path
+        respond_to do |format|
+          format.html { redirect_back fallback_location: followers_path, :flash => { :error => "Sorry! Could not confirm friend!" } }
+          format.js
+        end
       end
     end
 
     def destroy
-      @friendship.destroy
-      flash[:notice] = "Removed friendship."
-      redirect_back fallback_location: root_path
+      @follow = @friendship.friend
+      @requested_friendship = @friendship.user
+      if @friendship.destroy
+        if @friendship.accepted? == true
+          respond_to do |format|
+            format.html { redirect_to followers_path, :flash => { :success =>  "You have unfollowed #{@friendship.user.name}."} }
+            format.js { render action: "destroy_friendship" }
+          end
+        else
+          respond_to do |format|
+            format.html { redirect_to followers_path, :flash => { :success =>  "You have declined #{@friendship.user.name}'s follow request."} }
+            format.js { render action: "decline_friendship" }
+          end
+        end
+      else
+        flash[:error] = "Sorry! Could not unfollow user/decline follow request!"
+        redirect_back fallback_location: root_path
+      end
     end
     
-    def show
-      @articles = @friendship.friend.articles
-    end
-    
-      private
+    private
 
     def set_friendship
       @friendship = Friendship.find_by(id: params[:id])
@@ -45,4 +67,5 @@ class FriendshipsController < ApplicationController
     def friendship_params
       params.require(:friendship).permit(:friend_id, :user_id, :status)
     end
+
 end

@@ -1,0 +1,12 @@
+<div class="row alternate-row" id="requested_friendship_<%= requested_friendship.id %>">
+  <div class = "col-md-1 col-xs-2">
+    <%= gravatar_for(requested_friendship, size: 45) %>
+  </div>
+  <div class = "col-md-8 col-xs-3">
+    <b><%= link_to requested_friendship.name, user_path(requested_friendship) %></b>
+  </div>
+  <div class = "col-md-3 col-xs-7">
+    <%= link_to "Accept",  friendship_path(requested_friendship.friendships.find_by_friend_id(current_user)), method: "put", remote: true, class: "btn btn-sm btn-info" %>
+    <%= link_to "Decline", friendship_path(requested_friendship.friendships.find_by_friend_id(current_user)), method: :delete, remote: true, class: "btn btn-sm btn-default" %>
+  </div>
+</div>

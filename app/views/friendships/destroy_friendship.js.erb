@@ -1,0 +1,2 @@
+$('#following_<%= @follow.id %>').remove();
+$('#following h3').html("You are following <%= pluralize(current_user.active_friends.count, 'person') %>");

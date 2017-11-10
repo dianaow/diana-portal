@@ -1,0 +1,28 @@
+<div class = "container-fluid">
+  <div class="row">
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+      <div class="col-md-10 col-xs-10">
+        <div class="row">
+          <% obj.each do |article| %>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4><%= link_to article.title, article_path(article) %></h4>
+                </div>
+                <div class="panel-body">
+                  <p><%= article.summary %></p>
+                  <small> <%= article.user.name if article.user%>, <%= time_ago_in_words(article.updated_at) %> ago</small>
+                  <% if article.impressions_count == 1 %>
+                    <span class="badge badge-pill badge-light"><%= article.impressions_count %> view</span>
+                  <% else %>
+                    <span class="badge badge-pill badge-light"><%= article.impressions_count %> views</span>
+                  <% end %>
+                </div>
+               </div>
+             </div>
+          <% end %>
+        </div>
+      </div>
+    <div class="col-md-1 col-sm-1 col-xs-1"></div>
+  </div>
+</div>

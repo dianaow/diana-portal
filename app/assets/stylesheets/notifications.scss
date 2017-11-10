@@ -11,12 +11,20 @@
 }
 
 
-#notificationContainer
-{
+#notificationContainer {
+
   border: 1px solid rgba(100, 100, 100, .4);
   -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
-  width: 100%;
+  background-color: #fff;
+  
+   .dropdown-menu {
+       width: 300px;
+       padding: 0px;
+       margin: 0px;
+   }
+   
 }
+
 
 #notificationsBody
 {
@@ -29,42 +37,44 @@
 
 #notificationsBody  ul
 {
-  padding: 5px;
+  padding: 6px;
 }
 
 ul #notificationList
 {
   li
   {
-    border-bottom: #dddddd 1px solid;
     list-style-type: none;
-    padding: 5px;
+    padding: 6px;
   }
   span
   {
     color: #989494;
     font-size: 13px;
   }
+  
+  span.glyphicon.glyphicon-envelope {
+    padding-top: 2px;
+    font-size: 16px;
+  }
 
 }
 
 #notificationTitle
 {
-  font-weight: bold;
-  padding: 8px;
-  font-size: 13px;
-  background-color: #f0f0f0;
+  padding: 6px;
+  font-size: 16px;
+  background-color: #e9eaed;
   z-index: 1;
-  border-bottom: 1px solid #000;
-  color: #000;
+  text-align: center;
+  font-family: 'Roboto Slab',serif;
 }
 
 #notificationFooter
 {
   background-color: #e9eaed;
   text-align: center;
-  font-weight: bold;
-  padding: 8px;
-  font-size: 12px;
-  border-top: 1px solid #000;
+  padding: 6px;
+  font-size: 13px;
+  font-family: 'Roboto Slab',serif;
 }

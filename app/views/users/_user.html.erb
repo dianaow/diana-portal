@@ -1,4 +1,4 @@
-<div class="row alternate-row">
+<div class="row alternate-row" id="user_<%= user.id %>">
   <div class = "col-md-1 col-sm-2 col-xs-3">
     <%= gravatar_for(user, size: 45) %>
   </div>
@@ -6,15 +6,7 @@
     <b><%= link_to user.name, user_path(user) %></b><br>
     <small><%= pluralize(user.articles.count, "article") if user.articles %></small>
   </div>
-  <div class = "col-md-2 col-sm-4 col-xs-5">
-    <% if user == current_user %>
-      <div></div>
-    <% elsif current_user.pending_friends.include?(user) && current_user.requested_friendships.include?(user)  == false %> 
-      <button type="button" class="btn btn-md">Awaiting request</button>
-    <% elsif current_user.active_friends.include?(user) %>
-      <%= link_to "Unfollow", friendship_path(current_user.friendships.find_by_friend_id(user.id)), :method => :delete, data: { confirm: "Are you sure?" }, class:"btn btn-md btn-danger" %>
-    <% elsif current_user.active_friends.include?(user) == false  %>
-      <%= link_to "Follow", friendships_path(friend_id: user.id), method: :post, class: "btn btn-md btn-success" %>
-    <% end %>
+  <div class = "col-md-2 col-sm-4 col-xs-5 status_buttons">
+    <%= render 'users/status_buttons', user: user %>
   </div>
 </div>

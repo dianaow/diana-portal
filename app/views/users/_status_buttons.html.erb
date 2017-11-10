@@ -1,21 +1,9 @@
-<div class="row" id ="buttons">
-   <div class="col-md-5 col-sm-7 col-xs-4">
-      <% if user == current_user %>
-        <div></div>
-      <% elsif current_user.pending_friends.include?(user) && current_user.requested_friendships.include?(user)  == false %> 
-        <button type="button" class="btn btn-md">Awaiting request</button>
-      <% elsif current_user.active_friends.include?(user) %>
-        <%= link_to "Unfollow", friendship_path(current_user.friendships.find_by_friend_id(user.id)), :method => :delete, data: { confirm: "Are you sure?" }, class:"btn btn-md btn-danger" %>
-      <% elsif current_user.active_friends.include?(user) == false  %>
-        <%= link_to "Follow", friendships_path(friend_id: user.id), method: :post, class: "btn btn-md btn-success" %>
-      <% end %>
-  </div>
-  <div class="col-md-7 col-sm-5 col-xs-8"> 
-    <% if user == current_user %>
-      <div></div>
-    <% elsif current_user.pending_friends.include?(user) == false && current_user.requested_friendships.include?(user) %>
-      <%= link_to "Accept",  friendship_path(current_user.received_friendships.find_by_user_id(user.id)), method: "put", class: "btn btn-info" %>
-      <%= link_to "Decline", friendship_path(current_user.received_friendships.find_by_user_id(user.id)), method: :delete, class: "btn btn-default" %>
-    <% end %>
-  </div>
-</div>
+<% if user == current_user %>
+   <div></div>
+<% elsif current_user.pending_friends.include?(user) == true %> 
+  <button type="button" class="btn btn-md">Awaiting Request</button>
+<% elsif current_user.active_friends.include?(user) == true %>
+  <%= link_to "Unfollow", friendship_path(current_user.friendships.find_by_friend_id(user.id)), :method => :delete, data: { confirm: "Are you sure?" }, class:"btn btn-md btn-danger", remote: true %>
+<% elsif current_user.follows?(user) == false %>
+  <%= link_to "Follow", friendships_path(friend_id: user.id), method: :post, class: "btn btn-md btn-success", remote: true %>
+<% end %>

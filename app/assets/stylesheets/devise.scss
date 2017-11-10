@@ -1,0 +1,31 @@
+.edit_user, .new_user {
+    padding: 20px;
+    padding-bottom: 40px;
+}
+
+.devise-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    font-family: 'Roboto Slab',serif;
+    
+    h1 {
+        text-align: center;
+        padding: 20px;
+        margin: 0px 20px;
+    }
+
+    .auth-links a {
+        font-size: 12px;
+        padding: 2px 4px;
+    }
+    
+    .form-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+

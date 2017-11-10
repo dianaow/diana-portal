@@ -1,24 +1,6 @@
-<div class = "container" id= "notifications-container">
+<div class = "container">
     <h1>Notifications</h1>
-    <% @notifications.each do |notification| %>
-        <div class="row" data-notification-id="<%= notification.id %>">
-          <div class = "col-md-1 col-xs-2">
-            <%= link_to notification, method: :delete, remote: true, class: 'delete_notification' do %>
-              <span class="glyphicon glyphicon-remove"></span>
-            <% end %>
-          </div>
-          <div class = "col-md-9 col-xs-8">
-            <% if notification.notifiable_type == "Comment" %>
-              <p><%= notification.actor.name %> <%= notification.action %> a <%= notification.notifiable_type %> on <%= link_to "#{notification.notifiable.article.title}", article_path(notification.notifiable.article)%></p> 
-            <% elsif notification.notifiable_type == "Friendship" && notification.action == "requested" %>
-              <p><%= link_to "#{notification.actor.name}", user_path(notification.actor) %> has <%= notification.action %> to <%= notification.notifiable_type %> you</p> 
-            <% elsif notification.notifiable_type == "Friendship" && notification.action == "accepted" %>
-              <p><%= link_to "#{notification.notifiable.friendship.recipient.name}", user_path(notification.notifiable.friendship.recipient) %> has <%= notification.action %> your friend request</p> 
-            <% end %>
-          </div>
-          <div class = "col-md-2 col-xs-2">
-            <span> <%= notification.created_at.strftime("%d %b. %Y") %></span>
-          </div>
-        </div>
-    <% end %>
+    <div id= "notifications-index-list">
+      <%= render @notifications %>
+    </div>
 </div>

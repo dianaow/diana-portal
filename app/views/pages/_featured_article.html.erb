@@ -1,0 +1,9 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4><%= link_to featured_article.title, article_path(featured_article) %></h4>
+    </div>
+    <div class="panel-body">
+      <p><%= featured_article.summary %></p>
+      <small> <%= featured_article.user.name if featured_article.user%>, <%= time_ago_in_words(featured_article.updated_at) %> ago</small>
+    </div>
+</div>

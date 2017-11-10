@@ -19,7 +19,7 @@ $(document).ready(function() {
       allSelectedText: 'All Categories'
     });
     
-    $('#sortBy').multiselect({
+    $('.sortBy').multiselect({
       buttonWidth: '150px',
       buttonContainer: '<div class="btn-group" />',
       onChange: function(option) {
@@ -38,12 +38,15 @@ $(document).ready(function() {
         $('#' + id).find('span').hide();
       }
     );
-     
+  
     var length = $('#article-description').innerHeight(); 
 
     if(length > 600) {
         $('#article-description').addClass("height-style");
         $('#read-more').find("button").removeClass("hidden");
+    } else {
+       $('#article-description').css("height", "600px");
+       $('#article-description').css("overflow", "auto");
     }
        
     $('#read-more').on('click', function(e) {
@@ -85,4 +88,3 @@ function validatearticleFunction() {
 }
 $(document).ready(validatearticleFunction);
 $(document).on('page:load', validatearticleFunction);
-

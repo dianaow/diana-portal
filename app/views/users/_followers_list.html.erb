@@ -1,0 +1,6 @@
+<h3 class = "padding-bottom-40">You have <%= pluralize(followers.count, 'follower') %></h3>
+<div class = "followers-list">
+  <% followers.each do |follower| %>
+    <%= render 'users/user', user: follower %>
+  <% end %>
+</div>

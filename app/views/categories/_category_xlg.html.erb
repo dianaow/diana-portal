@@ -1,0 +1,25 @@
+<% div_id = "carousel_Xlg_#{category.id}" %>
+  <div id="<%= div_id %>", class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="item active">
+        <div class="carousel-content">
+          <%= render 'article', obj: category.articles.order("impressions_count DESC").limit(3) %>
+        </div>
+      </div>
+      <div class="item">
+        <div class="carousel-content">
+          <%= render 'article', obj: category.articles.order("impressions_count DESC").limit(3).offset(3) %>
+        </div>
+      </div>
+      <% if category.articles.count > 3 %>
+        <a class="left carousel-control" href="#<%= div_id %>" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#<%= div_id %>" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+      <% end %>
+    </div>
+  </div>
+      
+

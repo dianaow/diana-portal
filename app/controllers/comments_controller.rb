@@ -4,24 +4,37 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:destroy, :edit, :update]
   
   def create
-    @comment = @article.comments.new(comment_params)
+    @comment = @article.comments.build(comment_params)
     @comment.user = current_user
       if @comment.save
-        flash[:success] = "Your comment was created successfully"
-        unless @comment.article.user == current_user
-          Notification.create!(recipient: @article.user, actor: current_user, action: "posted", notifiable: @comment)
+        respond_to do |format|
+          format.html { redirect_to @comment.article, :flash => { :success => "Your comment was created successfully" } }
+          format.js
         end
-        redirect_to @article
+        unless @comment.article.user == current_user
+          Notification.create!(recipient: @article.user, actor: current_user, action: "posted", notifiable: @comment) 
+        end
       else
-        flash[:error] = "Unable to submit comment."
-        redirect_to @article
+       respond_to do |format|
+          format.html { redirect_to @comment.article, :flash => { :error => "Unable to submit comment."} }
+          format.js
+        end
       end
   end
   
   def destroy
-    @comment.destroy
-    flash[:success] = "Successfully deleted comment"
-    redirect_to @article
+    @article = @comment.article
+    if @comment.destroy
+      respond_to do |format|
+        format.html { redirect_to @comment.article, :flash => { :success =>  "Successfully deleted comment" } }
+        format.js  
+      end
+    else
+     respond_to do |format|
+        format.html { redirect_to @comment.article, :flash => { :error => "Unable to delete comment."} }
+        format.js
+      end
+    end
   end
   
   def edit
@@ -32,12 +45,17 @@ class CommentsController < ApplicationController
   end
 
   def update
-      if @comment.update(params[:comment].permit(:content))
-        flash[:success] = "Successfully updated comment"
-        redirect_to @article
-      else
-        render action: :edit
+    if @comment.update(params[:comment].permit(:content))
+      respond_to do |format|
+        format.html { redirect_to @comment.article, :flash => { :success =>  "Successfully edited comment" } }
+        format.js
       end
+    else
+     respond_to do |format|
+        format.html { redirect_to @comment.article, :flash => { :error =>  "Unable to edit comment."} }
+        format.js
+      end
+    end
   end
 
   private

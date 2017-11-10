@@ -1,145 +1,22 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "conversations.scss";
-@import "articles.scss";
-@import "comments.scss";
+@import 'general.scss';
+@import 'buttons.scss';
 @import "notifications.scss";
+@import "navigation.scss";
+@import "devise.scss";
+@import "categories.scss";
+@import "conversations.scss";
+@import "comments.scss";
+@import "browse.scss";
+@import "articles.scss";
+@import "article_responsive.scss";
+@import "home.scss";
 @import "tomorrow-night-eighties.css.scss";
+@import "bootstrap-multiselect";
 @import "select2";
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
 @import url('https://fonts.googleapis.com/css?family=Space+Mono');
-@import "bootstrap-multiselect";
-
-p, h1, h2, h3, h4 , small{
-   font-family: 'Roboto',serif;
-}
-
-.center {
-text-align: center;
-}
-
-.alternate-row {
-    margin: 10px;
-}
-
-.alternate-row:nth-child(odd) {
-    background: #f9f9f9;
-}
-
-.padding-top-10 {
-    padding-top: 10px;
-}
-
-.padding-top-20 {
-    padding-top: 20px;
-}
-
-.padding-bottom-40 {
-    padding-bottom: 40px;
-}
-
-.padding-bottom-20 {
-    padding-bottom: 20px;
-}
-
-.margin-2 {
-    margin: 2px;
-}
-
-.margin-left-40 {
-    margin-left: 40px;
-}
-
-.margin-left-20 {
-    margin-left: 20px;
-}
-
-.margin-right-20 {
-    margin-right: 20px;
-}
-
-.form-width {
-    width:50%;
-    margin-top: 100px;
-}
-
-.form-width-50 {
-    width:50%;
-}
-
-
-.dropdown-menu {
-    min-width: 400px;
-}
-
-
-.nav-style {
-    font-size: 1.25em;
-    padding-left: 40px;
-    padding-top: 20px;
-}
-
-.navbar {
-    margin-bottom: 0px;
-}
-
-.bg-grey {
-    background-color: #cfcfcf;
-}
-
-.panel-body {
-    height: 140px;
-}
-
-#panel-body-conversation {
-    height: auto;
-}
-
-.carousel-content { 
-    display: inline-block;
-}
-
-.carousel-control.left {
-  margin-right: 25px;
-}
-
-.carousel-control.right {
-  margin-left: 25px;
-}
-
-.carousel-control.left,
-.carousel-control.right {
-  background: none;
-  border: none;
-  
-}.carousel-control {
-  width: 0%;
-}
-
-.glyphicon-chevron-left, .glyphicon-chevron-right {
-  color: grey;
-  font-size: 40px;
-}
-
-.glyphicon.glyphicon-user {
-    font-size: 16px;
-}
-
-.glyphicon.glyphicon-bell {
-    font-size: 16px;
-}
-
-.hidden{
-       display:none;
-    }
-
-label.error {
-    background-color: #99182c;
-    color: white;
-    padding: 1px 5px 1px 5px;
-    font-size:small;
-    margin-top: 10px;
-    
-}
 
 

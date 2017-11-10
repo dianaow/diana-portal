@@ -13,7 +13,8 @@
 
   <body>
     <%= render "pages/navigation" , :notifications => @notifications %>
-    <%= flash_messages %>
+    <%= render 'pages/messages' %>
     <%= yield %>
+
   </body>
 </html>

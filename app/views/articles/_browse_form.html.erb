@@ -1,4 +1,4 @@
-<div class ="jumbotron">
+<div class ="jumbotron" id="browse-form">
   <%= search_form_for q, url: articles_path, method: :get, id: "form" do |f| %>
     <div class="form-group">
       <div class = "row">
@@ -11,7 +11,10 @@
         <a class="close-advanced-search fi-x"></a>
         <div class="form-group">
           <div class ="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <%= f.search_field :user_name_cont, class: "form-control", placeholder: "Author" %>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
 
                   <%= f.collection_select :categories_name_in, Category.all, "name", "name", 
                                     { :include_hidden => false },
@@ -19,32 +22,18 @@
                                       :id => "cat-dropdown-menu" } %>
 
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-              <%= f.search_field :user_name_cont, class: "form-control", placeholder: "Author" %>
-            </div>
           </div>
         </div>
     </div>
     <div class="form-group">
       <%= f.hidden_field :s, value: q.s || params[:q][:s] %>
-      <%= f.submit class: 'btn btn-primary btn-md browse-form-button' %>
+      <%= f.submit class: 'btn btn-md btn-default' %>
       <a class="show-advanced-search"> Advanced Search</a> |
       <%= link_to "Clear Search", articles_path %>
     </div>
     <% end %>
 
-    <div class = "row">
-      <div class="col-md-7 col-sm-7 col-xs-7"></div>
-      <div class="col-md-2 col-sm-2 col-xs-2 sort-by">
-         Sort by:
-      </div>
-      <div class="col-md-3 col-sm-3 col-xs-3">
-          <%= select_tag "", options_for_select(Article.order_by, q.s), class: "form-control", id: "sortBy" %>
-      </div>
-    </div>
+</div>
 
-  
+<%= select_tag "", options_for_select(Article.order_by, q.s), class: "sortBy" %>
 
-</div> 
-  
-  

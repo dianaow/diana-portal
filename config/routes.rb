@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :articles do
     resources :comments
     member do
-      put :toggle_vote
+      get :toggle_vote
     end
   end
   
@@ -37,6 +37,6 @@ Rails.application.routes.draw do
   end
 
   root 'pages#home'
-  get '*path' => redirect('/')
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170903163159) do
+ActiveRecord::Schema.define(version: 20171028081246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20170903163159) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "impressions_count"
+    t.integer "impressions_count", default: 0
     t.integer "cached_votes_total", default: 0
     t.integer "cached_votes_score", default: 0
     t.integer "cached_votes_up", default: 0
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20170903163159) do
     t.integer "status", default: 0
     t.string "slug"
     t.bigint "topic_id"
+    t.text "summary"
     t.index ["cached_votes_down"], name: "index_articles_on_cached_votes_down"
     t.index ["cached_votes_score"], name: "index_articles_on_cached_votes_score"
     t.index ["cached_votes_total"], name: "index_articles_on_cached_votes_total"
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(version: 20170903163159) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "impressions_count", default: 0
   end
 
   create_table "collections", force: :cascade do |t|

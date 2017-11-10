@@ -16,7 +16,11 @@ scope :participating, -> (user) do
 end
 
 scope :by_unread, -> (user) do
-  where("(conversations.author_id = ? OR conversations.receiver_id = ?)", user.id, user.id).joins('RIGHT JOIN "personal_messages" ON "personal_messages"."conversation_id" = "conversations"."id"').where.not(personal_messages: {user_id: user.id}).where(personal_messages: { read_at: nil}).reorder('personal_messages.read_at asc').uniq
+  where("(conversations.author_id = ? OR conversations.receiver_id = ?)", user.id, user.id)
+  .joins('RIGHT JOIN "personal_messages" ON "personal_messages"."conversation_id" = "conversations"."id"')
+  .where.not(personal_messages: {user_id: user.id})
+  .where(personal_messages: { read_at: nil})
+  .reorder('personal_messages.read_at asc').uniq
 end
 
 def last_string

@@ -1,67 +1,47 @@
-<div class = "row">
+<div id="browse-title">
   <% if params[:q].present? == true %>
     <h1>Search Results:</h1>
   <% else %>
      <h1>Browse Articles</h1>
   <% end %>
-</div>
-
-<div class="row">
   <p><b><%= articles.count %></b> articles were found based on your criteria </p>
-</div>
+</div>  
 
-<div class= "row padding-top-20">
+<div id="browse-tags">
   <h4><b>Tags:</b></h4>
   
    <% if q.title_cont.present? == true %>
-      <%= link_to articles_path('q[categories_name_in]' => params[:q][:categories_name_in],
-                                       'q[user_name_cont]' => params[:q][:user_name_cont]),
-                                        class: "btn btn-default btn-lg" do %>
-      <div class= "btn-tag btn-tag-title">
-        <%= q.title_cont.truncate(30, omission: '... ') %> <span class='glyphicon glyphicon-remove'></span>
-      </div>
-      <% end %>
+    <button type="button" class = "btn btn-tag">
+        <%= q.title_cont.truncate(30, omission: '... ') %> 
+    </button>
    <% end %>
     
    <% if q.categories_name_in.present? == true %>
-    <% q.categories_name_in.each do |name|  %>
-        <% new_cat = q.categories_name_in.to_a.delete_if{|x| x >= name } %>
-          <%= link_to articles_path('q[title_cont]' => params[:q][:title_cont],
-                                           'q[categories_name_in]' => params[:q][:categories_name_in][1..new_cat.count], 
-                                           'q[user_name_cont]' => params[:q][:user_name_cont]),
-                                           class: "btn btn-default btn-lg" do %>
-        <div class= "btn-tag btn-tag-cat" id= "<%= name %>">  
-          <%= name %> <span class='glyphicon glyphicon-remove'></span>
-        </div>
-        <% end %>
-    <% end %>
+      <% q.categories_name_in.each do |name|  %>
+        <button type="button"class = "btn btn-tag">
+            <%= name %> 
+        </button>
+      <% end %>
    <% end %>
      
     <% if q.user_name_cont.present? == true %>
-      <%= link_to articles_path('q[title_cont]' => params[:q][:title_cont],
-                                       'q[categories_name_cont]' => params[:q][:categories_name_in]),
-                                        class: "btn btn-default btn-lg" do %>
-      <div class= "btn-tag btn-tag-user">
-        <%= params[:q][:user_name_cont] %> <span class='glyphicon glyphicon-remove'></span>
-      </div>
-      <% end %>
+      <button type="button" class = "btn btn-tag">
+        <%= params[:q][:user_name_cont] %>
+      </button>
    <% end %>
-    
 </div>
-
-<div class = "row padding-top-20">
+    
+<div id="browse-category">
   <h4><b>Category:</b></h4>
   <% if params[:q].present? == true %>
     <% categories.each do |category| %>
       <% c = category.articles.ransack(params[:q]).result(distinct: true).count %>
       <% if c > 0 %>
-        <div class="padding-top-10">
-          <%= link_to articles_path('q[title_cont]' => params[:q][:title_cont],
-                                           'q[categories_name_cont]' => category.name,
-                                           'q[user_name_cont]' => params[:q][:user_name_cont]) do %>
-            <h4><%= category.name %> (<%= c %>)</h4>
-          <% end %>
-        </div>
+        <%= link_to articles_path('q[title_cont]' => params[:q][:title_cont],
+                                         'q[categories_name_cont]' => category.name,
+                                         'q[user_name_cont]' => params[:q][:user_name_cont]) do %>
+          <h4><%= category.name %> (<%= c %>)</h4>
+        <% end %>
       <% end %>
     <% end %>
   <% else %>
