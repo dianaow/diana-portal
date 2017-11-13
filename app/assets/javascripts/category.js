@@ -4,7 +4,7 @@ $(document).ready(function () {
         $('.btn-cat-loadmore').hide();
         $('.loading-gif').show();
 
-        var last_id = $('.category').last().attr('id');
+        var last_id = $('.category').last().attr('data-id');
 
         $.ajax({
 

@@ -1,6 +1,6 @@
 <div class = "container-fluid">
     <% if category.articles.present? == true %>
-      <div class="category" id="category_<%= category.id %>">
+      <div class="category" data-id="<%= category.id %>">
       
         <div class= "row cat-name-header">
           <%= link_to category_path(category), class: "btn btn-lg btn-cat-index" do %>

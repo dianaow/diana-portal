@@ -18,8 +18,14 @@ describe 'follow users' do
         expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
     end
     
-    it "allows user to submit friend request by clicking on Follow button, which will change to Awaiting Request" do
+    it "allows user to submit friend request by clicking Follow button on users index page, which will change to Awaiting Request" do
         visit users_path
+        click_on "Follow"
+        expect(page).to have_content("Awaiting Request")
+    end
+    
+    it "allows user to submit friend request by clicking Follow button on user show page, which will change to Awaiting Request" do
+        visit user_path(other_user)
         click_on "Follow"
         expect(page).to have_content("Awaiting Request")
     end

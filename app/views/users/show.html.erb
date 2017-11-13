@@ -1,4 +1,4 @@
-<div class = "container">   
+<div class = "container" id="user_<%= @user.id %>">   
   <% provide(:title, @user.name) %>
     <div class="row">
       <div class="col-md-4 col-xs-12 padding-top-20">
@@ -10,7 +10,9 @@
            <h3><%= @user.received_friends.count %> followers</h3>
            <h3><%= @user.active_friends.count %> following</h3>
            <p><%= @user_articles.count %> articles</p>
-           <%= render 'users/status_buttons', user: @user %>
+           <div class = "status_buttons">
+             <%= render 'users/status_buttons', user: @user %>
+           </div>
         </div>
       </div>
       <div class="col-md-8 col-xs-12">

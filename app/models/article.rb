@@ -1,5 +1,5 @@
 class Article < ApplicationRecord
-  enum status: { draft: 0, published: 1 }
+  enum status: { draft: 1, published: 0 }
   extend FriendlyId
   friendly_id :title, use: :slugged
   is_impressionable :counter_cache => true, :unique => false

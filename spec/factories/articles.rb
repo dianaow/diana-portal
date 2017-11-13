@@ -1,34 +1,36 @@
 FactoryGirl.define do
-  
   factory :article do
-    title "First test article"
-    summary "Summary of first article"
-    description "This is the first test article."
-    status 1
+    sequence(:title) { |n| "Test#{n} article" }
+    summary "Summary of article"
+    description "Description of article."
     user
-    
-    factory :article_with_comments do
-      after(:create) do |article|
-        create_list(:comment, 3, article: article)
-      end
-    end
-  
+    sequence(:impressions_count) { |n| "#{1000-n}" }
   end
 
-  factory :second_article, class: "Article" do
-    title "Second test article"
-    summary "Summary of second article"    
-    description "This is the second test article."
-    status 1
-    association :user
+  trait :published do
+    status :published
+  end
+
+  trait :draft do
+    status :draft
+  end
+
+  factory :category do
+    sequence(:name) { |n| "Name #{n}" }
+
+    trait :with_articles do
+      transient do
+        number_of_articles 1
+      end
+      after(:create) do |category, evaluator|
+        create_list(:article_category, evaluator.number_of_articles, category: category)
+      end
+    end
   end
   
-  factory :draft_article, class: "Article" do
-    title "Draft Post Test"
-    summary "Summary of draft"    
-    description "This is the second test article."
-    status 0
-    association :user
+  factory :article_category do
+    article
+    category
   end
   
 end

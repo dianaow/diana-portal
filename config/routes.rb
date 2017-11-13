@@ -20,7 +20,8 @@ Rails.application.routes.draw do
   resources :articles do
     resources :comments
     member do
-      get :toggle_vote
+      get 'upvote'
+      get 'downvote'
     end
   end
   

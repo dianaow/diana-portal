@@ -61,8 +61,39 @@ pre code * {
 
 //SIDEBAR
 
+#small-article-sidebar {
+    display: none;
+    margin: 10px;
+    
+    .glyphicon {
+        font-size: 16px;
+    }
+}
+
+#small-article-sidebar h4 {
+    padding: 0px 10px;
+    font-size: 16px;
+}
+
 #article-sidebar {
     padding-top: 40px;
+}
+
+.glyphicon-heart {
+    color: #FF6A5C;
+    font-size: 50px;
+}
+
+.glyphicon-heart-empty {
+    color: #FF6A5C;
+    background-color: transparent;
+    font-size: 50px;
+    
+}
+
+.click-caption {
+    color: #FF6A5C;
+    font-size: 16px;
 }
 
 //COMMENTS
@@ -79,16 +110,6 @@ pre code * {
 
 #article_category_ids {
     width: 100%;
-}
-
-//SHOW SIDE BAR
-
-#small-article-sidebar {
-    display: none;
-}
-
-#small-article-sidebar h4 {
-    padding: 0px 10px;
 }
 
 

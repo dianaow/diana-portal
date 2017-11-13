@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_article, only: [:show, :edit, :update, :destroy, :toggle_vote]
+    before_action :set_article, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
     include ArticlesHelper
     
   def index
@@ -68,18 +68,20 @@ class ArticlesController < ApplicationController
     redirect_to articles_path
   end
   
-  def toggle_vote
-    @user = current_user
-    if @user.voted_up_on? @article
-      @article.downvote_by current_user
-    else
-      @article.upvote_by current_user
-    end
-    
+  def upvote
+    @article.upvote_by current_user
     respond_to do |format|
-      format.html
+      format.html { redirect_to :back }
       format.js
-    end
+      end
+  end
+   
+  def downvote
+    @article.downvote_by current_user
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+      end
   end
   
   def drafts

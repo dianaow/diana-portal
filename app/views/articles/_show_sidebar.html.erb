@@ -1,15 +1,15 @@
-  <% if article.impressions_count? == false %>
-    <h4>0 views</h4>
-  <% elsif article.impressions_count == 1 %>
-    <h4><%= article.impressions_count %> view</h4>
-  <% else %>
-    <h4><%= article.impressions_count %> views</h4>
-  <% end %>
-  
-  <h4><%= display_votes(article) %></h4>
-  
-  <%= link_to toggle_vote_article_path(article.id), method: :get, remote: true do %>
-    <button type="button" class="btn btn-lg btn-vote">
-      <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Vote
-    </button>
-  <% end %>
+<h4><%= pluralize(article.impressions_count, 'view') %></h4>
+
+<%= render 'vote', article: article %>  
+
+<h4 class ="click-caption">Click to like!</h4>
+
+<% if current_user.voted_up_on? article %>
+  <%= link_to '', downvote_article_path(article.id), remote: true,
+                        id: "vote_#{article.id}",
+                        class: 'glyphicon glyphicon-heart' %>
+<% else %>
+  <%= link_to '', upvote_article_path(article.id), remote: true,
+                        id: "vote_#{article.id}",
+                        class: 'glyphicon glyphicon-heart-empty' %>
+<% end %>

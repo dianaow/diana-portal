@@ -43,10 +43,12 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '2.7.1'
   gem 'capybara-webkit'
-  gem 'selenium-webdriver'
-  gem 'database_cleaner'
   gem 'capybara-screenshot'
   gem 'factory_girl_rails', '~> 4.8'
+end
+
+group :test do
+  gem 'database_cleaner', '~> 1.6', '>= 1.6.2'
 end
 
 group :development do

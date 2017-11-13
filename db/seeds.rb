@@ -19,11 +19,11 @@ puts "10 Categories created"
 
 user_array.each do |user|
     10.times do |n|
-      Article.create!(title: Faker::Lorem.unique.sentence(10).chomp('.'),
-               summary: Faker::Lorem.unique.paragraph(rand(2..4)),
+      Article.create!(title: Faker::Lorem.unique.sentence.chomp('.'),
+               summary: Faker::Lorem.unique.sentence(10, false, 10),
                description: Faker::Lorem.paragraph(rand(3..100)),
                user_id: User.find(n+1).id,
-               status: 1,
+               status: 0,
                impressions_count: 10-n,
                cached_votes_score: 10-n)
     end
