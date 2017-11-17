@@ -1,4 +1,4 @@
-<div class="recommended-user" data-id="<%= user.id %>">
+<div class="row recommended-user" data-id="<%= user.id %>">
     <div class = "col-md-2 col-sm-2 col-xs-2">
       <%= gravatar_for(user, size: 30) %>
     </div>
@@ -13,7 +13,7 @@
       <% elsif current_user.active_friends.include?(user) %>
         <%= link_to "Unfollow", friendship_path(current_user.friendships.find_by_friend_id(user.id)), :method => :delete, data: { confirm: "Are you sure?" }, class:"btn btn-md btn-danger" %>
       <% elsif current_user.active_friends.include?(user) == false  %>
-        <%= link_to "Follow", friendships_path(friend_id: user.id), method: :post, class: "btn btn-sm btn-success follow-'#{user.id}' "%>
+        <%= link_to "Follow", friendships_path(friend_id: user.id), method: :post, class: "btn btn-sm btn-success", remote: true %>
       <% end %>
     </div>
   </div>

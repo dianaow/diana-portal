@@ -1,1 +1,1 @@
-$('#recommended-user").find("[data-id='" + "<%= @user.id %>" + "']").fadeOut(1000)replaceWith('<%= j render 'pages/user', user: @replacement %>').fadeIn(1000);
+$('.recommended-user").find("[data-id='" + "<%= user.id %>" + "']").replaceWith('<%= j render 'pages/user', user: @replacement %>').fadeIn(1000);

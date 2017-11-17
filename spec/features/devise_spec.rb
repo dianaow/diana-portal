@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'navigate' do
+describe 'login and logout' do
   
   let!(:user) { FactoryGirl.create(:user) }
 
@@ -29,7 +29,21 @@ describe 'navigate' do
     expect(page).to have_content "Signed out successfully"
   end
   
+end
 
+describe 'create new user' do
   
-    
+  it 'a new user is able to be created from registration page' do
+    visit root_path
+    expect(current_path).to eq(new_user_session_path)
+    click_on "Register"
+    fill_in 'user[email]', with: "tester@test.com"
+    fill_in 'user[name]', with: "Tester"
+    fill_in 'user[password]', with: "asdfasdf"
+    fill_in 'user[password_confirmation]', with: "asdfasdf"
+    click_on "Sign up"
+    expect(page).to have_content "Welcome! You have signed up successfully."
+    expect(current_path).to eq(root_path)
+  end
+  
 end

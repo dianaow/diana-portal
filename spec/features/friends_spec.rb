@@ -18,14 +18,22 @@ describe 'follow users' do
         expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
     end
     
-    it "allows user to submit friend request by clicking Follow button on users index page, which will change to Awaiting Request" do
+    it "allows user to submit friend request by clicking Follow on users index page, which will change to Awaiting Request" do
         visit users_path
         click_on "Follow"
         expect(page).to have_content("Awaiting Request")
     end
     
-    it "allows user to submit friend request by clicking Follow button on user show page, which will change to Awaiting Request" do
+    it "allows user to submit friend request by clicking Follow on user show page, which will change to Awaiting Request" do
         visit user_path(other_user)
+        click_on "Follow"
+        expect(page).to have_content("Awaiting Request")
+    end
+    
+    it "allows user to submit friend request by clicking Follow on user Followers page, which will change to Awaiting Request" do
+        received_request = Friendship.create(user_id: other_user.id, friend_id: user.id, accepted: true)
+        visit followers_path
+        click_on "Followers"
         click_on "Follow"
         expect(page).to have_content("Awaiting Request")
     end
@@ -91,6 +99,7 @@ describe 'follow users' do
   describe "Managing sent friend request", js: true do
       
     let!(:request) { Friendship.create(user_id: user.id, friend_id: other_user.id, accepted: true) }
+    let!(:received_request) { Friendship.create(user_id: other_user.id, friend_id: user.id, accepted: true) }
         
     before do
        login_as(user, :scope => :user)
@@ -106,6 +115,28 @@ describe 'follow users' do
         click_on "Unfollow"
         expect(current_path).to eq(following_path)
         expect(page).to have_content("You are following 0 people")
+    end
+    
+    it "allows user to unfollow from users index page" do
+        visit users_path
+        click_on "Unfollow"
+        wait_for_ajax
+        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+    end
+    
+    it "allows user to unfollow from user show page" do
+        visit user_path(other_user)
+        click_on "Unfollow"
+        wait_for_ajax
+        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+    end
+    
+    it "allows user to unfollow from Followers page" do
+        visit followers_path
+        click_on "Followers"
+        click_on "Unfollow"
+        wait_for_ajax
+        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
     end
     
     it "ex-friend can be re-followed" do

@@ -32,13 +32,28 @@ class User < ApplicationRecord
   
   scope :all_except, ->(user) { where.not(id: user) }
 
-  def self.top_users 
-    User.joins(:articles)
-    .group("users.id")
-    .select("users.id, email, name, count(articles.id) AS articles_count")
-    .order("articles_count DESC")
+  def self.top_10_most_authored 
+    self.joins(:articles)
+        .group("users.id")
+        .select("users.id, email, name, count(articles.id) AS articles_count")
+        .order("articles_count DESC")
+        .limit(10)
   end
   
+  def self.popular_users
+    self.joins(:friendships)
+        .where(friendships: {accepted: true})
+        .group("users.id")
+        .select("users.id, count(friendships) AS followers_count")
+        .order("followers_count DESC")
+  end
+  
+
+  def self.active_users
+    User.where('last_sign_in_at >= ?', 1.month.ago)
+  end
+  
+
   def login=(login)
     @login = login
   end

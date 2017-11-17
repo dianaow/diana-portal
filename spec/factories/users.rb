@@ -8,21 +8,33 @@ FactoryGirl.define do
     email { generate :email }
     password "asdfasdf"
     password_confirmation "asdfasdf"
-  end
-  
-  factory :non_authorized_user, class: "User" do
-    name 'NonAuthorized'
-    email { generate :email }
-    password "asdfasdf"
-    password_confirmation "asdfasdf"
-  end
-  
-  factory :friend, class: "User" do
-    name 'Friend'
-    email { generate :email }
-    password "asdfasdf"
-    password_confirmation "asdfasdf"
-  end
+    
+      trait :with_followers do
+        transient do
+          number_of_followers 1
+        end
+        after(:create) do |user, evaluator|
+          create_list(:friendship, evaluator.number_of_followers, friend: user)
+        end
+      end
+        
+      trait :with_articles do
+        transient do
+          number_of_articles 1
+        end
+        after(:create) do |user, evaluator|
+          create_list(:article, evaluator.number_of_articles, user: user)
+        end
+      end
 
+    factory :not_friend do
+      name 'NotFriend'
+    end
+    
+    factory :friend do
+      sequence(:name) { |n| "Friend#{n}" }
+    end
+    
+  end
   
 end

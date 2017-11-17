@@ -3,8 +3,8 @@ FactoryGirl.define do
     sequence(:title) { |n| "Test#{n} article" }
     summary "Summary of article"
     description "Description of article."
-    user
     sequence(:impressions_count) { |n| "#{1000-n}" }
+    user
   end
 
   trait :published do

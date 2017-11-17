@@ -22,7 +22,6 @@ describe 'navigate' do
       visit articles_path
       expect(page).to have_link(Article.first.title) 
       expect(page).to have_link(Article.last.title) 
-      screenshot_and_save_page
   	end
   	
   	it "articles are arranged in created_at descending order" do 

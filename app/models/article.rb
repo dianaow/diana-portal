@@ -54,5 +54,9 @@ class Article < ApplicationRecord
     Article.all.sort_by(&:popular_score).reverse
   end
 
+  def self.unique_impression_count
+     Article.impressionist_count(:filter=>:ip_address)
+  end
+  
 
 end

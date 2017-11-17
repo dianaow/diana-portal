@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   resources :conversations, only: [:create] do
     resources :messages, only: [:create]
   end
+  
+  get 'refresh', to: 'pages#refresh'
 
   root 'pages#home'
 
