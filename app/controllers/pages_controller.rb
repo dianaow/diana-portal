@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 before_action :authenticate_user!
-before_action :set_users
+before_action :set_recommended_users
 
   def home
       @feed = current_user.feed.paginate(page: params[:page], per_page: 20).order("updated_at DESC")
@@ -10,46 +10,54 @@ before_action :set_users
                                  .select("articles.id, slug, title, summary, impressions_count, cached_votes_up, updated_at, user_id")
                                  .sorted_by_popular_score
                                  .first
-
-      if @categories.empty? == true
-        @recommended = @users.limit(5)
-      else
-        @recommended = @users.where(id: [@array]).limit(5)
-      end
       
-      if params[:id]
-        @replacement = @users.where('id NOT IN (?)', @recommended).where.not(id: params[:id]).first
-        respond_to do |format|
-          format.html
-          format.js { render action: "home" }
-        end
-      else
-        @recommended
-      end
-    
   end
   
   def refresh
-    @refresh = @users.order('random()').limit(5)
+    @refresh = @users.where.not("users.id in (?)", @recommended.map(&:id)).order("RANDOM()").limit(5)
     respond_to do |format|
       format.html
       format.js
     end
   end
   
+  def follow_recommended 
+    @friendship = current_user.friendships.build(friend_id: params[:friend_id])
+    @friend = @friendship.friend
+    @replacement = @users.where.not("users.id in (?)", @recommended.map(&:id)).first
+    if @friendship.save
+      respond_to do |format|
+        format.html { redirect_back fallback_location: users_path, :flash => { :success => "You have sent a friend request." } }
+        format.js 
+      end
+      Notification.create!(recipient: @friendship.friend, actor: @friendship.user, action: "requested", notifiable: @friendship)
+    else
+      respond_to do |format|
+        format.html { redirect_back fallback_location: users_path, :flash => { :error => "Unable to request friendship." } }
+        format.js
+      end
+    end
+  end
+  
   private
   
-  def set_users
+  def set_recommended_users
+    @users_list = User.sorted(current_user)
+                 
     @categories = Category.top_3_visited(current_user)
     
     @array = Category.joins(:articles)
                      .where(categories: {id: @categories.ids})
                      .pluck("DISTINCT articles.user_id")
-
-    @users = User.where.not(id: current_user.self_initiated_friends)
-                 .where.not(id: current_user)
-                 .top_10_most_authored 
-                 .active_users
+                     
+    if @categories.empty? == true
+      @users = @users_list
+    else
+      @users = User.where(id: [@array]).sorted(current_user)
+    end
+    
+    @recommended = @users.limit(5)
+      
   end
 
 

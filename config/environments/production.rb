@@ -89,8 +89,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   
-  config.action_cable.allowed_request_origins = ['https://agile-beach-94394.herokuapp.com',
-                                               'http://agile-beach-94394.herokuapp.com']
-  config.action_cable.url = "wss://agile-beach-94394.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins = ['https://diana-on-rails.herokuapp.com',
+                                               'http://diana-on-rails.herokuapp.com']
+  config.action_cable.url = "wss://diana-on-rails.herokuapp.com/cable"
   
 end

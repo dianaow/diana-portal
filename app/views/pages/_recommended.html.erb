@@ -1,5 +1,3 @@
-<div class = "recommended-users-list">
-  <% recommended.each do |user| %>
-    <%= render 'pages/user', user: user %>
-  <% end %>
-</div>
+<% recommended.each do |user| %>
+  <%= render 'pages/user', user: user %>
+<% end %>

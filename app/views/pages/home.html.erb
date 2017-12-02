@@ -19,7 +19,9 @@
         <div id = "recommended-users-container">
           <h4 style= "display: inline-block">Recommended users</h4>
           <span style= "margin-left: 20px"><%= link_to "Refresh", refresh_path, method: :get, remote: true %></span>
-          <%= render 'pages/recommended', recommended: @recommended %>
+          <div class = "recommended-users-list">
+            <%= render 'pages/recommended', recommended: @recommended %>
+          </div>
         </div>
 
         <div id = "featured-article">

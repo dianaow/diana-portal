@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   end
   
   get 'refresh', to: 'pages#refresh'
+  get 'follow_recommended', to: 'pages#follow_recommended'
 
   root 'pages#home'
 

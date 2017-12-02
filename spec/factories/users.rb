@@ -26,6 +26,10 @@ FactoryGirl.define do
           create_list(:article, evaluator.number_of_articles, user: user)
         end
       end
+      
+      trait :last_sign_in_at do
+        last_sign_in_at { DateTime.now }
+      end
 
     factory :not_friend do
       name 'NotFriend'

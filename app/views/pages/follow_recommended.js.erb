@@ -1,0 +1,6 @@
+var $friend = $('.recommended-user[data-id="<%= @friend.id %>"]');
+<% if @users.map(&:id).count > 5 %>
+  $friend.replaceWith('<%= j render 'pages/user', user: @replacement %>');
+<% else %>
+  $friend.remove();
+<% end %>

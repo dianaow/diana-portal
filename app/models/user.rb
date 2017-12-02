@@ -35,22 +35,28 @@ class User < ApplicationRecord
   def self.top_10_most_authored 
     self.joins(:articles)
         .group("users.id")
-        .select("users.id, email, name, count(articles.id) AS articles_count")
-        .order("articles_count DESC")
+        .select("users.id, email, name, count(DISTINCT articles.id) AS articles_count")
+        .order("count(DISTINCT articles.id) DESC")
         .limit(10)
   end
   
   def self.popular_users
-    self.joins(:friendships)
-        .where(friendships: {accepted: true})
+    self.joins("RIGHT JOIN friendships ON friendships.friend_id = users.id AND friendships.accepted = 't'")
         .group("users.id")
-        .select("users.id, count(friendships) AS followers_count")
-        .order("followers_count DESC")
+        .select("users.id, count(DISTINCT friendships.id) AS followers_count")
+        .order("count(DISTINCT friendships.id) DESC")
   end
   
-
   def self.active_users
     User.where('last_sign_in_at >= ?', 1.month.ago)
+  end
+  
+  def self.sorted(current_user)
+    self.where.not(id: current_user.self_initiated_friends)
+        .where.not(id: current_user)
+        .popular_users
+        .top_10_most_authored
+        .active_users
   end
   
 
