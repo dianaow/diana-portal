@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_article
   before_action :set_comment, only: [:destroy, :edit, :update]
-  
+
   def create
     @comment = @article.comments.build(comment_params)
     @comment.user = current_user
@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
   
   def edit
     respond_to do |format|
-      format.html
+      format.html { redirect_to @comment.article}
       format.js
     end
   end

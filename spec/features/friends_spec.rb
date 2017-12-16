@@ -20,6 +20,7 @@ describe 'follow users' do
     
     it "allows user to submit friend request by clicking Follow on users index page, which will change to Awaiting Request" do
         visit users_path
+        expect(page).to have_content("Friend")
         click_on "Follow"
         expect(page).to have_content("Awaiting Request")
     end
@@ -31,7 +32,7 @@ describe 'follow users' do
     end
     
     it "allows user to submit friend request by clicking Follow on user Followers page, which will change to Awaiting Request" do
-        received_request = Friendship.create(user_id: other_user.id, friend_id: user.id, accepted: true)
+        Friendship.create!(user_id: other_user.id, friend_id: user.id, accepted: true)
         visit followers_path
         click_on "Followers"
         click_on "Follow"
@@ -58,8 +59,7 @@ describe 'follow users' do
     
     it 'friend request disappear once user clicks accept' do
         click_on "Accept"
-        wait_for_ajax
-        expect(current_path).to eq(followers_path)
+        expect(page).to have_current_path(followers_path)
         expect(page).to have_css(".pending-requests", text: "You have 0 pending friend requests")
         expect(page).to_not have_css(".pending-requests", text: other_user.name)
         expect(page).to_not have_link("Accept")
@@ -68,7 +68,6 @@ describe 'follow users' do
     
     it 'counts other user as a follower once frend request is accepted' do
         click_on "Accept"
-        wait_for_ajax
         click_on "Followers"
         expect(page).to have_css(".followers", text: other_user.name)
         expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
@@ -77,7 +76,6 @@ describe 'follow users' do
     
     it 'friend request disappear once user clicks decline' do
         click_on "Decline"
-        wait_for_ajax
         expect(current_path).to eq(followers_path)
         expect(page).to have_css(".pending-requests", text: "You have 0 pending friend requests")
         expect(page).to_not have_css(".pending-requests", text: other_user.name)
@@ -87,7 +85,6 @@ describe 'follow users' do
     
     it 'destroys friendship if frend request is declined' do
         click_on "Decline"
-        wait_for_ajax
         click_on "Followers"
         expect(page).to_not have_css(".followers", text: other_user.name)
         expect(page).to_not have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
@@ -120,14 +117,12 @@ describe 'follow users' do
     it "allows user to unfollow from users index page" do
         visit users_path
         click_on "Unfollow"
-        wait_for_ajax
         expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
     end
     
     it "allows user to unfollow from user show page" do
         visit user_path(other_user)
         click_on "Unfollow"
-        wait_for_ajax
         expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
     end
     
@@ -135,13 +130,11 @@ describe 'follow users' do
         visit followers_path
         click_on "Followers"
         click_on "Unfollow"
-        wait_for_ajax
         expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
     end
     
     it "ex-friend can be re-followed" do
         click_on "Unfollow"
-        wait_for_ajax
         visit users_path
         expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
     end
@@ -166,7 +159,6 @@ describe 'follow users' do
     it 'shows follow button beside a user which current user has accepted a friend request from and is currently not following' do
         visit followers_path
         click_on "Accept"
-        wait_for_ajax
         visit users_path
         expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
         visit user_path(other_user)
@@ -177,7 +169,6 @@ describe 'follow users' do
     it 'shows follow button beside a user which current user has declined a friend request from and is currently not following' do
         visit followers_path
         click_on "Decline"
-        wait_for_ajax
         visit users_path
         expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
         visit user_path(other_user)
@@ -205,7 +196,6 @@ describe 'follow users' do
     it 'shows unfollow button beside a user which current user has accepted a friend request from and is currently following' do
         visit followers_path
         click_on "Accept"
-        wait_for_ajax
         visit users_path
         expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
         visit user_path(other_user)
@@ -216,7 +206,6 @@ describe 'follow users' do
     it 'shows unfollow button beside a user which current user has declined a friend request from and is currently following' do
         visit followers_path
         click_on "Decline"
-        wait_for_ajax
         visit users_path
         expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
         visit user_path(other_user)
@@ -244,7 +233,6 @@ describe 'follow users' do
     it 'shows Awaiting Request beside a user which current user has accepted a friend request from and is currently awaiting a follow back' do
         visit followers_path
         click_on "Accept"
-        wait_for_ajax
         visit users_path
         expect(page).to have_content("Awaiting Request")
         visit user_path(other_user)
@@ -254,7 +242,6 @@ describe 'follow users' do
     it 'shows Awaiting Request beside a user which current user has declined a friend request from and is currently awaiting a follow back' do
         visit followers_path
         click_on "Decline"
-        wait_for_ajax
         visit users_path
         expect(page).to have_content("Awaiting Request")
         visit user_path(other_user)

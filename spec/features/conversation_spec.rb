@@ -39,7 +39,7 @@ describe "Conversation" do
            logout(:user)
            login_as(other_user, :scope => :user)
            conversation = Conversation.create(author_id: user.id, receiver_id: other_user.id)
-           message = PersonalMessage.create(conversation_id: conversation.id, user_id: other_user.id, body: "Hello Friend")
+           PersonalMessage.create(conversation_id: conversation.id, user_id: other_user.id, body: "Hello Friend")
            visit conversations_path
         end
         

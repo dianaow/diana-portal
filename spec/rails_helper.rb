@@ -13,6 +13,7 @@ require 'capybara-screenshot/rspec'
 require 'capybara/webkit/matchers'
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Capybara.ignore_hidden_elements = false
+Capybara.default_max_wait_time = 5
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -25,6 +26,8 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include(Capybara::Webkit::RspecMatchers, :type => :feature)
   config.include Warden::Test::Helpers
+  config.include Devise::Test::ControllerHelpers, type: :controller
+
   Warden.test_mode!
   config.after :each do
     Warden.test_reset!

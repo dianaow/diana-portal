@@ -47,18 +47,22 @@
   </div>
     
   <div class = "row" id="article-comments">
-    <div class = "col-md-1 col-sm-1 col-xs-1"></div>
-    <div class = "col-md-10 col-sm-10 col-xs-10">
-      <div id="comment-form">
-        <%= render 'comments/comment_form' %>
-      </div>
-      <div id = "comments-count">
-        <p>This article has 0 comments</p>
-      </div>
-      <div id = "comment-list" >
-        <%= render partial: @article.reload.comments %>
-      </div>
-    <div class = "col-md-1 col-sm-1 col-xs-1"></div>
+      <div class = "col-md-1 col-sm-1 col-xs-1"></div>
+      <div class = "col-md-10 col-sm-10 col-xs-10">
+        <% if user_signed_in? == false %>
+          <h4 class ="click-caption">You must Sign in/Create an account to post a comment</h4>
+        <% else %>
+          <div id="comment-form">
+            <%= render 'comments/comment_form' %>
+          </div>
+        <% end %>
+        <div id = "comments-count">
+          <p>This article has 0 comments</p>
+        </div>
+        <div id = "comment-list" >
+          <%= render partial: @article.reload.comments %>
+        </div>
+      <div class = "col-md-1 col-sm-1 col-xs-1"></div>
   </div>
 
 </div>

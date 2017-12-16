@@ -1,16 +1,16 @@
 class PagesController < ApplicationController
-before_action :authenticate_user!
 before_action :set_recommended_users
 
   def home
+    if user_signed_in? == true
       @feed = current_user.feed.paginate(page: params[:page], per_page: 20).order("updated_at DESC")
 
-      @featured_article = Article.published
-                                 .where('created_at >= ?', 1.week.ago)
-                                 .select("articles.id, slug, title, summary, impressions_count, cached_votes_up, updated_at, user_id")
-                                 .sorted_by_popular_score
-                                 .first
-      
+    else                             
+      @articles = Article.published
+                         .where('created_at >= ?', 1.month.ago)
+                         .sorted_by_popular_score
+                         .take(6)
+    end
   end
   
   def refresh
@@ -42,22 +42,24 @@ before_action :set_recommended_users
   private
   
   def set_recommended_users
-    @users_list = User.sorted(current_user)
-                 
-    @categories = Category.top_3_visited(current_user)
-    
-    @array = Category.joins(:articles)
-                     .where(categories: {id: @categories.ids})
-                     .pluck("DISTINCT articles.user_id")
-                     
-    if @categories.empty? == true
-      @users = @users_list
-    else
-      @users = User.where(id: [@array]).sorted(current_user)
-    end
-    
-    @recommended = @users.limit(5)
+    if user_signed_in? == true
+      @users_list = User.sorted(current_user)
+                   
+      @categories = Category.top_3_visited(current_user)
       
+      @array = Category.joins(:articles)
+                       .where(categories: {id: @categories.ids})
+                       .pluck("DISTINCT articles.user_id")
+                       
+      if @categories.empty? == true
+        @users = @users_list
+      else
+        @users = User.where(id: [@array]).sorted(current_user)
+      end
+      
+      @recommended = @users.limit(5)
+        
+    end
   end
 
 

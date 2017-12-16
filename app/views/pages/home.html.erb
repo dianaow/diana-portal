@@ -1,53 +1,6 @@
-<div class ="container">
-    <div class="row">
-      <div class="col-md-8 col-sm-12 col-xs-12">
-        
-        <% if current_user.friends.empty? == true %>
-        <div class = 'jumbotron' %>
-          <h4>You are currently not following any blogs. Explore other blogs now to receive their posts on your feed!</h4>
-        </div> 
-        <% end %>
-          
-        <div id = "my-feed">
-          <%= render @feed %>
-        </div>
-
-          <%= will_paginate @feed %>
-
-      </div>
-      <div class="col-md-4">
-        <div id = "recommended-users-container">
-          <h4 style= "display: inline-block">Recommended users</h4>
-          <span style= "margin-left: 20px"><%= link_to "Refresh", refresh_path, method: :get, remote: true %></span>
-          <div class = "recommended-users-list">
-            <%= render 'pages/recommended', recommended: @recommended %>
-          </div>
-        </div>
-
-        <div id = "featured-article">
-          <h4>Featured article</h4>
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4><%= link_to @featured_article.title, article_path(@featured_article) %></h4>
-            </div>
-            <div class="panel-body">
-              <p><%= @featured_article.summary %></p>
-              <small> <%= @featured_article.user.name if @featured_article.user%>, <%= time_ago_in_words(@featured_article.updated_at) %> ago</small>
-            </div>
-          </div>
-        </div>
-      
-        <div id = "frequented-tags">
-          <h4>Your frequented tags</h4>
-          <% @categories.each do |category| %>
-              <button type="button" class = "btn btn-tag">
-                <%= category.name %> 
-              </button>
-          <% end %>
-        </div>
-        
-
-      </div>
-    </div>
-</div>
+<% if user_signed_in? == false %>
+  <%= render 'pages/not_signed_in_landing_page', articles: @articles %>
+<% else %>
+  <%= render 'pages/signed_in_landing_page' %>
+<% end %>
 

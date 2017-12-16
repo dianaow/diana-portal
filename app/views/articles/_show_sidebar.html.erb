@@ -2,14 +2,18 @@
 
 <%= render 'vote', article: article %>  
 
-<h4 class ="click-caption">Click to like!</h4>
-
-<% if current_user.voted_up_on? article %>
-  <%= link_to '', downvote_article_path(article.id), remote: true,
-                        id: "vote_#{article.id}",
-                        class: 'glyphicon glyphicon-heart' %>
+<% if user_signed_in? == false %>
+  <h4 class ="click-caption"> Sign in to vote!</h4>
 <% else %>
-  <%= link_to '', upvote_article_path(article.id), remote: true,
-                        id: "vote_#{article.id}",
-                        class: 'glyphicon glyphicon-heart-empty' %>
+  <h4 class ="click-caption">Click to like!</h4>
+  <% if current_user.voted_up_on? article %>
+    <%= link_to '', downvote_article_path(article.id), remote: true,
+                          id: "vote_#{article.id}",
+                          class: 'glyphicon glyphicon-heart' %>
+  <% else %>
+    <%= link_to '', upvote_article_path(article.id), remote: true,
+                          id: "vote_#{article.id}",
+                          class: 'glyphicon glyphicon-heart-empty' %>
+  <% end %>
 <% end %>
+

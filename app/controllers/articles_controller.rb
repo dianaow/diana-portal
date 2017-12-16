@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-    before_action :authenticate_user!
+  before_action :authenticate_user!, except:[:index, :show]
     before_action :set_article, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
     include ArticlesHelper
     
@@ -50,7 +50,10 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    if @article.user != current_user then redirect_to root_path end
+    if @article.user != current_user then 
+      redirect_to root_path 
+      flash[:error] = 'You are not authorized to edit this article'
+    end
   end
 
   def update
@@ -71,7 +74,7 @@ class ArticlesController < ApplicationController
   def upvote
     @article.upvote_by current_user
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_to @article }
       format.js
       end
   end
@@ -79,7 +82,7 @@ class ArticlesController < ApplicationController
   def downvote
     @article.downvote_by current_user
     respond_to do |format|
-      format.html { redirect_to :back }
+      format.html { redirect_to @article }
       format.js
       end
   end

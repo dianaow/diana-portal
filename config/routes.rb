@@ -5,27 +5,25 @@ Rails.application.routes.draw do
   resources :friendships, only: [:create, :update, :destroy]
   resources :categories, only: [:show, :index]
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
-  resources :users, only: [:index, :show, :followers, :following] do 
-    collection do 
-      get 'followers'
-      get 'following'
+  resources :users, only: [:index, :show] do
+    collection do   
       get 'search'
     end
   end
+
   get 'followers', to: 'users#followers'
   get 'following', to: 'users#following'
-  get 'search', to: 'users#search'
   get 'drafts', to: 'articles#drafts'
   
   resources :articles do
-    resources :comments
+    resources :comments, only: [:create, :update, :destroy, :edit]
     member do
       get 'upvote'
       get 'downvote'
     end
   end
   
-  resources :notifications 
+  resources :notifications, only: [:index, :destroy]
   
   resources :conversations, only: [:index, :new] do
     collection do   
@@ -41,6 +39,8 @@ Rails.application.routes.draw do
   get 'follow_recommended', to: 'pages#follow_recommended'
 
   root 'pages#home'
+  
+  match "*path", to: "application#catch_404", via: :all
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

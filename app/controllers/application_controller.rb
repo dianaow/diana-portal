@@ -1,10 +1,15 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include UsersHelper
+  include CurrentUserConcern
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_vars
-  around_action :catch_not_found
   
+  def catch_404
+    raise ActionController::RoutingError.new(params[:path])
+    raise ActionView::MissingTemplate.new(params[:path])
+  end
+
   def after_sign_out_path_for(resource_or_scope)
     new_user_session_path
   end
@@ -15,15 +20,21 @@ class ApplicationController < ActionController::Base
     @notifications = Notification.where(recipient: current_user).order("created_at DESC")
   end
     
-    private
-    
-    def catch_not_found
-      yield
-    rescue ActiveRecord::RecordNotFound
-      redirect_to root_url
-      flash[:error] = 'Oops! The article has been removed and cannot be found.'
-    end
-    
+  rescue_from ActionController::RoutingError do |exception|
+    logger.error 'Routing error occurred'
+    redirect_to root_path
+  end
+  
+  rescue_from ActionView::MissingTemplate do |exception|
+    logger.error exception.message
+    redirect_to root_path
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do
+    redirect_to root_url
+    flash[:error] = 'Oops! The record does not exist.'
+  end
+
     protected
   
     def configure_permitted_parameters

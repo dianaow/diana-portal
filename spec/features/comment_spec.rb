@@ -25,7 +25,8 @@ describe "Comments on article" do
       it 'counts the number of comments belonging to article' do
         fill_in 'comment[content]', with: "Some comments"
         click_on "Add Comment"
-        expect(page).to have_css('#comments-count', text: "This article has 1 comment")
+        expect(page).to have_current_path(article_path(article))
+        expect(page).to have_content("This article has 1 comment")
       end
       
     end
@@ -40,7 +41,7 @@ describe "Comments on article" do
       it 'a comment can be edited through ajax' do
         within ".comment-card" do
           click_on "Edit"
-          expect(page).to have_css('#comment-content', text: "Some comments")
+          expect(page).to have_content("Some comments")
           fill_in 'comment[content]', with: "Edited comments"
           click_on "Save"
           expect(page).to have_css('#comment-content', text: "Edited comments")
@@ -59,10 +60,9 @@ describe "Comments on article" do
       it 'a comment can be deleted through ajax' do
         within ".comment-card" do
           click_on "Delete"
-          wait_for_ajax
+          expect(page).to_not have_content("Some comments")
+          expect(page).to have_css("#comments-count", text: "This article has 0 comments")
         end
-        expect(page).to_not have_css('#comment-content', text: "Some comments")
-        expect(page).to have_css("#comments-count", text: "This article has 0 comments")
       end
 
     end

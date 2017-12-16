@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-
+  before_action :authenticate_user!
     def index
       @conversation_list = Conversation.participating(current_user)
     end
@@ -12,6 +12,7 @@ class ConversationsController < ApplicationController
       end
       @conversation.read!(current_user) if @conversation
       respond_to do |format|
+        format.html { redirect_to conversations_path }
         format.js
       end
     end
@@ -24,12 +25,14 @@ class ConversationsController < ApplicationController
       end
         
       respond_to do |format|
+        format.html { redirect_to conversations_path }
         format.js
       end
     end
      
     def new
       respond_to do |format|
+        format.html { redirect_to conversations_path }
         format.js
       end
     end

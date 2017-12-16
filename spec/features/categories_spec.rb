@@ -1,6 +1,6 @@
 require 'rails_helper' 
   
-describe 'category', js: true do
+describe 'category', type: :feature, js: true do
     
   let!(:user) { FactoryGirl.create(:user) }
     
@@ -42,13 +42,13 @@ describe 'category', js: true do
           expect(page).to have_link(Article.find(@last_article_id+3+n).title, href: "/articles/#{Article.find(@last_article_id+3+n).friendly_id}", visible: false)
         end
         find(".glyphicon-chevron-right").click
+        expect(page).to have_current_path(categories_path)
         3.times do |n|
           expect(page).to have_link(Article.find(@last_article_id+n).title, href: "/articles/#{Article.find(@last_article_id+n).friendly_id}", visible: false)
         end
         3.times do |n|
           expect(page).to have_link(Article.find(@last_article_id+3+n).title, href: "/articles/#{Article.find(@last_article_id+3+n).friendly_id}", visible: true)
         end
-        screenshot_and_save_page
       end
     end
     
@@ -83,11 +83,11 @@ describe 'category', js: true do
     
     scenario 'user can page in additional three categories by clicking on Load More button' do
       click_on "Load More"
+      expect(page).to have_current_path(categories_path)
       3.times do |x|
         expect(page).to have_content(Category.find(@last_category_id-3-x).name)
       end
       expect(page).to have_css(".cat-name-header", count: 6)
-      screenshot_and_save_page
     end
    
   end

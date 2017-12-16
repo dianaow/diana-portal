@@ -9,7 +9,7 @@ module ApplicationHelper
       },
       {
         icon: 'glyphicon glyphicon-file',
-        url: user_path(current_user),
+        url: '',
         title: 'My Articles'
       },
       {

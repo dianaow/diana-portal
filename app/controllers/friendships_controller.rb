@@ -1,5 +1,5 @@
 class FriendshipsController < ApplicationController
-
+  before_action :authenticate_user!
   before_action :set_friendship, only: [:show, :edit, :update, :destroy]
     
     def create

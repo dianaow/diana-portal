@@ -1,19 +1,17 @@
 <div class = "container">
-  <%= form_tag(users_path, :method => 'get', :id => "users_search", remote: true) do %>
+  <%= search_form_for @search do |f| %>
     <div class = " row padding-top-20">
-      <div class = "col-md-10 col-xs-10">
-        <div class = "form-group">
-          <%= text_field_tag :search, params[:search], placeholder: "Enter a username or email address to follow", class: "form-control" %>
-        </div>
+      <div class="col-md-10 col-sm-10 col-xs-12">
+         <%= f.search_field :name_cont, class: "form-control", id: "user_name_cont", name: "user[name_cont]", placeholder: "Search for a user" %>
       </div>
-      <div class = "col-md-2 col-xs-2">
-        <div class = "form-group">
-          <button type="submit" class="btn btn-primary">Search</button>
-        </div>
+      <div class="col-md-2 col-sm-2 col-xs-12">
+        <%= f.submit class: 'btn btn-md btn-default' %>
       </div>
-    </div>
-    <div id="users">
-      <%= render @users %>
     </div>
   <% end %>
+  <div id="users">
+    <%= render @users %>
+    <%= will_paginate @users %>
+  </div>
 </div>
+
