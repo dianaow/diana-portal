@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe "Comments on article" do
     
-    let!(:user) { FactoryGirl.create(:user) }
-    let!(:article) { FactoryGirl.create(:article) }
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:article) { FactoryBot.create(:article) }
 
     before do
         login_as(user, :scope => :user)
@@ -58,11 +58,9 @@ describe "Comments on article" do
       end
       
       it 'a comment can be deleted through ajax' do
-        within ".comment-card" do
-          click_on "Delete"
-          expect(page).to_not have_content("Some comments")
-          expect(page).to have_css("#comments-count", text: "This article has 0 comments")
-        end
+        click_on "Delete"
+        expect(page).to_not have_content("Some comments")
+        expect(page).to have_css("#comments-count", text: "This article has 0 comments")
       end
 
     end

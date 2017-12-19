@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'notifications' do
   
-  let!(:user) { FactoryGirl.create(:user) }
-  let!(:friend) { FactoryGirl.create(:friend) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:friend) { FactoryBot.create(:friend) }
 
   describe 'follow user' , js: true do
     

@@ -2,12 +2,12 @@ require 'rails_helper'
 
 describe 'navigate' do
   
-  let!(:user) { FactoryGirl.create(:user) }
-  let!(:other_user) { FactoryGirl.create(:friend) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:other_user) { FactoryBot.create(:friend) }
 
   describe 'index' do
     
-    let!(:article) { FactoryGirl.create_list(:article, 2, :published) }
+    let!(:article) { FactoryBot.create_list(:article, 2, :published) }
 
     before do
       login_as(user, :scope => :user)
@@ -157,7 +157,7 @@ describe 'navigate' do
   	end
   end
   
-  describe 'delete' do
+  describe 'delete', js: true do
     
     before do
       @article_to_delete = Article.create(title: 'Article to delete', summary: 'Summary to article to delete', description: 'Test to delete this article', status: "published", user_id: user.id)

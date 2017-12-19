@@ -11,15 +11,15 @@ describe "Public access to notifications", type: :request do
     expect {
       delete "/notifications/1", xhr:true 
     }.to_not change(Notification, :count)
-    expect(response).to redirect_to new_user_session_path
+    expect(response).to have_http_status(401)
   end
 
 end
 
 describe "Logged in access to notifications", type: :request do
     
-  let!(:user) { FactoryGirl.create(:user) }
-  let!(:user2) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:user2) { FactoryBot.create(:user) }
 
   before do 
     @article = Article.create(title: 'Test Article', summary: 'Summary of article', description: 'Request spec test', status: "published", user_id: user.id)

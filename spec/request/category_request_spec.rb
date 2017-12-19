@@ -22,7 +22,7 @@ shared_examples "denied access to category new, create, edit, show, update, dest
   end
 
   it "denies access to categories#create" do
-    category_attributes = FactoryGirl.attributes_for(:category)
+    category_attributes = FactoryBot.attributes_for(:category)
     expect {
       post "/categories", params: { category: category_attributes }
     }.to_not change(Category, :count)
@@ -56,7 +56,7 @@ end
 
 describe "Logged in access to categories", type: :request do
     
-  let!(:user) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
 
   before do 
     login_as(user, :scope => :user)  

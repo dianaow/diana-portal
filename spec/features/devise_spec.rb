@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'login and logout' do
   
-  let!(:user) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
 
   it 'user is able to sign in with username' do
     visit new_user_session_path
@@ -35,8 +35,8 @@ describe 'create new user' do
   
   it 'a new user is able to be created from registration page' do
     visit root_path
-    expect(current_path).to eq(new_user_session_path)
     click_on "Register"
+    expect(current_path).to eq(new_user_registration_path)
     fill_in 'user[email]', with: "tester@test.com"
     fill_in 'user[name]', with: "Tester"
     fill_in 'user[password]', with: "asdfasdf"

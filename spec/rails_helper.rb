@@ -23,7 +23,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include(Capybara::Webkit::RspecMatchers, :type => :feature)
   config.include Warden::Test::Helpers
   config.include Devise::Test::ControllerHelpers, type: :controller
@@ -34,6 +34,8 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
+    Rails.application.load_tasks
+    Rake::Task["assets:precompile"].invoke
     DatabaseCleaner.clean_with(:truncation, reset_ids: true)
   end
      
@@ -54,12 +56,13 @@ RSpec.configure do |config|
   end
 end
 
-Capybara::Webkit.configure do |config|
-  config.block_unknown_urls
-end
-
 RSpec::Matchers.define :appear_before do |later_content|
   match do |earlier_content|
     page.body.index(earlier_content) < page.body.index(later_content)
   end
+end
+
+Capybara::Webkit.configure do |config|
+  config.block_unknown_urls
+  config.raise_javascript_errors = true
 end

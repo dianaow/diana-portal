@@ -33,6 +33,7 @@ gem 'bootstrap-multiselect-rails'
 gem 'jquery-validation-rails'
 gem 'ckeditor', '~> 4.2', '>= 4.2.4'
 gem 'shoulda'
+gem 'nokogiri', '~> 1.8', '>= 1.8.1'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-chosen'
@@ -41,10 +42,10 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 3.6', '>= 3.6.1'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara'
-  gem "capybara-webkit"
-  gem 'capybara-screenshot'
-  gem 'factory_girl_rails', '~> 4.8'
+  gem 'capybara', '>= 2.13.0'
+  gem 'capybara-webkit', '~> 1.14'
+  gem 'capybara-screenshot', '~> 1.0', '>= 1.0.18'
+  gem 'factory_bot_rails'
 end
 
 group :test do

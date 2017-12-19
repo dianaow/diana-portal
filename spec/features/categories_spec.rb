@@ -2,20 +2,21 @@ require 'rails_helper'
   
 describe 'category', type: :feature, js: true do
     
-  let!(:user) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
     
   describe "articles within a category" do
     
-    let!(:category) { FactoryGirl.create(:category, :with_articles, number_of_articles: 10) }
+    let!(:category) { FactoryBot.create(:category, :with_articles, number_of_articles: 10) }
     
     before do
-      @last_article_id = Article.first.id
+      @first_listed_articles = Category.first.articles.order("impressions_count DESC").limit(3)
+      @next_listed_articles = Category.first.articles.order("impressions_count DESC").limit(3).offset(3)
       login_as(user, :scope => :user)
       visit categories_path
     end
     
     scenario "categories index page can be reached successfully" do
-      expect(page.status_code).to eq(200)
+      expect(page).to have_current_path "/categories"
     end
 
     scenario 'categories are tagged on article show page' do
@@ -30,25 +31,30 @@ describe 'category', type: :feature, js: true do
     end
 
     scenario "categorized articles are arranged in descending order of view count" do
-      expect(Article.first.title).to appear_before(Article.find(2).title)
+      expect( @first_listed_articles.first.title ).to appear_before( @next_listed_articles.last.title )
     end
    
     scenario "user can browse through articles within a category by clicking chevron left and right icon" do
       within ".category-xlg" do
-        3.times do |n|
-          expect(page).to have_link(Article.find(@last_article_id+n).title, href: "/articles/#{Article.find(@last_article_id+n).friendly_id}", visible: true)
+        
+        @first_listed_articles.each do |a|
+          expect(page).to have_link(a.title, href: "/articles/#{a.friendly_id}", visible: true)
         end
-        3.times do |n|
-          expect(page).to have_link(Article.find(@last_article_id+3+n).title, href: "/articles/#{Article.find(@last_article_id+3+n).friendly_id}", visible: false)
+        @next_listed_articles.each do |a|
+          expect(page).to have_link(a.title, href: "/articles/#{a.friendly_id}", visible: false)
         end
+        
         find(".glyphicon-chevron-right").click
         expect(page).to have_current_path(categories_path)
-        3.times do |n|
-          expect(page).to have_link(Article.find(@last_article_id+n).title, href: "/articles/#{Article.find(@last_article_id+n).friendly_id}", visible: false)
+        
+        @first_listed_articles.each do |a|
+          expect(page).to have_link(a.title, href: "/articles/#{a.friendly_id}", visible: false)
         end
-        3.times do |n|
-          expect(page).to have_link(Article.find(@last_article_id+3+n).title, href: "/articles/#{Article.find(@last_article_id+3+n).friendly_id}", visible: true)
+
+        @next_listed_articles.each do |a|
+          expect(page).to have_link(a.title, href: "/articles/#{a.friendly_id}", visible: true)
         end
+
       end
     end
     
@@ -62,7 +68,7 @@ describe 'category', type: :feature, js: true do
     
   describe "a list of 6 categories" do
     
-    let!(:categories) { FactoryGirl.create_list(:category, 6, :with_articles, number_of_articles: 10) }
+    let!(:categories) { FactoryBot.create_list(:category, 6, :with_articles, number_of_articles: 10) }
     
     before do
       @last_category_id = Category.last.id
@@ -94,7 +100,7 @@ describe 'category', type: :feature, js: true do
   
   describe "a category without articles" do
     
-    let!(:category_without_article) { FactoryGirl.create(:category) }
+    let!(:category_without_article) { FactoryBot.create(:category) }
     
     before do
       login_as(user, :scope => :user)
@@ -109,7 +115,7 @@ describe 'category', type: :feature, js: true do
   
   describe "a category with only 3 articles" do
     
-    let!(:category) { FactoryGirl.create(:category, :with_articles, number_of_articles: 3) }
+    let!(:category) { FactoryBot.create(:category, :with_articles, number_of_articles: 3) }
     
     before do
       login_as(user, :scope => :user)

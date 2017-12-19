@@ -88,3 +88,10 @@ function validatearticleFunction() {
 }
 $(document).ready(validatearticleFunction);
 $(document).on('page:load', validatearticleFunction);
+
+$(document).ready(function() {
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});
+

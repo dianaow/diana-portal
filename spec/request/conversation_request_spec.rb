@@ -2,8 +2,8 @@ require "rails_helper"
 
 describe "Public access to conversations", type: :request do
   
-  let!(:user) { FactoryGirl.create(:user) }
-  let!(:user2) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:user2) { FactoryBot.create(:user) }
   
   it "denies access to conversations#list" do
     get "/conversations/list"
@@ -31,8 +31,8 @@ end
 
 describe "Logged in access to conversations", type: :request do
     
-  let!(:user) { FactoryGirl.create(:user) }
-  let!(:user2) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:user2) { FactoryBot.create(:user) }
 
   before do 
     login_as(user, :scope => :user)  

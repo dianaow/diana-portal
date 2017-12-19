@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'vote', js: true do
   
-  let!(:user) { FactoryGirl.create(:user) }
-  let!(:article)  { FactoryGirl.create(:article, :published) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:article)  { FactoryBot.create(:article, :published) }
 
     before do
       login_as(user, :scope => :user)

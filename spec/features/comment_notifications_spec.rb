@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'notifications', type: :feature do
   
-  let!(:user) { FactoryGirl.create(:user) }
-  let!(:friend) { FactoryGirl.create(:friend) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:friend) { FactoryBot.create(:friend) }
   let!(:article) {
     Article.create(title:"To test notifications", summary: "Summary of article", description: "Description of article.", status: "published", user_id: user.id)
   }

@@ -21,7 +21,7 @@ end
 
 describe "Public access to comments", type: :request do
     
-let!(:user) { FactoryGirl.create(:user) }
+let!(:user) { FactoryBot.create(:user) }
 
   before do 
     @article = Article.create(title: 'Test Article', summary: 'Summary of article', description: 'Request spec test', status: "published", user_id: user.id)
@@ -57,7 +57,7 @@ end
 
 describe "Logged in user access to comments", type: :request do
     
-let!(:user) { FactoryGirl.create(:user) }
+let!(:user) { FactoryBot.create(:user) }
 
   before do 
     @article = Article.create(title: 'Test Article', summary: 'Summary of article', description: 'Request spec test', status: "published", user_id: user.id)
@@ -68,7 +68,7 @@ let!(:user) { FactoryGirl.create(:user) }
   it_behaves_like "comments are found on articles page"
 
   it "full access to comments#create" do
-    comment_attributes = FactoryGirl.attributes_for(:comment)
+    comment_attributes = FactoryBot.attributes_for(:comment)
     expect {
       post "/articles/test-article/comments", params: { comment: comment_attributes }
     }.to change(Comment, :count).by(1)
@@ -82,7 +82,7 @@ let!(:user) { FactoryGirl.create(:user) }
   end
   
   it "full access to comments#update" do
-    comment_attributes = FactoryGirl.attributes_for(:comment)
+    comment_attributes = FactoryBot.attributes_for(:comment)
     patch "/articles/test-article/comments/1", params: { comment: comment_attributes }
     expect(response).to redirect_to "/articles/test-article"
   end

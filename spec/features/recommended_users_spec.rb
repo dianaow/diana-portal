@@ -3,18 +3,18 @@ require 'rails_helper'
 describe 'feed' do
 
 
-  let!(:first_user) { FactoryGirl.create(:user) }
-  let!(:second_user) { FactoryGirl.create(:user, :with_articles, :with_followers, :last_sign_in_at, number_of_articles: 1, number_of_followers: 8)}
-  let!(:third_user) { FactoryGirl.create(:user, :with_articles, :with_followers, :last_sign_in_at, number_of_articles: 10, number_of_followers: 7) }
-  let!(:fourth_user) { FactoryGirl.create(:user, :with_articles, :with_followers, :last_sign_in_at, number_of_articles: 10, number_of_followers: 6) }
-  let!(:fifth_user) { FactoryGirl.create(:user, :with_articles, :with_followers, :last_sign_in_at, number_of_articles: 15, number_of_followers: 5) }
-  let!(:sixth_user) { FactoryGirl.create(:user, :last_sign_in_at, :with_articles, number_of_articles: 15) }
-  let!(:seventh_user) { FactoryGirl.create(:user, :last_sign_in_at, :with_followers, number_of_followers: 15) }
-  let!(:eigth_user) { FactoryGirl.create(:user, :with_articles, :with_followers, number_of_articles: 15, number_of_followers: 5) }
-  let!(:users_list) { FactoryGirl.create_list(:user, 10, :last_sign_in_at, :with_followers, :with_articles, number_of_articles: 5, number_of_followers: 1) }
+  let!(:first_user) { FactoryBot.create(:user) }
+  let!(:second_user) { FactoryBot.create(:user, :with_articles, :with_followers, :last_sign_in_at, number_of_articles: 1, number_of_followers: 8)}
+  let!(:third_user) { FactoryBot.create(:user, :with_articles, :with_followers, :last_sign_in_at, number_of_articles: 10, number_of_followers: 7) }
+  let!(:fourth_user) { FactoryBot.create(:user, :with_articles, :with_followers, :last_sign_in_at, number_of_articles: 10, number_of_followers: 6) }
+  let!(:fifth_user) { FactoryBot.create(:user, :with_articles, :with_followers, :last_sign_in_at, number_of_articles: 15, number_of_followers: 5) }
+  let!(:sixth_user) { FactoryBot.create(:user, :last_sign_in_at, :with_articles, number_of_articles: 15) }
+  let!(:seventh_user) { FactoryBot.create(:user, :last_sign_in_at, :with_followers, number_of_followers: 15) }
+  let!(:eigth_user) { FactoryBot.create(:user, :with_articles, :with_followers, number_of_articles: 15, number_of_followers: 5) }
+  let!(:users_list) { FactoryBot.create_list(:user, 10, :last_sign_in_at, :with_followers, :with_articles, number_of_articles: 5, number_of_followers: 1) }
   let!(:received_friendship_one) { Friendship.create(user_id: first_user.id, friend_id: third_user.id, accepted: true) }
-  let!(:category) { FactoryGirl.create(:category, :with_articles, number_of_articles: 1) }
-  let!(:article_category) { FactoryGirl.create(:article_category, article: fourth_user.articles.last, category: category) }
+  let!(:category) { FactoryBot.create(:category, :with_articles, number_of_articles: 1) }
+  let!(:article_category) { FactoryBot.create(:article_category, article: fourth_user.articles.last, category: category) }
 
 # Criteria
 # Top 3 visited category (if any)

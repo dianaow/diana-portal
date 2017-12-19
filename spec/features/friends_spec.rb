@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'follow users' do
     
-    let!(:user) { FactoryGirl.create(:user) }
-    let!(:other_user) { FactoryGirl.create(:friend) }
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:other_user) { FactoryBot.create(:friend) }
 
   describe "Submit friend request", js: true do
       

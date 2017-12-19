@@ -2,8 +2,8 @@ require "rails_helper"
 
 describe "Public access to friendships", type: :request do
     
-  let!(:user) { FactoryGirl.create(:user) }
-  let!(:user2) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:user2) { FactoryBot.create(:user) }
   
   before do 
     @received_request = Friendship.create(user_id: user2.id, friend_id: user.id) 
@@ -55,8 +55,8 @@ end
 
 describe "Logged in access to friendships", type: :request do
     
-  let!(:user) { FactoryGirl.create(:user) }
-  let!(:user2) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:user2) { FactoryBot.create(:user) }
 
   before do 
     @received_request = Friendship.create(user_id: user2.id, friend_id: user.id) 

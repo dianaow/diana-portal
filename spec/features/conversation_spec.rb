@@ -2,8 +2,9 @@ require 'rails_helper'
 
 describe "Conversation" do
     
-    let!(:user) { FactoryGirl.create(:user) }
-    let!(:other_user) { FactoryGirl.create(:friend) }
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:other_user) { FactoryBot.create(:friend) }
+    let!(:other_articles)  { FactoryBot.create_list(:article, Article.per_page / 2) }
     
     before do
         login_as(user, :scope => :user)
@@ -16,11 +17,12 @@ describe "Conversation" do
         end
         
       	it 'can be reached successfully' do
-      	  expect(page.status_code).to eq(200)
+      	  expect(page).to have_current_path "/conversations"
       	end
         
         it "create a new conversation", js: true do
           click_on "Compose"
+          expect(page).to have_content("New Message")
           find("#select2-user_id-container").click
           within('#select2-user_id-results') do
             find("li:nth-child(1)").click
@@ -50,6 +52,7 @@ describe "Conversation" do
         
         it "receiver replies to conversation in message thread" do
             find('.chat-body').click
+            expect(page).to have_content("Hello Friend")
             fill_in 'body', with: "A reply"
             click_on "Send"
             expect(page).to have_css('.chat_area', text: "A reply")

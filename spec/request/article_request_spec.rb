@@ -16,7 +16,7 @@ end
 
 describe "Public access to articles", type: :request do
     
-let!(:user) { FactoryGirl.create(:user) }
+let!(:user) { FactoryBot.create(:user) }
 
   before do 
     @article = Article.create(title: 'Test Article', summary: 'Summary of article', description: 'Request spec test', status: "published", user_id: user.id)
@@ -30,7 +30,7 @@ let!(:user) { FactoryGirl.create(:user) }
   end
 
   it "denies access to articles#create" do
-    article_attributes = FactoryGirl.attributes_for(:article)
+    article_attributes = FactoryBot.attributes_for(:article)
     expect {
       post "/articles", params: { article: article_attributes }
     }.to_not change(Article, :count)
@@ -72,7 +72,7 @@ end
 
 describe "Logged in access to articles", type: :request do
     
-let!(:user) { FactoryGirl.create(:user) }
+let!(:user) { FactoryBot.create(:user) }
 
   before do 
     @article = Article.create(title: 'Test Article', summary: 'Summary of article', description: 'Request spec test', status: "published", user_id: user.id)
@@ -87,7 +87,7 @@ let!(:user) { FactoryGirl.create(:user) }
   end
 
   it "allows access to articles#create" do
-    article_attributes = FactoryGirl.attributes_for(:article)
+    article_attributes = FactoryBot.attributes_for(:article)
     expect {
       post "/articles", params: { article: article_attributes }
     }.to change(Article, :count).by(1)
@@ -101,7 +101,7 @@ let!(:user) { FactoryGirl.create(:user) }
   end
   
   it "allows access to articles#update" do
-    article_attributes = FactoryGirl.attributes_for(:article, title: "New title")
+    article_attributes = FactoryBot.attributes_for(:article, title: "New title")
     patch "/articles/test-article", params: { article: article_attributes }
     expect(response.status).to eq(200)
   end
@@ -131,8 +131,8 @@ end
 
 describe "Un-authorized access to modify another user's articles", type: :request do
     
-let!(:user) { FactoryGirl.create(:user) }
-let!(:user2) { FactoryGirl.create(:user) }
+let!(:user) { FactoryBot.create(:user) }
+let!(:user2) { FactoryBot.create(:user) }
 
   before do 
     @article = Article.create(title: 'Test Article', summary: 'Summary of article', description: 'Request spec test', status: "published", user_id: user.id)

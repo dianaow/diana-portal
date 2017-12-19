@@ -26,7 +26,7 @@ end
 
 describe "Logged in access to users", type: :request do
     
-  let!(:user) { FactoryGirl.create(:user) }
+  let!(:user) { FactoryBot.create(:user) }
 
   before do 
     login_as(user, :scope => :user)  
