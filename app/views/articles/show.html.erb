@@ -1,43 +1,38 @@
 <div class = "container-fluid" id="article">
   <div id = "article-show-header">
-    <div class = "row">
-      <div class = "col-md-1 col-sm-1 col-xs-1"></div>
-      <div class = "col-md-11 col-sm-11 col-xs-11 article-header-text">
-        <p><%= @article.created_at.strftime("%d-%m-%Y") %></p>
-        <p>Last updated: <%= time_ago_in_words(@article.updated_at) %> ago </p>
-        <p>By: <%= @article.user.name %></p>
-        <p>
-          <% if current_user == @article.user %>
-            <%= link_to 'Edit', edit_article_path(@article) %> |
-            <%= link_to 'Delete', article_path(@article), method: :delete, data: { confirm: 'Are you sure?' } %>
-          <% end %>
-        </p>
-        <h1><%= @article.title %></h1>
-        <div>
-          <% @article_categories.each do |category| %>
-              <%= link_to "#{category.name}", category_path(category), class: "btn btn-xs btn-article-show" %>
-          <% end %>
-        </div>
+    <div class = "article-header-text">
+      <p><%= @article.created_at.strftime("%d-%m-%Y") %></p>
+      <p>Last updated: <%= @article.updated_at.strftime("%d-%m-%Y") %></p>
+      <p>By: <%= @article.user.name %></p>
+      <p>
+        <% if current_user == @article.user %>
+          <%= link_to 'Edit', edit_article_path(@article) %> |
+          <%= link_to 'Delete', article_path(@article), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </p>
+      <h1><%= @article.title %></h1>
+      <div>
+        <% @article_categories.each do |category| %>
+            <%= link_to "#{category.name}", category_path(category), class: "btn btn-xs btn-article-show" %>
+        <% end %>
       </div>
     </div>
   </div>
 
   <div class = "row">
-    <div class = "col-md-1 col-sm-1 col-xs-1"></div>
-    <div class = "col-md-8 col-sm-8 col-xs-9">
+    <div class = "col-md-9 col-sm-12">
       <div id= "article-description">
         <%= raw(@article.description) %>
       </div>
       <div id = "read-more">
-        <button class="hidden btn btn-lg btn-cat-loadmore">Read More</button>
+        <button class="hidden btn btn-cat-loadmore">Read More</button>
       </div>
     </div>
-    <div class = "col-md-2 col-sm-2 col-xs-1">
+    <div class = "col-md-3">
       <div id="article-sidebar" %>
         <%= render 'show_sidebar', article: @article %>
       </div>
     </div>
-    <div class = "col-md-1 col-sm-1 col-xs-1"></div>
   </div>
   
   <div class = "row">

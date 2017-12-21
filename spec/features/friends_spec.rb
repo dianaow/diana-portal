@@ -15,28 +15,28 @@ describe 'follow users' do
         visit users_path
         expect(page).to have_css('#users', text: other_user.name)
         expect(page).to have_css('#users', text: user.name)
-        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        expect(page).to have_css(".btn-follow")
     end
     
-    it "allows user to submit friend request by clicking Follow on users index page, which will change to Awaiting Request" do
+    it "allows user to submit friend request by clicking Follow on users index page, which will change to Pending" do
         visit users_path
         expect(page).to have_content("Friend")
-        click_on "Follow"
-        expect(page).to have_content("Awaiting Request")
+        find(:css, '.btn-follow').click
+        expect(page).to have_content("Pending")
     end
     
-    it "allows user to submit friend request by clicking Follow on user show page, which will change to Awaiting Request" do
+    it "allows user to submit friend request by clicking Follow on user show page, which will change to Pending" do
         visit user_path(other_user)
-        click_on "Follow"
-        expect(page).to have_content("Awaiting Request")
+        find(:css, '.btn-follow').click
+        expect(page).to have_content("Pending")
     end
     
-    it "allows user to submit friend request by clicking Follow on user Followers page, which will change to Awaiting Request" do
+    it "allows user to submit friend request by clicking Follow on user Followers page, which will change to Pending" do
         Friendship.create!(user_id: other_user.id, friend_id: user.id, accepted: true)
         visit followers_path
         click_on "Followers"
-        click_on "Follow"
-        expect(page).to have_content("Awaiting Request")
+        find(:css, '.btn-follow').click
+        expect(page).to have_content("Pending")
     end
     
   end
@@ -70,7 +70,7 @@ describe 'follow users' do
         click_on "Accept"
         click_on "Followers"
         expect(page).to have_css(".followers", text: other_user.name)
-        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        expect(page).to have_css(".btn-follow")
         expect(page).to have_content("You have 1 follower")
     end
     
@@ -105,38 +105,39 @@ describe 'follow users' do
     
     it 'shows unfollow button on following page' do
         expect(page).to have_link(other_user.name)
-        expect(page).to have_link("Unfollow")
+        expect(page).to have_css(".btn-unfollow")
     end
     
     it "friend disappears from following list once user clicks unfollow" do
-        click_on "Unfollow"
+        find(:css, '.btn-unfollow').click
         expect(current_path).to eq(following_path)
         expect(page).to have_content("You are following 0 people")
     end
     
     it "allows user to unfollow from users index page" do
         visit users_path
-        click_on "Unfollow"
-        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        find(:css, '.btn-unfollow').click
+        expect(page).to have_css(".btn-follow")
     end
     
     it "allows user to unfollow from user show page" do
         visit user_path(other_user)
-        click_on "Unfollow"
-        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        find(:css, '.btn-unfollow').click
+        expect(page).to have_content("1 follower")
+        expect(page).to have_css(".btn-follow")
     end
     
     it "allows user to unfollow from Followers page" do
         visit followers_path
         click_on "Followers"
-        click_on "Unfollow"
-        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        find(:css, '.btn-unfollow').click
+        expect(page).to have_css(".btn-follow")
     end
     
     it "ex-friend can be re-followed" do
-        click_on "Unfollow"
+        find(:css, '.btn-unfollow').click
         visit users_path
-        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        expect(page).to have_css(".btn-follow")
     end
     
   end
@@ -151,18 +152,18 @@ describe 'follow users' do
     
     it 'shows follow button beside a user which current user has received a friend request from and is currently not following' do
         visit users_path
-        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        expect(page).to have_css(".btn-follow")
         visit user_path(other_user)
-        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        expect(page).to have_css(".btn-follow")
     end
     
     it 'shows follow button beside a user which current user has accepted a friend request from and is currently not following' do
         visit followers_path
         click_on "Accept"
         visit users_path
-        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        expect(page).to have_css(".btn-follow")
         visit user_path(other_user)
-        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        expect(page).to have_css(".btn-follow")
     end
     
     
@@ -170,9 +171,9 @@ describe 'follow users' do
         visit followers_path
         click_on "Decline"
         visit users_path
-        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        expect(page).to have_css(".btn-follow")
         visit user_path(other_user)
-        expect(page).to have_link("Follow", href: "/friendships?friend_id=#{other_user.id}")
+        expect(page).to have_css(".btn-follow")
     end
   end
   
@@ -188,18 +189,18 @@ describe 'follow users' do
     
     it 'shows unfollow button beside a user which current user has received a friend request from and is currently following' do
         visit users_path
-        expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
+        expect(page).to have_css(".btn-unfollow")
         visit user_path(other_user)
-        expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
+        expect(page).to have_css(".btn-unfollow")
     end
     
     it 'shows unfollow button beside a user which current user has accepted a friend request from and is currently following' do
         visit followers_path
         click_on "Accept"
         visit users_path
-        expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
+        expect(page).to have_css(".btn-unfollow")
         visit user_path(other_user)
-        expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
+        expect(page).to have_css(".btn-unfollow")
     end
     
     
@@ -207,14 +208,14 @@ describe 'follow users' do
         visit followers_path
         click_on "Decline"
         visit users_path
-        expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
+        expect(page).to have_css(".btn-unfollow")
         visit user_path(other_user)
-        expect(page).to have_link("Unfollow", href: "/friendships/#{user.friendships.find_by_friend_id(other_user.id).id}")
+        expect(page).to have_css(".btn-unfollow")
     end
     
   end
   
-  describe "Awaiting request on user index page and user show page", js: true do
+  describe "Pending on user index page and user show page", js: true do
       
     let!(:requested_friendship) { Friendship.create(user_id: user.id, friend_id: other_user.id, accepted: false) }
     let!(:received_friendship) { Friendship.create(user_id: other_user.id, friend_id: user.id, accepted: false) }
@@ -223,29 +224,29 @@ describe 'follow users' do
        login_as(user, :scope => :user)
     end
     
-    it 'shows Awaiting Request beside a user which current user has received a friend request from and is currently awaiting a follow back' do
+    it 'shows Pending beside a user which current user has received a friend request from and is currently awaiting a follow back' do
         visit users_path
-        expect(page).to have_content("Awaiting Request")
+        expect(page).to have_content("Pending")
         visit user_path(other_user)
-        expect(page).to have_content("Awaiting Request")
+        expect(page).to have_content("Pending")
     end
     
-    it 'shows Awaiting Request beside a user which current user has accepted a friend request from and is currently awaiting a follow back' do
+    it 'shows Pending beside a user which current user has accepted a friend request from and is currently awaiting a follow back' do
         visit followers_path
         click_on "Accept"
         visit users_path
-        expect(page).to have_content("Awaiting Request")
+        expect(page).to have_content("Pending")
         visit user_path(other_user)
-        expect(page).to have_content("Awaiting Request")
+        expect(page).to have_content("Pending")
     end
     
-    it 'shows Awaiting Request beside a user which current user has declined a friend request from and is currently awaiting a follow back' do
+    it 'shows Pending beside a user which current user has declined a friend request from and is currently awaiting a follow back' do
         visit followers_path
         click_on "Decline"
         visit users_path
-        expect(page).to have_content("Awaiting Request")
+        expect(page).to have_content("Pending")
         visit user_path(other_user)
-        expect(page).to have_content("Awaiting Request")
+        expect(page).to have_content("Pending")
     end
     
   end

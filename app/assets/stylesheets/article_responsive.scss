@@ -14,7 +14,7 @@
 }
 
 @media (max-width: 992px) and (min-width: 769px) { 
-    #browse-category, #recommended-users-container, #featured-article, #frequented-tags {
+    #article-sidebar, #browse-category, #recommended-users-container, #featured-article, #frequented-tags {
         display: none;
     }
     
@@ -24,14 +24,30 @@
     
     ul.multiselect-container.dropdown-menu {
         width: 280px !important;
+    }
+    
+    #article-description {
+        margin-left: 60px;
+        margin-right: 60px;
+    }
+    
+    #small-article-sidebar {
+        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
 }
 
 @media (max-width: 768px) and (min-width: 575px) { 
-    #browse-category, #vote-viewcount-block, #article-details, 
+    #article-sidebar, #browse-category, #vote-viewcount-block, #article-details, 
     #recommended-users-container, #featured-article, #frequented-tags {
         display: none;
+    }
+    
+    h1 {
+        font-size: 1.8em;
     }
     
     button.multiselect.dropdown-toggle.btn.btn-default {
@@ -48,27 +64,44 @@
         align-items: center;
         justify-content: center;
     }
-    
-    #article-sidebar {
-        display: none;
+
+    #article-description {
+        margin-left: 40px;
+        margin-right: 40px;
     }
     
+    .comment-button {
+        margin-top: 20px;
+    }
+    
+    .jumbotron > h2 {
+        font-size: 1.4em;
+    }
+   
+    .jumbotron > h4 {
+        font-size: 1.2em;
+    }
+    
+    a {
+        font-size: 1em;
+    }
+
 }
 
 
 @media (max-width: 576px) { 
     
-    #browse-category, #vote-viewcount-block, #article-details, 
+    #article-sidebar, #browse-category, #vote-viewcount-block, #article-details, 
     #recommended-users-container, #featured-article, #frequented-tags {
         display: none;
     }
 
-    h3 {
-        font-size: 1.2em;
+    p {
+        font-size: 0.9em;
     }
     
     h1 {
-        font-size: 1.5em;
+        font-size: 1.6em;
     }
     
     button.multiselect.dropdown-toggle.btn.btn-default {
@@ -85,8 +118,45 @@
         align-items: center;
         justify-content: center;
     }
+
+    #article-description {
+        margin-left: 40px;
+        margin-right: 40px;
+    }
     
-    #article-sidebar {
+    .comment-author-gravatar {
         display: none;
+        
+    }
+    
+    .comment-button {
+        margin-top: 20px;
+    }
+    
+    .btn-cat-loadmore {
+        background: #ffffff;
+        border: 2px solid #FF6A5C;
+        border-radius: 0;
+        letter-spacing: 1px;
+        padding: 5px 10px;
+        color: #FF6A5C;
+        font-size: 0.8em;
+    }
+    
+    .height-style {
+        height: 300px;
+        overflow: hidden;
+    }
+    
+    .jumbotron > h2 {
+        font-size: 1.2em;
+    }
+   
+    .jumbotron > h4 {
+        font-size: 1em;
+    }
+    
+    a {
+        font-size: 0.9em;
     }
 }

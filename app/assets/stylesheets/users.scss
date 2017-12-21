@@ -1,0 +1,73 @@
+.users-container {
+    width: 60%;
+}
+
+#following h3{
+    margin: 40px;
+}
+
+.followers h3{
+    margin: 40px;
+}
+
+.pending-requests h3{
+    margin: 40px;
+}
+
+.user-search-box {
+    margin: 40px 0px;
+}
+
+.gravatar-user {
+    display: block;
+}
+
+.small-gravatar-user {
+    display: none;
+}
+
+@media (max-width: 768px) and (min-width: 575px) { 
+    
+    .users-container {
+        width: 80%;
+    }
+    
+    .user-search-box {
+        margin: 20px 0px;
+    }
+    
+    .gravatar-user {
+        display: none;
+    }
+    
+    .small-gravatar-user {
+        display: block;
+    }
+
+
+}
+
+@media (max-width: 576px) { 
+    
+    .users-container {
+        width: 100%;
+        min-width: 300px;
+    }
+    
+    .user-search-box {
+        margin: 20px 0px;
+    }
+    
+    .gravatar-user {
+        display: none;
+    }
+    
+    .small-gravatar-user {
+        display: block;
+    }
+
+
+}
+
+
+

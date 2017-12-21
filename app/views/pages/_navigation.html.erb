@@ -2,42 +2,52 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <i class="fa fa-bars" aria-hidden="true"></i>
       </button>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+        <ul class="nav navbar-nav">
+          <li>
+            <%= link_to root_path  do %>
+              <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+            <% end %>
+          </li>
+          <li><%= link_to "Categories", categories_path %></li>
+          <li><%= link_to "Articles", articles_path %></li>
+          <% if user_signed_in? %>
+            <li><%= link_to "Users", users_path %></li>
+          <% end %>
+        </ul>
+      
+        <ul class="navbar-form navbar-left">
+          <%= search_form_for @q, url: articles_path, method: :get do |f| %>
+              <div class="input-group" id="nav-search">
+                <%= f.search_field :title_cont, placeholder: "Search...", class: "form-control" %>
+              </div>
+          <% end %>
+        </ul>
+      
       <% if user_signed_in? %>
-      <ul class="nav navbar-nav">
-        <li><%= link_to "Users", users_path %></li>
-        <li><%= link_to "Categories", categories_path %></li>
-        <li><%= link_to "Articles", articles_path %></li>
-      </ul>
-      <ul class="navbar-form navbar-left">
-        <%= search_form_for @q, url: articles_path, method: :get do |f| %>
-            <div class="input-group" id="nav-search">
-              <%= f.search_field :title_cont, placeholder: "Search...", class: "form-control" %>
-            </div>
-        <% end %>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Create Article", new_article_path %></li>
-        <li class="dropdown notifications">
-          <%= render "notifications/notification_center", notifications: @notifications %>
-        </li>
-        <li class="dropdown my_menu">
-          <%= render "pages/my_menu" %>
-        </li>
-      </ul>
-      <% else %>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item"><%= link_to "Register", new_user_registration_path, class: "bg-grey" %></li>
-        <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "bg-grey"  %></li>
-      </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "Create Article", new_article_path %></li>
+          <li class="dropdown notifications">
+            <%= render "notifications/notification_center", notifications: @notifications %>
+          </li>
+          <li class="dropdown my_menu">
+            <%= render "pages/my_menu" %>
+          </li>
+        </ul>
       <% end %>
+      
+      <% if user_signed_in? == false %>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item"><%= link_to "Register", new_user_registration_path, class: "bg-grey" %></li>
+          <li class="nav-item"><%= link_to "Login", new_user_session_path, class: "bg-grey"  %></li>
+        </ul>
+      <% end %>
+      
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

@@ -1,13 +1,14 @@
 //HEADER
 
 #article-show-header {
-    background-color: #CF6766;
-    height: 200px;
+    background-color: #056571;
+    min-height: 200px;
 }
 
 .article-header-text {
-    padding: 20px;
+    padding: 20px 40px;
     color: #cccccc;
+    text-align: center;
     
     h1 {
         color: #ffffff;
@@ -42,9 +43,8 @@ pre code * {
   white-space: nowrap;    
 }
 
-
 #article-description {
-    padding: 20px;
+    margin: 40px 50px 40px 120px;
 }
 
 .height-style {

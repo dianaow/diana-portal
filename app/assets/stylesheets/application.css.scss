@@ -1,5 +1,7 @@
 @import "bootstrap-sprockets";
+@import "font-awesome-sprockets";
 @import "bootstrap";
+@import "font-awesome";
 @import 'general.scss';
 @import 'buttons.scss';
 @import "notifications.scss";
@@ -7,6 +9,7 @@
 @import "devise.scss";
 @import "categories.scss";
 @import "conversations.scss";
+@import "users.scss";
 @import "comments.scss";
 @import "browse.scss";
 @import "articles.scss";

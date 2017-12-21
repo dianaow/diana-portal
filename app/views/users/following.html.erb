@@ -1,16 +1,18 @@
 <div class = "container" id="following">
-  <h3 class = "padding-bottom-40">You are following <%= pluralize(@following.count, 'person') %></h3>
+  <h3>You are following <%= pluralize(@following.count, 'person') %></h3>
   <% @following.each do |follow| %>
     <div class="row alternate-row" id ="following_<%= follow.id %>">
-      <div class = "col-md-1 col-xs-2">
+      <div class = "col-md-1 col-sm-2 col-xs-3">
         <%= gravatar_for(follow, size: 45) %>
       </div>
-      <div class = "col-md-9 col-xs-6">
+      <div class = "col-md-9 col-sm-6 col-xs-4">
         <b><%= link_to follow.name, user_path(follow) %></b><br>
-        <p><%= pluralize(follow.articles.count, "article") if follow.articles %></p>
       </div>
-      <div class = "col-md-2 col-xs-4">
-        <%= link_to "Unfollow", friendship_path(current_user.friendships.find_by_friend_id(follow.id)), :method => :delete, remote: true, data: { confirm: "Are you sure?" }, class:"btn btn-md btn-danger" %>
+      <div class = "col-md-2 col-sm-4 col-xs-5 status_buttons">
+        <%= link_to friendship_path(current_user.friendships.find_by_friend_id(follow.id)), :method => :delete,
+          data: { confirm: "Are you sure?" }, class:"btn btn-unfollow", remote: true do %>
+          <i class="fa fa-minus" aria-hidden="true"></i>
+        <% end %>
       </div>
     </div>
   <% end %>

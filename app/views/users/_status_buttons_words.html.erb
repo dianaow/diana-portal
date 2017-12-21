@@ -1,0 +1,10 @@
+<% if user == current_user %>
+   <div></div>
+<% elsif current_user.pending_friends.include?(user) == true %> 
+  <button type="button" class="btn btn-sm btn-pending">Pending</button>
+<% elsif current_user.active_friends.include?(user) == true %>
+    <%= link_to "Unfollow", friendship_path(current_user.friendships.find_by_friend_id(user.id)),
+    :method => :delete, data: { confirm: "Are you sure?" }, class:"btn btn-sm btn-unfollow", remote: true %>
+<% elsif current_user.follows?(user) == false %>
+    <%= link_to "Follow", friendships_path(friend_id: user.id), method: :post, class: "btn btn-sm btn-follow", remote: true %>
+<% end %>

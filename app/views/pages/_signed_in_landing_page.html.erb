@@ -12,8 +12,8 @@
           <%= render @feed %>
         </div>
 
-         <%= will_paginate @feed %>
-
+         <%= will_paginate @feed, :inner_window => 1, :outer_window  => 1, :previous_label => '&larr;'.html_safe, :next_label => '&rarr;'.html_safe  %>
+         
       </div>
       <div class="col-md-4">
         <div id = "recommended-users-container">

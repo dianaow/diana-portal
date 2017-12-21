@@ -13,17 +13,17 @@
   }
   #ComposeFrm .topEl.topElSelect{
     float: right;
-    width: 200px;
+    width: 100px;
   }
 </style>
-<script src="https://use.fontawesome.com/45e03a14ce.js"></script>
+
 <div class="main_section">
   <div class="container">
     <div class="chat_container">
-      <div class="col-sm-4 chat_sidebar">
+      <div class="col-sm-4 col-xs-4 chat_sidebar">
         <div class="row">
           <div id="custom-search-input">
-            <div  class="input-group col-md-12">
+            <div  class="input-group col-md-12 col-sm-12 col-xs-12">
               <form action="#unread" class="form-inline" id="ComposeFrm">
                 <div class="form-group topEl">
                   <%= link_to new_conversation_path, class: "btn btn-default", remote: true do %>
@@ -35,13 +35,12 @@
                 </div>
               </form>
             </div>
-            <div class="input-group col-md-12">
+            <div class="input-group col-md-12 col-sm-12 col-xs-12">
               
             </div>
           </div>
           <div class="dropdown all_conversation">
              <button class="dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             <i class="fa fa-weixin" aria-hidden="true"></i>
              All Conversations
           </div>
           <div class="member_list" id="member_list">
@@ -51,7 +50,7 @@
       </div>
       <!--chat_sidebar-->
 
-      <div class="col-sm-8 message_section">
+      <div class="col-sm-8 col-xs-8 message_section">
         <div class="row">
           <div class="HeaderMsg"></div><!--new_message_head-->
           <div class="chat_area">

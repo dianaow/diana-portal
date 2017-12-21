@@ -11,7 +11,7 @@ describe 'notifications' do
       login_as(friend, :scope => :user)
       visit user_path(user)
       click_on "Follow"
-      expect(page).to have_content "Awaiting Request"
+      expect(page).to have_content "Pending"
       logout(:user)
       login_as(user, :scope => :user)
       visit followers_path

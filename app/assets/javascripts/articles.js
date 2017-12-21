@@ -41,7 +41,7 @@ $(document).ready(function() {
   
     var length = $('#article-description').innerHeight(); 
 
-    if(length > 600) {
+    if(length > 500) {
         $('#article-description').addClass("height-style");
         $('#read-more').find("button").removeClass("hidden");
     } else {
@@ -61,7 +61,11 @@ $(document).ready(function() {
     });
     
     $("#article_category_ids").select2({
-      tokenSeparators: [',']
+      tokenSeparators: [','],
+      maximumSelectionLength: 5,
+      formatSelectionTooBig: function (limit) {
+          return 'Too many selected items';
+      }
     });
     
 });

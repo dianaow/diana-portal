@@ -7,11 +7,13 @@ module ApplicationHelper
         url: conversations_path,
         title: 'My Messages'
       },
+      if user_signed_in? == true
       {
         icon: 'glyphicon glyphicon-file',
-        url: '',
+        url: user_path(current_user),
         title: 'My Articles'
-      },
+      }
+      end,
       {
         icon: 'glyphicon glyphicon-star',
         url: followers_path,

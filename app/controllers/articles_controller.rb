@@ -1,8 +1,8 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except:[:index, :show]
-    before_action :set_article, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
-    include ArticlesHelper
-    
+  before_action :set_article, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
+  include ArticlesHelper
+  
   def index
     @q = Article.published.ransack(params[:q])
     @q.sorts = 'created_at desc' if @q.sorts.empty?

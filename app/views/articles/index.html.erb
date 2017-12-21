@@ -6,7 +6,7 @@
     <div class = "col-md-8 col-sm-12 col-xs-12">
       <%= render 'browse_form', q: @q %>
       <%= render @articles %>
-      <%= will_paginate @articles %>
+      <%= will_paginate @articles, :inner_window => 1, :outer_window  => 1, :previous_label => '&larr;'.html_safe, :next_label => '&rarr;'.html_safe %>
     </div>
   </div>
 </div>

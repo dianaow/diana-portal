@@ -6,13 +6,11 @@
            <h1>
             <%= gravatar_for @user %>
             <%= @user.name %>
+            <span style="padding-left: 20px", class= "status_buttons" %><%= render 'users/status_buttons_words', user: @user %></span>
            </h1>
            <h3><%= @user.received_friends.count %> followers</h3>
            <h3><%= @user.active_friends.count %> following</h3>
            <p><%= @user_articles.count %> articles</p>
-           <div class = "status_buttons">
-             <%= render 'users/status_buttons', user: @user %>
-           </div>
         </div>
       </div>
       <div class="col-md-8 col-xs-12">

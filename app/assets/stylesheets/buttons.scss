@@ -57,8 +57,45 @@ button {
     letter-spacing: 1px;
     padding: 10px 20px;
     color: #FF6A5C;
+    font-size: 1.2em;
 }
 
-.btn-cat-loadmore:hover, .btn-cat-loadmore:focus, .btn-cat-loadmore:active {
+.btn-cat-loadmore:hover, .btn-cat-loadmore:focus, .btn-cat-loadmore:active,
+.btn-follow:hover, .btn-follow:focus, .btn-follow:active {
     color: #FF6A5C;
+}
+
+.btn-follow {
+    background: transparent;
+    border: 2px solid #FF6A5C;
+    border-radius: 0;
+    letter-spacing: 1px;
+    color: #FF6A5C;
+    padding: 6px 10px;
+}
+
+.btn-unfollow {
+    background-color: #FF6A5C;
+    border: 2px solid #FF6A5C;
+    border-radius: 0;
+    letter-spacing: 1px;
+    padding: 6px 10px;
+    color: #ffffff;
+}
+
+.btn-unfollow:hover, .btn-unfollow:focus, .btn-unfollow:active {
+    color: #ffffff;
+}
+
+.btn-pending {
+    background: transparent;
+    border: 2px solid #031424;
+    border-radius: 0;
+    letter-spacing: 1px;
+    padding: 6px;
+    color: #031424;
+}
+
+.btn-pending:hover, .btn-pending:focus, .btn-pending:active {
+    color:#031424;
 }

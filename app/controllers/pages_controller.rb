@@ -3,7 +3,7 @@ before_action :set_recommended_users
 
   def home
     if user_signed_in? == true
-      @feed = current_user.feed.paginate(page: params[:page], per_page: 20).order("updated_at DESC")
+      @feed = current_user.feed.paginate(page: params[:page], per_page: 10).order("updated_at DESC")
 
     else                             
       @articles = Article.published

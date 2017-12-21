@@ -1,6 +1,9 @@
 <div class="row alternate-row" id="user_<%= user.id %>">
-  <div class = "col-md-1 col-sm-2 col-xs-3">
-    <%= gravatar_for(user, size: 45) %>
+  <div class = "col-md-1 col-sm-2 col-xs-3 gravatar-user">
+    <%= gravatar_for(user, size: 40) %>
+  </div>
+  <div class = "col-xs-2 small-gravatar-user">
+    <%= gravatar_for(user, size: 30) %>
   </div>
   <div class = "col-md-9 col-sm-6 col-xs-4">
     <b><%= link_to user.name, user_path(user) %></b><br>

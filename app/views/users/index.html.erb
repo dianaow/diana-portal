@@ -1,17 +1,17 @@
-<div class = "container">
+<div class = "container users-container">
   <%= search_form_for @search do |f| %>
-    <div class = " row padding-top-20">
-      <div class="col-md-10 col-sm-10 col-xs-12">
+    <div class = "row user-search-box">
+      <div class="col-md-10 col-sm-10 col-xs-8">
          <%= f.search_field :name_cont, class: "form-control", id: "user_name_cont", name: "user[name_cont]", placeholder: "Search for a user" %>
       </div>
-      <div class="col-md-2 col-sm-2 col-xs-12">
-        <%= f.submit class: 'btn btn-md btn-default' %>
+      <div class="col-md-2 col-sm-2 col-xs-4">
+        <%= f.submit class: "btn btn-default" %>
       </div>
     </div>
   <% end %>
   <div id="users">
     <%= render @users %>
-    <%= will_paginate @users %>
+    <%= will_paginate @users, :inner_window => 1, :outer_window  => 1, :previous_label => '&larr;'.html_safe, :next_label => '&rarr;'.html_safe  %>
   </div>
 </div>
 

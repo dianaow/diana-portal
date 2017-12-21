@@ -1,23 +1,24 @@
 /* navbar */
 .navbar-custom {
-    background-color: #031424;
+    background-color: #414141;
     border: 0px;
     border-radius: 0px;
     margin-bottom: 0px;
     padding: 0px 40px;
 
 }
-/* Title */
-.navbar-custom .navbar-brand {
-    color: #ffffff;
-    text-transform: uppercase; 
-    letter-spacing: 1px;
-    margin: 0px 20px;
+
+/* Icons*/
+.fa-snowflake-o {
+    font-size: 30px;
+    margin: -5px;
+    color: white;
 }
-.navbar-custom .navbar-brand:hover,
-.navbar-custom .navbar-brand:focus {
-    color: #ffffff;
+
+#nav-search {
+    width: 150px;
 }
+
 /* Link */
 .navbar-custom .navbar-nav > li > a {
     color: #ffffff;
@@ -28,53 +29,27 @@
 .navbar-custom .navbar-nav > li > a:hover,
 .navbar-custom .navbar-nav > li > a:focus {
     color: #ffffff;
-    background-color: #031424;
+    background-color: #414141;
 }
 .navbar-custom .navbar-nav > .active > a,
 .navbar-custom .navbar-nav > .active > a:hover,
 .navbar-custom .navbar-nav > .active > a:focus {
     color: #ffffff;
-    background-color: #031424;
+    background-color: #414141;
 }
 .navbar-custom .navbar-nav > .open > a,
 .navbar-custom .navbar-nav > .open > a:hover,
 .navbar-custom .navbar-nav > .open > a:focus {
     color: #ffffff;
-    background-color: #031424;
+    background-color: #414141;
 }
 
-/* Caret */
-.navbar-custom .navbar-nav > .dropdown > a .caret {
-    display: none;
-}
-.navbar-custom .navbar-nav > .dropdown > a:hover .caret,
-.navbar-custom .navbar-nav > .dropdown > a:focus .caret {
-    display: none;
-}
-.navbar-custom .navbar-nav > .open > a .caret,
-.navbar-custom .navbar-nav > .open > a:hover .caret,
-.navbar-custom .navbar-nav > .open > a:focus .caret {
-    display: none;
-}
-/* Mobile version */
-.navbar-custom .navbar-toggle {
-    border: 0px;
-}
-.navbar-custom .navbar-toggle:hover,
-.navbar-custom .navbar-toggle:focus {
-    background-color: #031424;
-}
-.navbar-custom .navbar-toggle .icon-bar {
-    background-color: #031424;
-}
-@media (max-width: 767px) {
-    .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
-        color: #ffffff;
-    }
-    .navbar-custom .navbar-nav .open .dropdown-menu > li > a:hover,
-    .navbar-custom .navbar-nav .open .dropdown-menu > li > a:focus {
-          color: #ffffff;
-    }
+
+.navbar-toggler {
+    color: white;
+    border: white;
+    background-color: transparent;
+    font-size: 20px;
 }
 
 #q_title_cont .form-control {
@@ -87,6 +62,13 @@
     color: #ffffff;
 }
 
+.fa-bars {
+    color: white;
+}
+
+.avatar-user {
+    margin: -5px;
+}
 
 //MY MENU
 
@@ -98,13 +80,13 @@
     
     a {
         font-size: 16px;
-        color: #031424;
+        color: #414141;
     }
     
   span.glyphicon.glyphicon-envelope, span.glyphicon.glyphicon-file,  
   span.glyphicon.glyphicon-star, span.glyphicon.glyphicon-plus, span.glyphicon.glyphicon-pencil {
     font-size: 22px;
-    color: #031424;
+    color: #414141;
     padding-right: 22px;
    }
    
@@ -114,7 +96,6 @@
        margin: 0px;
    }
 }
-
 
 #mymenuBody  ul
 {
@@ -131,10 +112,56 @@ ul #mymenuList
 
 }
 
-
 #mymenuFooter
 {
   background-color: #e9eaed;
   padding: 6px;
   padding-left: 20px;
+}
+
+
+@media (max-width: 992px) and (min-width: 769px) { 
+    .navbar-nav>li>a {
+        padding: 15px 8px;
+        font-size: 0.9em;
+    }
+}
+
+
+@media (max-width: 768px) { 
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+    .collapse.in{
+        display:block !important;
+    }
+
 }
