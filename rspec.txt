@@ -1,27 +1,6 @@
+Run options: include {:js=>true}
 
 navigate
-  index
-[32m    can be reached successfully[0m
-[32m    has a list of articles[0m
-[32m    articles are arranged in created_at descending order[0m
-[32m    increase view count if user loads article show page[0m
-  creation
-[32m    has a create new article form that can be reached[0m
-[32m    can be created from new form page[0m
-[32m    will have a user associated it[0m
-  edit
-[32m    edit and delete icon is visible to article owner from index page[0m
-[32m    edit and delete link is visible to article owner from show page[0m
-[32m    can be reached by clicking edit on index page[0m
-[32m    can be edited[0m
-[32m    edit and delete icon is not visible to other users on index page[0m
-[32m    edit and delete link is not visible to other users on show page[0m
-[32m    cannot be edited by a non authorized user[0m
-  draft
-[32m    draft post is not visible on index page[0m
-[32m    draft post is visible to article owner on drafts page[0m
-[32m    draft post is accessible to article owner[0m
-[32m    draft post is not accessible to non-authorized users[0m
   delete
 [32m    can be deleted by clicking trash icon on index page[0m
 [32m    can be deleted by clicking trash icon on article show page[0m
@@ -71,18 +50,6 @@ Conversation
 [32m    receiver is able to view conversation in message thread[0m
 [32m    receiver replies to conversation in message thread[0m
 
-login and logout
-[32m  user is able to sign in with username[0m
-[32m  user is able to sign in with username[0m
-[32m  user is able to logout[0m
-
-create new user
-[32m  a new user is able to be created from registration page[0m
-
-feed
-[32m  shows friends' authored articles on feed[0m
-[32m  does not show unfollowed users' authored articles on feed[0m
-
 notifications
   follow user
 [32m    renders notification on dropdown list with link to user profile[0m
@@ -91,9 +58,9 @@ notifications
 follow users
   Submit friend request
 [32m    shows Follow button if current user is not following other user[0m
-[32m    allows user to submit friend request by clicking Follow on users index page, which will change to Awaiting Request[0m
-[32m    allows user to submit friend request by clicking Follow on user show page, which will change to Awaiting Request[0m
-[32m    allows user to submit friend request by clicking Follow on user Followers page, which will change to Awaiting Request[0m
+[32m    allows user to submit friend request by clicking Follow on users index page, which will change to Pending[0m
+[32m    allows user to submit friend request by clicking Follow on user show page, which will change to Pending[0m
+[32m    allows user to submit friend request by clicking Follow on user Followers page, which will change to Pending[0m
   Managing received friend request
 [32m    shows accept or decline options to friend[0m
 [32m    friend request disappear once user clicks accept[0m
@@ -115,168 +82,19 @@ follow users
 [32m    shows unfollow button beside a user which current user has received a friend request from and is currently following[0m
 [32m    shows unfollow button beside a user which current user has accepted a friend request from and is currently following[0m
 [32m    shows unfollow button beside a user which current user has declined a friend request from and is currently following[0m
-  Awaiting request on user index page and user show page
-[32m    shows Awaiting Request beside a user which current user has received a friend request from and is currently awaiting a follow back[0m
-[32m    shows Awaiting Request beside a user which current user has accepted a friend request from and is currently awaiting a follow back[0m
-[32m    shows Awaiting Request beside a user which current user has declined a friend request from and is currently awaiting a follow back[0m
+  Pending on user index page and user show page
+[32m    shows Pending beside a user which current user has received a friend request from and is currently awaiting a follow back[0m
+[32m    shows Pending beside a user which current user has accepted a friend request from and is currently awaiting a follow back[0m
+[32m    shows Pending beside a user which current user has declined a friend request from and is currently awaiting a follow back[0m
 
 feed
-[32m  only shows 5 users, if > 5 users meet the selection criteria[0m
-[32m  shows recommended users based on the criteria above in the following order (new user without any category visited)[0m
-[32m  shows recommended users based on the criteria above in the following order (with a category visited)[0m
 [32m  click to refresh recommended users list[0m
-
-search
-[32m  get all records that match the search key words from navbar search[0m
-[32m  get all records that match the search key words from browse form[0m
-[32m  filtered records can be sorted[0m
-
-Searching for User
-[32m  with existing name return all those users[0m
 
 vote
 [32m  has an icon for user to like an article[0m
 [32m  allows user to like an article[0m
 [32m  allows user to unlike an article, user can only like once[0m
 
-Article
-  Validations
-[32m    can be created[0m
-[32m    cannot be created without a title[0m
-[32m    cannot be created without a summary[0m
-[32m    cannot be created without a description[0m
-[32m    cannot be created without a title that is less than 10 characters[0m
-[32m    cannot be created without a title that is more than 100 characters[0m
-[32m    cannot be created without a summary that is less than 10 characters[0m
-[32m    cannot be created without a summary that is more than 180 characters[0m
-[32m    cannot be created without a description that is less than 10 characters[0m
-  Associations
-[32m    should belong to user[0m
-[32m    should have many comments[0m
-
-User
-  Validations
-[32m    is valid with valid attributes[0m
-[32m    is not valid without a name[0m
-[32m    is not valid without a password[0m
-[32m    is not valid without an email[0m
-
-Public access to articles
-[32m  denies access to articles#new[0m
-[32m  denies access to articles#create[0m
-[32m  denies access to articles#edit[0m
-[32m  denies access to articles#update[0m
-[32m  denies access to articles#destroy[0m
-[32m  denies access to articles#draft[0m
-[32m  allows access to articles#upvote[0m
-[32m  allows access to articles#downvote[0m
-  behaves like full access to article index and show pages
-[32m    allows access to articles#index[0m
-[32m    allows access to articles#show[0m
-
-Logged in access to articles
-[32m  allows access to articles#new[0m
-[32m  allows access to articles#create[0m
-[32m  allows access to articles#edit[0m
-[32m  allows access to articles#update[0m
-[32m  allows access to articles#destroy[0m
-[32m  allows access to articles#draft[0m
-[32m  allows access to articles#upvote[0m
-[32m  allows access to articles#downvote[0m
-  behaves like full access to article index and show pages
-[32m    allows access to articles#index[0m
-[32m    allows access to articles#show[0m
-
-Un-authorized access to modify another user's articles
-[32m  denies access to articles#edit[0m
-
-Public access to categories
-  behaves like full access to category index and show pages
-[32m    allows access to categories#index[0m
-[32m    allows access to categories#show[0m
-  behaves like denied access to category new, create, edit, show, update, destroy pages
-[32m    denies access to categories#new[0m
-[32m    denies access to categories#create[0m
-[32m    denies access to categories#edit[0m
-[32m    denies access to categories#update[0m
-[32m    denies access to categories#destroy[0m
-
-Logged in access to categories
-  behaves like full access to category index and show pages
-[32m    allows access to categories#index[0m
-[32m    allows access to categories#show[0m
-  behaves like denied access to category new, create, edit, show, update, destroy pages
-[32m    denies access to categories#new[0m
-[32m    denies access to categories#create[0m
-[32m    denies access to categories#edit[0m
-[32m    denies access to categories#update[0m
-[32m    denies access to categories#destroy[0m
-
-Public access to comments
-[32m  denies access to comments#create[0m
-[32m  denies access to comments#edit[0m
-[32m  denies access to comments#update[0m
-[32m  denies access to comments#destroy[0m
-  behaves like comments are found on articles page
-[32m    redirects comments#index to root path[0m
-[32m    redirects comments#show to root path[0m
-[32m    redirects comments#new to root path[0m
-
-Logged in user access to comments
-[32m  full access to comments#create[0m
-[32m  full access to comments#edit[0m
-[32m  full access to comments#update[0m
-[32m  full access to comments#destroy[0m
-  behaves like comments are found on articles page
-[32m    redirects comments#index to root path[0m
-[32m    redirects comments#show to root path[0m
-[32m    redirects comments#new to root path[0m
-
-Public access to conversations
-[32m  denies access to conversations#list[0m
-[32m  denies access to conversations#new[0m
-[32m  denies access to conversations#index[0m
-[32m  denies access to create a new conversation with a personal message[0m
-
-Logged in access to conversations
-[32m  denies access to conversations#list[0m
-[32m  denies access to conversations#new[0m
-[32m  allows access to conversations#index[0m
-[32m  allows access to create a new conversation with a personal message[0m
-
-Public access to friendships
-[32m  allows access to friendships#create[0m
-[32m  allows access to friendships#update[0m
-[32m  allows access to friendships#destroy[0m
-[32m  allows access to friendships#create[0m
-[32m  allows access to friendships#update[0m
-[32m  allows access to friendships#destroy[0m
-
-Logged in access to friendships
-[32m  allows access to friendships#create[0m
-[32m  allows access to friendships#update[0m
-[32m  allows access to friendships#destroy[0m
-
-Public access to notifications
-[32m  denies access to notifications#index[0m
-[32m  denies access to notifications#destroy[0m
-
-Logged in access to notifications
-[32m  allows access to notifications#index[0m
-[32m  allows access to notifications#destroy[0m
-
-Public access to users
-[32m  denies access to users#index[0m
-[32m  denies access to users#show[0m
-[32m  denies access to users#followers[0m
-[32m  denies access to users#following[0m
-
-Logged in access to users
-[32m  allows access to users#index[0m
-[32m  allows access to users#show[0m
-[32m  allows access to users#followers[0m
-[32m  allows access to users#following[0m
-
-Finished in 2 minutes 46.7 seconds (files took 5.67 seconds to load)
-[32m182 examples, 0 failures[0m
+Finished in 3 minutes 21.4 seconds (files took 5.31 seconds to load)
+[32m58 examples, 0 failures[0m
 
