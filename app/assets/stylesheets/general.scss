@@ -1,11 +1,11 @@
-h1, h2, h3, h4 , small, a{
-   font-family: 'Roboto Slab',serif;
+h1, h2, h3, h4 , small, a, p{
+   font-family: 'Roboto',serif;
    color: #031424;
 }
 
-p {
-   font-family: 'Helvetica',serif;
-   color: #031424;
+span {
+   font-family: 'Roboto',serif;
+   color:black;
 }
 
 p > a {
@@ -94,11 +94,6 @@ label.error {
     
 }
 
-footer {
-    background-color: #e7e7e7;
-
-}
-
 .pagination {
     display: flex;
     align-items: center;
@@ -115,4 +110,116 @@ footer {
   .previous_page.disabled { background: white; color: #777 }
   .next_page { background: white; color: #031424}
   .next_page.disabled { background: white; color: #777 }
+}
+
+
+.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+
+div.footer {
+  background-color: #1f3951;
+}
+
+div.footer h3 {
+    margin: 0;
+    padding: 30px 16px 30px 16px;
+    color:white;
+    font-size: 20px;
+    text-align:center;
+}
+
+div.footer h3 > a > span > i{
+    margin-left:32px;
+    color:white;
+}
+
+div.footer h4 {
+    margin: 0;
+    padding: 10px;
+    color:white;
+    font-size: 14px;
+    text-align:center;
+}
+
+
+div.footer h3 {
+    margin: 0;
+    padding: 30px 16px 20px 16px;
+    color:white;
+    font-size: 24px;
+    text-align:center;
+}
+
+div.copyright {
+  background-color: white;
+}
+
+div.copyright h3 {
+    margin: 0px 16px;
+    padding: 10px;
+    color:black;
+    text-align:center;
+    font-family: 'Helvetica',serif;
+    font-weight:bold;
+    letter-spacing: 2px; 
+    
+    span.a {
+        font-size:16px;
+        float:left;
+    }
+
+    span.c {
+        font-size:12px;
+        float:right;
+    }
+}
+
+@media (max-width: 768px) {
+
+    div.footer h3 {
+        margin: 0;
+        padding: 15px 8px 15px 8px;
+        color:white;
+        font-size: 12px;
+        text-align:center;
+    }
+    
+    div.footer h3 > a > span > i{
+        margin-left:16px;
+        color:white;
+    }
+    
+    div.footer h4 {
+        margin: 0;
+        padding: 10px;
+        color:white;
+        font-size: 7px;
+        text-align:center;
+    }
+    
+    div.copyright h3 {
+        margin: 0px 16px;
+        padding: 10px;
+        color:black;
+        text-align:center;
+        
+        span.a {
+            display: none;
+        }
+        
+        span.b {
+            display: none;
+        }
+        
+        span.c {
+            display: none;
+        }
+}
+
+
 }
