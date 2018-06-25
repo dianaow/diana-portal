@@ -39,6 +39,9 @@ before_action :set_recommended_users
     end
   end
   
+  def about
+  end
+  
   private
   
   def set_recommended_users
@@ -61,6 +64,5 @@ before_action :set_recommended_users
         
     end
   end
-
-
+  
 end

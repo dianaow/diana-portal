@@ -1,11 +1,15 @@
+<div style="background-color:#e0e3e4;">
+  <img class='image' src="https://storage.googleapis.com/f1-project/website_images/categories.png"> 
+</div>
+
 <div id="category-container">
   <%= render @categories %>
 </div>
 
-  <div class="load-more-container">
-  	<%= image_tag "ajax-loader.gif", style: "display:none;", class: "loading-gif" %>
-  	<%= link_to "Load More", categories_path, class: "btn btn-lg btn-cat-loadmore" %>
-  </div>
+<div class="load-more-container">
+	<%= image_tag "ajax-loader.gif", style: "display:none;", class: "loading-gif" %>
+	<%= link_to "Load More", categories_path, class: "btn btn-lg btn-cat-loadmore" %>
+</div>
 
 
 <script>

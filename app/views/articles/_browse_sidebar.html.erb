@@ -1,10 +1,16 @@
 <div id="browse-title">
   <% if params[:q].present? == true %>
-    <h1>Search Results:</h1>
+    <div style="background-color:#e0e3e4; width: 300px; height: 194px; margin:20px 0px; padding-top:10px;">
+      <img class='image' style="width:300px" src="https://storage.googleapis.com/f1-project/website_images/search_results.png"> 
+    </div>
   <% else %>
-     <h1>Browse Articles</h1>
+    <div style="background-color:#e0e3e4; width: 300px; height: 194px; margin:20px 0px; padding-top:10px;">
+      <img class='image' style="width:300px" src="https://storage.googleapis.com/f1-project/website_images/browse_articles.png">
+    </div>
   <% end %>
-  <p><b><%= articles.count %></b> articles were found based on your criteria </p>
+  <% if params[:q].present? == true %>
+    <p><b><%= articles.count %></b> articles were found based on your criteria </p>
+  <% end %>
 </div>  
 
 <div id="browse-tags">

@@ -37,9 +37,10 @@ Rails.application.routes.draw do
   
   get 'refresh', to: 'pages#refresh'
   get 'follow_recommended', to: 'pages#follow_recommended'
+  get 'about', to: 'pages#about'
 
   root 'pages#home'
-  
+
   match "*path", to: "application#catch_404", via: :all
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
